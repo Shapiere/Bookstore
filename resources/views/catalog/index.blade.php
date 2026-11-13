@@ -3,63 +3,93 @@
 @section('title', 'Katalog Buku')
 
 @section('content')
-<h4 class="fw-bold mb-3">Katalog Buku</h4>
+<div class="container" style="padding-top: 56px;">
+    <div class="section-opener" style="margin-bottom: 40px;">
+        <span class="mono-label">Katalog</span>
+        <span class="mono-label">{{ $books->total() }} Judul Ditemukan</span>
+    </div>
 
-<form method="GET" action="{{ route('catalog.index') }}" class="card card-body border-0 shadow-sm mb-4">
-    <div class="row g-2 align-items-end">
-        <div class="col-md-4">
-            <label class="form-label small fw-semibold">Cari</label>
-            <input type="text" name="q" value="{{ $keyword }}" class="form-control" placeholder="Judul / penulis / penerbit">
-        </div>
-        <div class="col-md-3">
-            <label class="form-label small fw-semibold">Kategori</label>
-            <select name="category" class="form-select">
-                <option value="">Semua Kategori</option>
-                @foreach($categories as $cat)
-                    <option value="{{ $cat->id }}" @selected($categoryId == $cat->id)>{{ $cat->name }}</option>
+    <h1 class="display-l" style="margin-bottom: 48px;">Katalog Buku</h1>
+
+    <div class="catalog-layout">
+        {{-- RAIL --}}
+        <aside class="catalog-rail">
+            <div class="rail-block rail-search">
+                <div class="rail-block__head">Cari</div>
+                <form action="{{ route('catalog.index') }}" method="GET">
+                    @if($categoryId)
+                        <input type="hidden" name="category" value="{{ $categoryId }}">
+                    @endif
+                    @if($sort !== 'latest')
+                        <input type="hidden" name="sort" value="{{ $sort }}">
+                    @endif
+                    <input type="search" name="q" value="{{ $keyword }}" placeholder="Judul, penulis, penerbit">
+                </form>
+            </div>
+
+            <div class="rail-block rail-cat">
+                <div class="rail-block__head">Kategori</div>
+                <a href="{{ route('catalog.index', array_filter(['q' => $keyword, 'sort' => $sort])) }}"
+                   @class(['is-active' => ! $categoryId])>
+                    Semua Kategori
+                    <span class="count">{{ $categories->sum('books_count') }}</span>
+                </a>
+                @foreach($categories as $category)
+                    <a href="{{ route('catalog.index', array_filter(['category' => $category->id, 'q' => $keyword, 'sort' => $sort])) }}"
+                       @class(['is-active' => $categoryId == $category->id])>
+                        {{ $category->name }}
+                        <span class="count">{{ $category->books_count }}</span>
+                    </a>
                 @endforeach
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label class="form-label small fw-semibold">Urutkan</label>
-            <select name="sort" class="form-select">
-                <option value="latest" @selected($sort === 'latest')>Terbaru</option>
-                <option value="price_asc" @selected($sort === 'price_asc')>Harga Terendah</option>
-                <option value="price_desc" @selected($sort === 'price_desc')>Harga Tertinggi</option>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <button class="btn btn-bn w-100">Terapkan</button>
+            </div>
+
+            <div class="rail-block rail-sort">
+                <div class="rail-block__head">Urutkan</div>
+                @foreach(['latest' => 'Terbaru', 'price_asc' => 'Harga Terendah', 'price_desc' => 'Harga Tertinggi'] as $value => $label)
+                    <a href="{{ route('catalog.index', array_filter(['q' => $keyword, 'category' => $categoryId, 'sort' => $value])) }}"
+                       @class(['is-active' => $sort === $value])>{{ $label }}</a>
+                @endforeach
+            </div>
+        </aside>
+
+        {{-- RESULTS --}}
+        <div>
+            <div class="catalog-bar">
+                <span class="mono-label">
+                    @if($keyword)
+                        Hasil untuk "{{ $keyword }}"
+                    @else
+                        Semua Buku
+                    @endif
+                </span>
+                <span class="mono-label">Halaman {{ $books->currentPage() }} dari {{ $books->lastPage() }}</span>
+            </div>
+
+            @if($books->isEmpty())
+                <div class="empty">
+                    <div class="empty__title">Tidak ada buku yang cocok.</div>
+                    <p class="empty__desc">Coba kata kunci lain atau pilih kategori yang berbeda.</p>
+                    <a href="{{ route('catalog.index') }}" class="btn btn--outline">Reset Pencarian</a>
+                </div>
+            @else
+                @foreach($books as $book)
+                    <a href="{{ route('catalog.show', $book) }}" class="catalogue-row">
+                        <span class="catalogue-row__idx">{{ str_pad((string) ($books->firstItem() + $loop->index), 2, '0', STR_PAD_LEFT) }}</span>
+                        <span class="catalogue-row__cover">
+                            <img src="{{ asset('storage/'.$book->cover_image) }}" alt="" loading="lazy">
+                        </span>
+                        <span>
+                            <span class="catalogue-row__title">{{ $book->title }}</span>
+                            <span class="catalogue-row__author">{{ $book->author }}</span>
+                        </span>
+                        <span class="catalogue-row__cat">{{ $book->category->name }}</span>
+                        <span class="catalogue-row__price">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
+                    </a>
+                @endforeach
+
+                {{ $books->links('pagination.custom') }}
+            @endif
         </div>
     </div>
-</form>
-
-<p class="text-muted small">Menampilkan {{ $books->total() }} buku</p>
-
-@if($books->isEmpty())
-    <div class="alert alert-warning">Tidak ada buku yang cocok dengan pencarian Anda.</div>
-@else
-<div class="row g-3">
-    @foreach($books as $book)
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-book h-100 border-0 shadow-sm">
-                <a href="{{ route('catalog.show', $book) }}">
-                    <img src="{{ $book->cover_image ? asset('storage/'.$book->cover_image) : '' }}"
-                         class="card-img-top cover-img rounded-top" alt="{{ $book->title }}">
-                </a>
-                <div class="card-body d-flex flex-column">
-                    <span class="badge bg-secondary align-self-start mb-1">{{ $book->category->name }}</span>
-                    <h6 class="card-title mb-1">{{ Str::limit($book->title, 42) }}</h6>
-                    <p class="text-muted small mb-2">{{ $book->author }}</p>
-                    <div class="mt-auto">
-                        <span class="fw-bold text-primary">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
 </div>
-
-<div class="mt-4">{{ $books->links() }}</div>
-@endif
 @endsection

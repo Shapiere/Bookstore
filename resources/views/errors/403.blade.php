@@ -3,10 +3,15 @@
 @section('title', 'Akses Ditolak')
 
 @section('content')
-<div class="text-center py-5">
-    <div class="display-1 fw-bold text-danger">403</div>
-    <h4 class="fw-bold">Akses Ditolak</h4>
-    <p class="text-muted">Anda tidak memiliki hak untuk membuka halaman ini.</p>
-    <a href="{{ route('home') }}" class="btn btn-store">Kembali ke Beranda</a>
+<div class="container">
+    <div class="error-page">
+        <div class="error-code">403</div>
+        <h1 class="display-m" style="margin: 24px 0 12px;">Akses Ditolak</h1>
+        <p class="muted" style="margin-bottom: 32px;">Anda tidak memiliki hak untuk membuka halaman ini.</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ route('home') }}" class="btn btn--primary">Kembali ke Beranda</a>
+            <a href="{{ route('catalog.index') }}" class="btn--quiet">Lihat Katalog</a>
+        </div>
+    </div>
 </div>
 @endsection

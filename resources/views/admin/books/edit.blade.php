@@ -1,21 +1,22 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Buku')
-@section('heading', 'Edit Buku')
-@section('subheading', $book->title)
+@section('title', 'Ubah Buku')
 
 @section('content')
-<div class="card border-0 shadow-sm">
-    <div class="card-body">
-        <form action="{{ route('admin.books.update', $book) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            @include('admin.books._form', ['book' => $book])
-            <div class="d-flex gap-2">
-                <button class="btn btn-primary">Perbarui</button>
-                <a href="{{ route('admin.books.index') }}" class="btn btn-outline-secondary">Batal</a>
-            </div>
-        </form>
+<div class="admin-bar">
+    <div>
+        <div class="mono-label">03 / Katalog / Buku</div>
+        <h1 class="admin-title" style="margin-top: 8px;">Ubah Buku</h1>
+    </div>
+    <div class="admin-actions">
+        <a href="{{ route('admin.books.index') }}" class="btn--quiet">Kembali</a>
     </div>
 </div>
+
+<form action="{{ route('admin.books.update', $book) }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
+    @include('admin.books._form', ['book' => $book])
+    <button type="submit" class="btn btn--primary" style="margin-top: 16px;">Perbarui Buku</button>
+</form>
 @endsection

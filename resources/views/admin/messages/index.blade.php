@@ -1,39 +1,57 @@
 @extends('layouts.admin')
 
 @section('title', 'Pesan')
-@section('heading', 'Pesan Masuk')
-@section('subheading', $unread . ' pesan belum dibaca')
 
 @section('content')
-<div class="card border-0 shadow-sm">
-    <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
-                <tr><th width="60"></th><th>Pengirim</th><th>Subjek</th><th>Tanggal</th><th width="90">Aksi</th></tr>
-            </thead>
-            <tbody>
-                @forelse($messages as $message)
-                    <tr class="{{ $message->is_read ? '' : 'table-warning' }}">
-                        <td class="text-center">
-                            @if(! $message->is_read)
-                                <span class="badge bg-danger">Baru</span>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="fw-semibold">{{ $message->name }}</div>
-                            <small class="text-muted">{{ $message->email }}</small>
-                        </td>
-                        <td>{{ $message->subject }}</td>
-                        <td><small>{{ $message->created_at->format('d/m/Y H:i') }}</small></td>
-                        <td><a href="{{ route('admin.messages.show', $message) }}" class="btn btn-sm btn-outline-primary">Baca</a></td>
-                    </tr>
-                @empty
-                    <tr><td colspan="5" class="text-center text-muted py-4">Belum ada pesan.</td></tr>
-                @endforelse
-            </tbody>
-        </table>
+<div class="admin-bar">
+    <div>
+        <div class="mono-label">06 / Transaksi</div>
+        <h1 class="admin-title" style="margin-top: 8px;">Pesan Masuk</h1>
+    </div>
+    <div class="admin-actions">
+        <span class="mono-label">{{ $unread }} Belum Dibaca</span>
     </div>
 </div>
 
-<div class="mt-3 d-flex justify-content-end">{{ $messages->links() }}</div>
+<div class="table-wrap">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th style="width: 70px;">Status</th>
+                <th>Pengirim</th>
+                <th>Subjek</th>
+                <th>Tanggal</th>
+                <th style="width: 90px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($messages as $message)
+                <tr>
+                    <td>
+                        @if(! $message->is_read)
+                            <span class="status status--pending">Baru</span>
+                        @else
+                            <span class="muted small">Dibaca</span>
+                        @endif
+                    </td>
+                    <td>
+                        <div style="{{ $message->is_read ? '' : 'font-weight: 500;' }}">{{ $message->name }}</div>
+                        <div class="small muted">{{ $message->email }}</div>
+                    </td>
+                    <td>{{ $message->subject }}</td>
+                    <td>{{ $message->created_at->format('d/m/Y H:i') }}</td>
+                    <td>
+                        <div class="row-actions">
+                            <a href="{{ route('admin.messages.show', $message) }}">Baca</a>
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <tr><td colspan="5" class="muted" style="padding: 32px 0;">Belum ada pesan masuk.</td></tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+
+{{ $messages->links('pagination.custom') }}
 @endsection

@@ -1,72 +1,81 @@
 @extends('layouts.admin')
 
 @section('title', 'Pesanan')
-@section('heading', 'Daftar Pesanan')
-@section('subheading', 'Pesanan dari seluruh user')
 
 @section('content')
-<form method="GET" class="card card-body border-0 shadow-sm mb-3">
-    <div class="row g-2 align-items-end">
-        <div class="col-md-5">
-            <label class="form-label small">Kode Pesanan</label>
-            <input type="text" name="q" value="{{ $keyword }}" class="form-control" placeholder="INV-...">
-        </div>
-        <div class="col-md-4">
-            <label class="form-label small">Status</label>
-            <select name="status" class="form-select">
-                <option value="">Semua Status</option>
-                @foreach(['pending' => 'Menunggu', 'processing' => 'Diproses', 'shipped' => 'Dikirim', 'completed' => 'Selesai', 'cancelled' => 'Dibatalkan'] as $val => $label)
-                    <option value="{{ $val }}" @selected($status === $val)>{{ $label }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-primary w-100">Filter</button>
-        </div>
+<div class="admin-bar">
+    <div>
+        <div class="mono-label">05 / Transaksi</div>
+        <h1 class="admin-title" style="margin-top: 8px;">Daftar Pesanan</h1>
     </div>
-</form>
-
-<div class="card border-0 shadow-sm">
-    <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
-                <tr>
-                    <th>Kode</th>
-                    <th>Customer</th>
-                    <th>Item</th>
-                    <th>Total</th>
-                    <th>Metode</th>
-                    <th>Pembayaran</th>
-                    <th>Status</th>
-                    <th width="90">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($orders as $order)
-                    <tr>
-                        <td class="small fw-semibold">{{ $order->order_code }}</td>
-                        <td class="small">
-                            {{ $order->customer_name }}<br>
-                            <span class="text-muted">{{ $order->user->email }}</span>
-                        </td>
-                        <td class="small">{{ $order->items->sum('qty') }} buku</td>
-                        <td class="small">Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
-                        <td><span class="badge bg-secondary">{{ strtoupper($order->payment_method) }}</span></td>
-                        <td>
-                            <span class="badge {{ $order->payment_status === 'paid' ? 'bg-success' : 'bg-warning text-dark' }}">
-                                {{ $order->payment_status === 'paid' ? 'Lunas' : 'Belum Bayar' }}
-                            </span>
-                        </td>
-                        <td><span class="badge bg-{{ $order->statusBadgeClass() }}">{{ $order->statusLabel() }}</span></td>
-                        <td><a href="{{ route('admin.orders.show', $order) }}" class="btn btn-sm btn-outline-primary">Detail</a></td>
-                    </tr>
-                @empty
-                    <tr><td colspan="8" class="text-center text-muted py-4">Belum ada pesanan.</td></tr>
-                @endforelse
-            </tbody>
-        </table>
+    <div class="admin-actions">
+        <span class="mono-label">{{ $orders->total() }} Pesanan</span>
     </div>
 </div>
 
-<div class="mt-3 d-flex justify-content-end">{{ $orders->links() }}</div>
+<form method="GET" class="filter-bar">
+    <div class="field">
+        <label class="field__label" for="q">Kode Pesanan</label>
+        <input id="q" type="search" name="q" value="{{ $keyword }}" class="field__input" placeholder="INV-...">
+    </div>
+    <div class="field">
+        <label class="field__label" for="status">Status</label>
+        <select id="status" name="status" class="field__select">
+            <option value="">Semua Status</option>
+            @foreach(['pending' => 'Menunggu', 'processing' => 'Diproses', 'shipped' => 'Dikirim', 'completed' => 'Selesai', 'cancelled' => 'Dibatalkan'] as $value => $label)
+                <option value="{{ $value }}" @selected($status === $value)>{{ $label }}</option>
+            @endforeach
+        </select>
+    </div>
+    <button type="submit" class="btn btn--outline btn--sm">Terapkan</button>
+    @if($keyword || $status)
+        <a href="{{ route('admin.orders.index') }}" class="btn--quiet">Reset</a>
+    @endif
+</form>
+
+<div class="table-wrap">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Kode</th>
+                <th>Pelanggan</th>
+                <th class="num">Item</th>
+                <th class="num">Total</th>
+                <th>Metode</th>
+                <th>Pembayaran</th>
+                <th>Status</th>
+                <th style="width: 90px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($orders as $order)
+                <tr>
+                    <td class="code">{{ $order->order_code }}</td>
+                    <td>
+                        <div>{{ $order->customer_name }}</div>
+                        <div class="small muted">{{ $order->user->email }}</div>
+                    </td>
+                    <td class="num">{{ $order->items->sum('qty') }}</td>
+                    <td class="num">Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
+                    <td>{{ $order->payment_method === 'cod' ? 'COD' : 'Midtrans' }}</td>
+                    <td>
+                        <span class="status status--{{ $order->payment_status }}">
+                            {{ $order->payment_status === 'paid' ? 'Lunas' : 'Belum Bayar' }}
+                        </span>
+                    </td>
+                    <td><span class="status status--{{ $order->status }}">{{ $order->statusLabel() }}</span></td>
+                    <td>
+                        <div class="row-actions">
+                            <a href="{{ route('admin.orders.show', $order) }}">Detail</a>
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <tr><td colspan="8" class="muted" style="padding: 32px 0;">Belum ada pesanan.</td></tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+
+{{ $orders->links('pagination.custom') }}
 @endsection

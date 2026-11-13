@@ -3,58 +3,117 @@
 @section('title', 'Beranda')
 
 @section('content')
-<div class="p-5 mb-4 rounded-3 text-white" style="background: linear-gradient(135deg, #1e3a8a, #2563eb);">
-    <div class="container-fluid py-3">
-        <h1 class="display-6 fw-bold">Temukan Buku Favoritmu</h1>
-        <p class="lead mb-4">Toko buku online dengan koleksi pilihan dari berbagai kategori.</p>
-        <form action="{{ route('catalog.index') }}" method="GET" class="row g-2" style="max-width: 600px;">
-            <div class="col">
-                <input type="text" name="q" class="form-control form-control-lg" placeholder="Cari judul, penulis, atau penerbit...">
-            </div>
-            <div class="col-auto">
-                <button class="btn btn-light btn-lg fw-semibold">Cari Buku</button>
-            </div>
-        </form>
-    </div>
-</div>
+@php($feature = $latest->first())
 
-<div class="mb-4">
-    <h5 class="fw-bold mb-3">Kategori</h5>
-    <div class="d-flex flex-wrap gap-2">
-        @foreach($categories as $cat)
-            <a href="{{ route('catalog.index', ['category' => $cat->id]) }}" class="btn btn-outline-primary btn-sm">
-                {{ $cat->name }} <span class="badge bg-primary ms-1">{{ $cat->books_count }}</span>
-            </a>
-        @endforeach
-    </div>
-</div>
+{{-- MASTHEAD --}}
+<section class="masthead">
+    <div class="container">
+        <div class="masthead__grid">
+            <div class="masthead__aside">Toko Buku Independen — Sejak 2020</div>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h5 class="fw-bold mb-0">Buku Terbaru</h5>
-    <a href="{{ route('catalog.index') }}" class="btn btn-sm btn-outline-secondary">Lihat Semua</a>
-</div>
+            <div class="masthead__body">
+                <div class="masthead__kicker">
+                    <span class="mono-label">Katalog Daring</span>
+                    <span class="mono-label">{{ $categories->count() }} Kategori</span>
+                    <span class="mono-label">{{ $latest->count() }} Judul Terbaru</span>
+                </div>
 
-<div class="row g-3">
-    @foreach($latest as $book)
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-book h-100 border-0 shadow-sm">
-                <a href="{{ route('catalog.show', $book) }}">
-                    <img src="{{ $book->cover_image ? asset('storage/'.$book->cover_image) : 'https://via.placeholder.com/400x560?text=No+Cover' }}"
-                         class="card-img-top cover-img rounded-top" alt="{{ $book->title }}">
-                </a>
-                <div class="card-body d-flex flex-column">
-                    <span class="badge bg-secondary align-self-start mb-1">{{ $book->category->name }}</span>
-                    <h6 class="card-title mb-1">{{ Str::limit($book->title, 42) }}</h6>
-                    <p class="text-muted small mb-2">{{ $book->author }}</p>
-                    <div class="mt-auto d-flex justify-content-between align-items-center">
-                        <span class="fw-bold text-primary">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
-                        <span class="badge {{ $book->stock > 0 ? 'bg-success' : 'bg-danger' }}">
-                            {{ $book->stock > 0 ? 'Stok '.$book->stock : 'Habis' }}
-                        </span>
-                    </div>
+                <h1 class="display-xl">Menghidupkan nalar,<br><span class="em">menjaga aksara.</span></h1>
+
+                <p class="masthead__desc">
+                    BookStore menghadirkan koleksi buku fiksi, non-fiksi, teknologi, bacaan anak, dan
+                    buku pendidikan. Pesan dari mana saja, bayar di tempat saat buku tiba.
+                </p>
+
+                <div class="masthead__actions">
+                    <a href="{{ route('catalog.index') }}" class="btn btn--primary">Jelajahi Katalog</a>
+                    <a href="#buku-terbaru" class="btn--quiet">Lihat Buku Terbaru</a>
                 </div>
             </div>
         </div>
-    @endforeach
-</div>
+    </div>
+</section>
+
+{{-- BUKU PILIHAN --}}
+@if($feature)
+<section class="section section--deep">
+    <div class="container">
+        <div class="section-opener" style="margin-bottom: 48px;">
+            <span class="mono-label">Buku Pilihan Bulan Ini</span>
+            <span class="mono-label">{{ $feature->category->name }}</span>
+        </div>
+
+        <div class="feature-split">
+            <div class="feature-cover">
+                <a href="{{ route('catalog.show', $feature) }}">
+                    <img src="{{ asset('storage/'.$feature->cover_image) }}" alt="Sampul {{ $feature->title }}" class="book-cover">
+                </a>
+            </div>
+
+            <div class="feature-info">
+                <span class="mono-label">{{ $feature->publisher ?? 'BookStore' }} — {{ $feature->year ?? '-' }}</span>
+                <h2 class="display-m" style="margin: 10px 0 8px;">{{ $feature->title }}</h2>
+                <div class="feature-author">{{ $feature->author }}</div>
+
+                <p class="feature-excerpt">{{ Str::limit($feature->description, 220) }}</p>
+
+                <div class="feature-buy">
+                    <div class="feature-price">Rp {{ number_format($feature->price, 0, ',', '.') }}</div>
+                    <a href="{{ route('catalog.show', $feature) }}" class="btn btn--primary">Lihat Detail</a>
+                    <a href="{{ route('catalog.index', ['category' => $feature->category_id]) }}" class="btn--quiet">
+                        Buku {{ $feature->category->name }} lainnya
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- INDEKS KATEGORI --}}
+<section class="section--tight">
+    <div class="container">
+        <div class="section-opener" style="border-top: 0; padding-top: 0; margin-bottom: 8px;">
+            <span class="mono-label">Indeks Kategori</span>
+            <span class="mono-label">{{ $categories->count() }} Kategori Terdaftar</span>
+        </div>
+
+        <div class="indeks-row">
+            @foreach($categories as $category)
+                <a href="{{ route('catalog.index', ['category' => $category->id]) }}" class="indeks-item">
+                    {{ $category->name }}
+                    <sup>{{ $category->books_count }}</sup>
+                </a>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- BUKU TERBARU --}}
+<section class="section" id="buku-terbaru">
+    <div class="container">
+        <div class="section-head">
+            <div>
+                <div class="section-opener" style="border-top: 0; padding-top: 0;">
+                    <span class="mono-label">Koleksi</span>
+                </div>
+                <h2 class="display-m" style="margin-top: 12px;">Buku Terbaru</h2>
+            </div>
+            <a href="{{ route('catalog.index') }}" class="btn--quiet">Lihat Semua Buku</a>
+        </div>
+
+        @if($latest->isEmpty())
+            <div class="empty">
+                <div class="empty__title">Belum ada buku.</div>
+                <p class="empty__desc">Koleksi akan segera hadir.</p>
+            </div>
+        @else
+            <div class="book-grid">
+                @foreach($latest as $book)
+                    @include('partials.book-entry', ['book' => $book])
+                @endforeach
+            </div>
+        @endif
+    </div>
+</section>
 @endsection

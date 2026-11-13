@@ -47,10 +47,10 @@ class DashboardController extends Controller
         }
 
         // 5 buku terlaris
-        $topBooks = Book::select('books.id', 'books.title')
+        $topBooks = Book::select('books.id', 'books.title', 'books.author', 'books.price', 'books.cover_image')
             ->selectRaw('COALESCE(SUM(order_items.qty), 0) as sold')
             ->leftJoin('order_items', 'books.id', '=', 'order_items.book_id')
-            ->groupBy('books.id', 'books.title')
+            ->groupBy('books.id', 'books.title', 'books.author', 'books.price', 'books.cover_image')
             ->orderByDesc('sold')
             ->take(5)
             ->get();

@@ -1,29 +1,38 @@
 @extends('layouts.admin')
 
 @section('title', 'Baca Pesan')
-@section('heading', $message->subject)
-@section('subheading', 'Dari ' . $message->name)
 
 @section('content')
-<div class="card border-0 shadow-sm">
-    <div class="card-body">
-        <div class="d-flex justify-content-between border-bottom pb-3 mb-3">
-            <div>
-                <div class="fw-semibold">{{ $message->name }}</div>
-                <a href="mailto:{{ $message->email }}" class="small">{{ $message->email }}</a>
-            </div>
-            <small class="text-muted">{{ $message->created_at->format('d F Y, H:i') }}</small>
-        </div>
-        <p style="white-space: pre-line">{{ $message->body }}</p>
+<div class="admin-bar">
+    <div>
+        <div class="mono-label">06 / Transaksi / Pesan</div>
+        <h1 class="admin-title" style="margin-top: 8px;">{{ $message->subject }}</h1>
+    </div>
+    <div class="admin-actions">
+        <a href="{{ route('admin.messages.index') }}" class="btn--quiet">Kembali</a>
     </div>
 </div>
 
-<div class="d-flex gap-2 mt-3">
-    <a href="{{ route('admin.messages.index') }}" class="btn btn-outline-secondary">Kembali</a>
-    <form action="{{ route('admin.messages.destroy', $message) }}" method="POST" onsubmit="return confirm('Hapus pesan ini?')">
-        @csrf
-        @method('DELETE')
-        <button class="btn btn-outline-danger">Hapus Pesan</button>
-    </form>
+<div style="max-width: 760px;">
+    <div class="panel">
+        <div class="panel__head" style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+            <span>{{ $message->name }} &lt;{{ $message->email }}&gt;</span>
+            <span>{{ $message->created_at->format('d/m/Y H:i') }}</span>
+        </div>
+
+        <p style="white-space: pre-line; font-size: 15px;">{{ $message->body }}</p>
+    </div>
+
+    <div style="display: flex; gap: 20px; align-items: center; margin-top: 24px; flex-wrap: wrap;">
+        <a href="mailto:{{ $message->email }}?subject=Re: {{ urlencode($message->subject) }}"
+           class="btn btn--primary btn--sm">Balas via Email</a>
+
+        <form action="{{ route('admin.messages.destroy', $message) }}" method="POST"
+              onsubmit="return confirm('Hapus pesan ini?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn--quiet" style="color: var(--danger);">Hapus Pesan</button>
+        </form>
+    </div>
 </div>
 @endsection

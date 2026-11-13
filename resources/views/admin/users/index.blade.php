@@ -1,54 +1,64 @@
 @extends('layouts.admin')
 
-@section('title', 'User')
-@section('heading', 'Daftar User')
-@section('subheading', 'User yang sudah terdaftar')
+@section('title', 'Pelanggan')
 
 @section('content')
-<form method="GET" class="card card-body border-0 shadow-sm mb-3">
-    <div class="row g-2 align-items-end">
-        <div class="col-md-8">
-            <label class="form-label small">Cari</label>
-            <input type="text" name="q" value="{{ $keyword }}" class="form-control" placeholder="Nama atau email">
-        </div>
-        <div class="col-md-4">
-            <button class="btn btn-primary w-100">Cari</button>
-        </div>
+<div class="admin-bar">
+    <div>
+        <div class="mono-label">04 / Transaksi</div>
+        <h1 class="admin-title" style="margin-top: 8px;">Pelanggan</h1>
     </div>
-</form>
-
-<div class="card border-0 shadow-sm">
-    <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
-                <tr>
-                    <th width="60">#</th>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Telepon</th>
-                    <th>Pesanan</th>
-                    <th>Terdaftar</th>
-                    <th width="90">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($users as $user)
-                    <tr>
-                        <td>{{ $users->firstItem() + $loop->index }}</td>
-                        <td class="fw-semibold">{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->phone ?? '-' }}</td>
-                        <td><span class="badge bg-primary">{{ $user->orders_count }}</span></td>
-                        <td><small>{{ $user->created_at->format('d/m/Y') }}</small></td>
-                        <td><a href="{{ route('admin.users.show', $user) }}" class="btn btn-sm btn-outline-primary">Detail</a></td>
-                    </tr>
-                @empty
-                    <tr><td colspan="7" class="text-center text-muted py-4">Belum ada user terdaftar.</td></tr>
-                @endforelse
-            </tbody>
-        </table>
+    <div class="admin-actions">
+        <span class="mono-label">{{ $users->total() }} Terdaftar</span>
     </div>
 </div>
 
-<div class="mt-3 d-flex justify-content-end">{{ $users->links() }}</div>
+<form method="GET" class="filter-bar">
+    <div class="field" style="min-width: 260px;">
+        <label class="field__label" for="q">Cari Pelanggan</label>
+        <input id="q" type="search" name="q" value="{{ $keyword }}" class="field__input"
+               placeholder="Nama atau email">
+    </div>
+    <button type="submit" class="btn btn--outline btn--sm">Cari</button>
+    @if($keyword)
+        <a href="{{ route('admin.users.index') }}" class="btn--quiet">Reset</a>
+    @endif
+</form>
+
+<div class="table-wrap">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th style="width: 48px;">#</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Telepon</th>
+                <th class="num">Pesanan</th>
+                <th>Terdaftar</th>
+                <th style="width: 90px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($users as $user)
+                <tr>
+                    <td class="code">{{ str_pad((string) ($users->firstItem() + $loop->index), 2, '0', STR_PAD_LEFT) }}</td>
+                    <td style="font-weight: 500;">{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->phone ?? '—' }}</td>
+                    <td class="num">{{ $user->orders_count }}</td>
+                    <td>{{ $user->created_at->format('d/m/Y') }}</td>
+                    <td>
+                        <div class="row-actions">
+                            <a href="{{ route('admin.users.show', $user) }}">Detail</a>
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <tr><td colspan="7" class="muted" style="padding: 32px 0;">Belum ada pelanggan terdaftar.</td></tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+
+{{ $users->links('pagination.custom') }}
 @endsection

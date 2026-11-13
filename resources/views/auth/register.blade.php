@@ -3,54 +3,93 @@
 @section('title', 'Daftar')
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-4">
-                <h4 class="fw-bold mb-1">Daftar Akun</h4>
-                <p class="text-muted small mb-4">Buat akun untuk mulai berbelanja.</p>
+<div class="auth-split">
+    <aside class="auth-aside">
+        <div class="mono-label" style="color: rgba(251,248,243,.5);">Mengapa BookStore</div>
 
-                <form method="POST" action="{{ route('register.store') }}">
-                    @csrf
-                    <div class="mb-3">
-                        <label class="form-label">Nama Lengkap</label>
-                        <input type="text" name="name" value="{{ old('name') }}"
-                               class="form-control @error('name') is-invalid @enderror" required>
-                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="email" value="{{ old('email') }}"
-                               class="form-control @error('email') is-invalid @enderror" required>
-                        @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">No. Telepon</label>
-                        <input type="text" name="phone" value="{{ old('phone') }}" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Alamat</label>
-                        <textarea name="address" rows="2" class="form-control">{{ old('address') }}</textarea>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Password</label>
-                            <input type="password" name="password"
-                                   class="form-control @error('password') is-invalid @enderror" required>
-                            @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Konfirmasi Password</label>
-                            <input type="password" name="password_confirmation" class="form-control" required>
-                        </div>
-                    </div>
-                    <button class="btn btn-bn w-100">Daftar</button>
-                </form>
+        <ol class="auth-benefits">
+            <li class="auth-benefit">
+                <span class="auth-benefit__num">01</span>
+                <div>
+                    <div class="auth-benefit__title">Katalog terkurasi</div>
+                    <p class="auth-benefit__desc">Ribuan judul pilihan, dari sastra sampai esai.</p>
+                </div>
+            </li>
+            <li class="auth-benefit">
+                <span class="auth-benefit__num">02</span>
+                <div>
+                    <div class="auth-benefit__title">Bayar di Tempat (COD)</div>
+                    <p class="auth-benefit__desc">Pesan sekarang, bayar saat buku tiba di tangan Anda.</p>
+                </div>
+            </li>
+            <li class="auth-benefit">
+                <span class="auth-benefit__num">03</span>
+                <div>
+                    <div class="auth-benefit__title">Pesanan terlacak</div>
+                    <p class="auth-benefit__desc">Pantau status pesanan dari Keranjang hingga selesai.</p>
+                </div>
+            </li>
+        </ol>
 
-                <p class="small mt-3 mb-0">Sudah punya akun?
-                    <a href="{{ route('login') }}">Masuk di sini</a>
-                </p>
-            </div>
+        <div class="mono-label" style="color: rgba(251,248,243,.35);">Bayar di Tempat Tersedia</div>
+    </aside>
+
+    <div class="auth-form-wrap">
+        <div style="width: 100%;">
+            <span class="mono-label">Registrasi</span>
+            <h1 class="display-m" style="margin: 12px 0 10px;">Buat akun baru</h1>
+            <p class="small muted" style="margin-bottom: 32px;">Daftar untuk mulai berbelanja di BookStore.</p>
+
+            <form method="POST" action="{{ route('register.store') }}">
+                @csrf
+
+                <div class="field">
+                    <label class="field__label" for="name">Nama Lengkap</label>
+                    <input id="name" type="text" name="name" value="{{ old('name') }}" maxlength="100" required
+                           class="field__input @error('name') is-error @enderror">
+                    @error('name') <span class="field__error">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="field">
+                    <label class="field__label" for="email">Email</label>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" required
+                           class="field__input @error('email') is-error @enderror">
+                    @error('email') <span class="field__error">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label class="field__label" for="phone">Nomor Telepon</label>
+                        <input id="phone" type="text" name="phone" value="{{ old('phone') }}" maxlength="20"
+                               class="field__input">
+                    </div>
+                    <div class="field">
+                        <label class="field__label" for="address">Alamat</label>
+                        <input id="address" type="text" name="address" value="{{ old('address') }}" maxlength="500"
+                               class="field__input">
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label class="field__label" for="password">Password</label>
+                        <input id="password" type="password" name="password" required
+                               class="field__input @error('password') is-error @enderror">
+                        @error('password') <span class="field__error">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="field">
+                        <label class="field__label" for="password_confirmation">Konfirmasi Password</label>
+                        <input id="password_confirmation" type="password" name="password_confirmation" required
+                               class="field__input">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--block">Daftar</button>
+            </form>
+
+            <p class="small muted" style="margin-top: 24px;">
+                Sudah punya akun? <a href="{{ route('login') }}" class="link">Masuk di sini</a>
+            </p>
         </div>
     </div>
 </div>
