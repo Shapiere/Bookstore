@@ -78,7 +78,7 @@ foreach ($books as $book) {
     // author
     if ($hasTtf) {
         imagettftext($img, 13, 0, 30, $yPos + 25, $soft, $fontSmall, $book->author);
-        imagettftext($img, 12, 0, 30, $h - 40, $soft, $fontSmall, 'BookNest');
+        imagettftext($img, 12, 0, 30, $h - 40, $soft, $fontSmall, 'BookStore');
     } else {
         imagestring($img, 3, 30, $yPos + 15, $book->author, $soft);
     }

@@ -14,8 +14,9 @@
 <div class="row g-4">
     <div class="col-md-4">
         <img src="{{ $book->cover_image ? asset('storage/'.$book->cover_image) : '' }}"
-             class="img-fluid rounded shadow-sm" alt="{{ $book->title }}">
+             class="img-fluid rounded shadow-sm w-100" alt="{{ $book->title }}">
     </div>
+
     <div class="col-md-8">
         <span class="badge bg-secondary mb-2">{{ $book->category->name }}</span>
         <h3 class="fw-bold">{{ $book->title }}</h3>
@@ -25,7 +26,8 @@
             <tr><th class="pe-4">Penerbit</th><td>{{ $book->publisher ?? '-' }}</td></tr>
             <tr><th class="pe-4">Tahun</th><td>{{ $book->year ?? '-' }}</td></tr>
             <tr><th class="pe-4">ISBN</th><td>{{ $book->isbn ?? '-' }}</td></tr>
-            <tr><th class="pe-4">Stok</th>
+            <tr>
+                <th class="pe-4">Stok</th>
                 <td>
                     @if($book->stock > 0)
                         <span class="badge bg-success">{{ $book->stock }} tersedia</span>
@@ -40,9 +42,23 @@
 
         <p>{{ $book->description }}</p>
 
-        <button class="btn btn-bn btn-lg" {{ $book->stock < 1 ? 'disabled' : '' }}>
-            🛒 Tambah ke Keranjang
-        </button>
+        @auth
+            @if($book->stock > 0)
+                <form action="{{ route('cart.add', $book) }}" method="POST" class="d-flex gap-2 align-items-end">
+                    @csrf
+                    <div>
+                        <label class="form-label small mb-1">Jumlah</label>
+                        <input type="number" name="qty" value="1" min="1" max="{{ $book->stock }}"
+                               class="form-control" style="width:90px">
+                    </div>
+                    <button class="btn btn-store btn-lg">Tambah ke Keranjang</button>
+                </form>
+            @else
+                <button class="btn btn-secondary btn-lg" disabled>Stok Habis</button>
+            @endif
+        @else
+            <a href="{{ route('login') }}" class="btn btn-store btn-lg">Login untuk Membeli</a>
+        @endauth
     </div>
 </div>
 

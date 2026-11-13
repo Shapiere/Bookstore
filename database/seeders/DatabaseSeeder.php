@@ -124,62 +124,71 @@ class DatabaseSeeder extends Seeder
                 'isbn' => '978-602-' . str_pad((string) (1000 + $i), 4, '0', STR_PAD_LEFT),
                 'price' => $price,
                 'stock' => $stock,
-                'description' => 'Buku "' . $title . '" karya ' . $author . '. Diterbitkan oleh ' . $publisher . ' pada tahun ' . $year . '. Buku ini merupakan salah satu koleksi unggulan di BookNest dan cocok untuk menambah wawasan serta koleksi bacaan Anda.',
+                'description' => 'Buku "' . $title . '" karya ' . $author . '. Diterbitkan oleh ' . $publisher . ' pada tahun ' . $year . '. Buku ini merupakan salah satu koleksi unggulan di BookStore dan cocok untuk menambah wawasan serta koleksi bacaan Anda.',
+                'cover_image' => 'covers/' . Str::slug($title) . '.png',
                 'is_active' => true,
             ]);
         }
 
         // ================= SAMPLE ORDERS =================
-        $orderSeed = [
-            [
-                'user' => $user,
-                'status' => 'completed',
-                'payment_status' => 'paid',
-                'items' => [[0, 2], [2, 1]],
-                'days_ago' => 12,
-            ],
-            [
-                'user' => $user2,
-                'status' => 'processing',
-                'payment_status' => 'unpaid',
-                'items' => [[8, 1], [11, 2]],
-                'days_ago' => 5,
-            ],
-            [
-                'user' => $user,
-                'status' => 'pending',
-                'payment_status' => 'unpaid',
-                'items' => [[16, 1]],
-                'days_ago' => 1,
-            ],
+        // Dibuat tersebar dalam 6 bulan terakhir agar grafik penjualan terisi.
+        $orderPlan = [
+            // [userIndex, status, payment_status, items[bookIndex, qty], monthsAgo, dayOffset]
+            [0, 'completed', 'paid', [[0, 2], [2, 1]], 5, 8],
+            [1, 'completed', 'paid', [[8, 1]], 5, 20],
+            [0, 'completed', 'paid', [[9, 1], [10, 2]], 4, 5],
+            [2, 'cancelled', 'failed', [[15, 1]], 4, 18],
+            [1, 'completed', 'paid', [[16, 1], [17, 1]], 3, 9],
+            [0, 'completed', 'paid', [[4, 3]], 3, 22],
+            [2, 'completed', 'paid', [[24, 2], [25, 1]], 2, 7],
+            [1, 'completed', 'paid', [[28, 1], [29, 2]], 2, 16],
+            [0, 'completed', 'paid', [[11, 1], [12, 1], [13, 1]], 1, 4],
+            [2, 'completed', 'paid', [[18, 1], [19, 1]], 1, 19],
+            [1, 'completed', 'paid', [[20, 2]], 0, 3],
+            [0, 'shipped', 'paid', [[1, 1], [3, 1]], 0, 9],
+            [2, 'processing', 'paid', [[30, 1], [31, 1]], 0, 14],
+            [1, 'pending', 'unpaid', [[32, 1]], 0, 20],
+            [0, 'pending', 'unpaid', [[5, 1], [6, 2]], 0, 24],
         ];
 
-        foreach ($orderSeed as $idx => $o) {
+        $customers = [$user, $user2, $user2];
+        $counter = [];
+
+        foreach ($orderPlan as [$userIdx, $status, $paymentStatus, $items, $monthsAgo, $day]) {
+            $customer = $customers[$userIdx];
+            $createdAt = now()->startOfMonth()->subMonths($monthsAgo)->addDays($day - 1);
+
+            // Jika tanggal melebihi hari ini pada bulan berjalan, kurangi.
+            if ($createdAt->isFuture()) {
+                $createdAt = now()->subDays(1);
+            }
+
             $subtotal = 0;
-            foreach ($o['items'] as [$bookIdx, $qty]) {
+            foreach ($items as [$bookIdx, $qty]) {
                 $subtotal += (float) $books[$bookIdx]->price * $qty;
             }
 
-            $createdAt = now()->subDays($o['days_ago']);
+            $period = $createdAt->format('Ymd');
+            $counter[$period] = ($counter[$period] ?? 0) + 1;
 
             $order = Order::create([
-                'user_id' => $o['user']->id,
-                'order_code' => 'INV-' . $createdAt->format('Ymd') . '-' . str_pad((string) ($idx + 1), 4, '0', STR_PAD_LEFT),
-                'customer_name' => $o['user']->name,
-                'phone' => $o['user']->phone,
-                'shipping_address' => $o['user']->address,
+                'user_id' => $customer->id,
+                'order_code' => 'INV-' . $period . '-' . str_pad((string) $counter[$period], 4, '0', STR_PAD_LEFT),
+                'customer_name' => $customer->name,
+                'phone' => $customer->phone,
+                'shipping_address' => $customer->address,
                 'subtotal' => $subtotal,
                 'shipping_cost' => 0,
                 'total_price' => $subtotal,
-                'status' => $o['status'],
+                'status' => $status,
                 'payment_method' => 'cod',
-                'payment_status' => $o['payment_status'],
-                'paid_at' => $o['payment_status'] === 'paid' ? $createdAt->copy()->addDays(2) : null,
+                'payment_status' => $paymentStatus,
+                'paid_at' => $paymentStatus === 'paid' ? $createdAt->copy()->addDays(1) : null,
                 'created_at' => $createdAt,
                 'updated_at' => $createdAt,
             ]);
 
-            foreach ($o['items'] as [$bookIdx, $qty]) {
+            foreach ($items as [$bookIdx, $qty]) {
                 OrderItem::create([
                     'order_id' => $order->id,
                     'book_id' => $books[$bookIdx]->id,
@@ -191,6 +200,6 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        $this->command->info('Seeder selesai: 3 user, 5 kategori, ' . count($books) . ' buku, 3 pesanan.');
+        $this->command->info('Seeder selesai: 3 user, 5 kategori, ' . count($books) . ' buku, ' . count($orderPlan) . ' pesanan.');
     }
 }
