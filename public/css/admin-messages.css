@@ -1,8 +1,6 @@
 /* Admin - Pesan */
-/* daftar pesan mengisi penuh lebar konten */
 .msg-page { width: 100%; max-width: none; }
 
-/* kepala halaman */
 .msg-head { padding: 4px 14px 22px; }
 
 .msg-title {
@@ -28,7 +26,6 @@
     margin-right: 4px;
 }
 
-/* daftar pesan */
 .msg-list {
     width: 100%;
     border-top: 1px solid var(--ink);
@@ -47,7 +44,6 @@
 
 .msg-row:hover { background: var(--paper-deep); }
 
-/* pengirim: kotak penanda + nama + email */
 .msg-who {
     display: flex;
     align-items: center;
@@ -80,7 +76,6 @@
     white-space: nowrap;
 }
 
-/* nama pesan yang belum dibaca dibuat lebih tegas */
 .msg-row.is-unread .msg-name { font-weight: 600; }
 
 .msg-mail {
@@ -92,7 +87,6 @@
     white-space: nowrap;
 }
 
-/* subjek: satu baris, dipotong dengan elipsis */
 .msg-subject {
     min-width: 0;
     font-size: 15px;
@@ -103,7 +97,6 @@
     white-space: nowrap;
 }
 
-/* tanggal: mono, rata kanan, tidak pernah turun baris */
 .msg-date {
     font-family: var(--font-mono);
     font-size: 12px;
@@ -114,7 +107,6 @@
     justify-self: end;
 }
 
-/* keadaan kosong */
 .msg-empty {
     padding: 34px 14px;
     font-size: 14px;
@@ -122,7 +114,6 @@
     border-bottom: 1px solid var(--rule);
 }
 
-/* teks yang hanya dibaca pembaca layar */
 .msg-sr {
     position: absolute;
     width: 1px;
@@ -134,8 +125,6 @@
     white-space: nowrap;
     border: 0;
 }
-
-/* Halaman baca pesan */
 
 .msg-thread {
     max-width: 760px;
@@ -222,7 +211,6 @@
 }
 .msg-delete:hover { color: var(--danger); border-bottom-color: var(--danger); }
 
-/* responsif */
 @media (max-width: 1100px) {
     .msg-row { grid-template-columns: 200px minmax(0, 1fr) auto; }
 }

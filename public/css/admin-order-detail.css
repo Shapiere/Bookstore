@@ -1,7 +1,6 @@
 /* Admin - Detail Pesanan */
 .odx-page { width: 100%; max-width: none; }
 
-/* jalan kembali ke daftar */
 .odx-back {
     display: inline-block;
     color: var(--ink-muted);
@@ -11,7 +10,6 @@
 }
 .odx-back:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-/* kepala halaman */
 .odx-head { margin-top: 14px; }
 
 .odx-code {
@@ -29,14 +27,12 @@
     margin-top: 10px;
 }
 
-/* garis pembuka, melintasi kedua kolom */
 .odx-rule {
     border-top: 0;
     width: 100%;
     margin: 30px 0 0;
 }
 
-/* dua kolom: kiri detail pesanan, kanan ringkasan */
 .odx-split {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 40%;
@@ -46,7 +42,6 @@
 
 .odx-col { min-width: 0; }
 
-/* penanda bagian */
 .odx-section + .odx-section { margin-top: 56px; }
 
 .odx-h2 {
@@ -55,12 +50,10 @@
     line-height: 1.25;
     letter-spacing: -.01em;
     font-weight: 600;
-    /* tanpa margin atas agar judul sejajar */
-    margin: 0;
+        margin: 0;
     padding: 0;
 }
 
-/* bagian bergaris atas, dipakai kedua kolom agar sejajar */
 .odx-section--ruled {
     border-top: 1px solid var(--ink);
     padding-top: 16px;
@@ -72,9 +65,6 @@
     color: var(--ink-muted);
     margin-top: 6px;
 }
-
-/* tabel buku pesanan */
-
 
 .odx-table { width: 100%; }
 
@@ -118,7 +108,6 @@
 .odx-table .odx-col-amount { width: 72px; }
 .odx-table .odx-col-sum { width: 124px; }
 
-/* sel buku: sampul + judul + kategori */
 .odx-book {
     display: flex;
     align-items: center;
@@ -160,7 +149,6 @@
     margin-top: 2px;
 }
 
-/* ringkasan nominal */
 .odx-totals { margin-top: 20px; }
 
 .odx-totals__line {
@@ -207,7 +195,6 @@
     text-align: right;
 }
 
-/* bar status pesanan */
 .odx-bar {
     display: flex;
     gap: 6px;
@@ -222,10 +209,8 @@
 
 .odx-bar span.is-on { background: var(--ink); }
 
-/* selesai: seluruh segmen hijau */
 .odx-bar.is-done span.is-on { background: var(--success); }
 
-/* dibatalkan: semua segmen abu */
 .odx-bar.is-cancelled span { background: var(--rule); }
 
 .odx-steps {
@@ -256,7 +241,6 @@
 
 .odx-note--status { margin-top: 16px; }
 
-/* daftar keterangan (pembayaran, pengiriman) */
 .odx-facts { margin-top: 8px; }
 
 .odx-fact {
@@ -299,9 +283,6 @@
 
 .odx-pay-act { margin-top: 24px; }
 
-/* responsif */
-/* Cangkang admin (shell/sidebar/main/nav) sudah ditangani di app.css. */
-
 @media (max-width: 1200px) {
     .odx-split { gap: 40px; }
     .odx-table .odx-col-price { width: 92px; }
@@ -333,8 +314,7 @@
     .odx-rule { margin-bottom: 34px; }
     .odx-section + .odx-section { margin-top: 42px; }
 
-    /* Tabel buku ditumpuk: judul di atas, angka berlabel di bawah. */
-    .odx-table thead { display: none; }
+        .odx-table thead { display: none; }
 
     .odx-table tbody tr {
         display: grid;

@@ -18,7 +18,6 @@
     color: var(--ink-muted);
 }
 
-/* tautan kembali */
 .cus-back {
     display: inline-block;
     margin-bottom: 22px;
@@ -34,7 +33,6 @@
 }
 .cus-back:hover { color: var(--ink); border-bottom-color: var(--ink); }
 
-/* garis pemisah hitam */
 .cus-rule {
     border: 0;
     border-top: 1px solid var(--ink);
@@ -112,7 +110,6 @@
     white-space: nowrap;
 }
 
-/* sel daftar pelanggan */
 .cus-name {
     font-weight: 500;
     color: var(--ink);
@@ -136,7 +133,6 @@
     white-space: nowrap;
 }
 
-/* tautan detail */
 .cus-detail {
     font-size: 13px;
     color: var(--ink-muted);
@@ -147,7 +143,6 @@
 .cus-detail:hover { color: var(--ink); }
 
 /* 3b. KOLOM TABEL DAFTAR */
-/* lebar tetap dan jarak antar kolom */
 .cus-table--list thead th,
 .cus-table--list tbody td {
     padding-left: 32px;
@@ -158,18 +153,13 @@
     padding-left: 0;
 }
 
-.cus-table--list thead th:nth-child(2) { width: 190px; }  /* Telepon */
-.cus-table--list thead th:nth-child(3) { width: 108px; }  /* Pesanan */
-.cus-table--list thead th:nth-child(4) { width: 148px; }  /* Terdaftar */
-.cus-table--list thead th:nth-child(5) { width: 168px; }  /* Pesanan terakhir */
-
+.cus-table--list thead th:nth-child(2) { width: 190px; }  .cus-table--list thead th:nth-child(3) { width: 108px; }  .cus-table--list thead th:nth-child(4) { width: 148px; }  .cus-table--list thead th:nth-child(5) { width: 168px; }  
 .cus-col-act {
     width: 96px;
     text-align: right;
     padding-right: 0;
 }
 
-/* baris kosong */
 .cus-table tbody td.cus-empty {
     padding: 34px 0 30px;
     font-size: 14px;
@@ -199,7 +189,6 @@
     color: var(--ink-muted);
 }
 
-/* riwayat pesanan */
 .cus-code {
     font-family: var(--font-mono);
     font-size: 12px;
@@ -212,22 +201,18 @@
 }
 .cus-code a:hover { border-bottom-color: var(--ink); }
 
-/* tahap selesai: batang hijau */
 .cus-table .db-dots span.is-done { background: var(--success); }
 
 /* 5. PROFIL */
-/* Tanpa garis atas: header Profil sejajar dengan header Riwayat pesanan. */
 .cus-profile {
     padding-top: 0;
 }
 
-/* judul profil: serif, tebal wajar, 21px */
 .cus-profile .cus-sec {
     font-size: 21px;
     font-weight: 500;
 }
 
-/* daftar profil: tanpa jarak antar baris, garis bawah sebagai pemisah */
 .cus-info { margin: 20px 0 0; }
 
 .cus-info > div {
@@ -240,7 +225,6 @@
     border-bottom: 1px solid var(--rule);
 }
 
-/* label: sans biasa, kapitalisasi normal */
 .cus-info dt {
     flex: 0 0 auto;
     font-family: var(--font-sans);
@@ -252,7 +236,6 @@
     padding-top: 0;
 }
 
-/* nilai: 15px, rata kanan */
 .cus-info dd {
     flex: 1 1 auto;
     min-width: 0;
@@ -264,7 +247,6 @@
     word-break: break-word;
 }
 
-/* tombol kirim email: bingkai tipis, lebar penuh */
 .cus-mailbtn {
     display: flex;
     align-items: center;
@@ -289,8 +271,7 @@
 
 /* 6. RESPONSIF */
 @media (max-width: 1280px) {
-    /* Tabel menyempit: lebarkan ruang untuk kolom Nama, sembunyikan "Terdaftar". */
-    .cus-table--list thead th,
+        .cus-table--list thead th,
     .cus-table--list tbody td { padding-left: 20px; }
 
     .cus-table--list thead th:nth-child(4),
@@ -314,8 +295,7 @@
     .cus-rule { margin: 28px 0 34px; }
     .cus-search { margin: 22px 0 26px; }
 
-    /* sembunyikan Telepon + Terdaftar pada daftar */
-    .cus-table--list thead th:nth-child(2),
+        .cus-table--list thead th:nth-child(2),
     .cus-table--list tbody td:nth-child(2),
     .cus-table--list thead th:nth-child(4),
     .cus-table--list tbody td:nth-child(4) { display: none; }
@@ -328,12 +308,10 @@
     .cus-table thead th,
     .cus-table tbody td { padding-top: 12px; padding-bottom: 12px; }
 
-    /* daftar: sisakan Nama, Pesanan, Detail */
-    .cus-table--list thead th:nth-child(5),
+        .cus-table--list thead th:nth-child(5),
     .cus-table--list tbody td:nth-child(5) { display: none; }
 
-    /* riwayat: tanggal disembunyikan, batang status dikecilkan */
-    .cus-table--hist thead th:nth-child(2),
+        .cus-table--hist thead th:nth-child(2),
     .cus-table--hist tbody td:nth-child(2) { display: none; }
     .cus-table--hist .db-dots { display: none; }
 

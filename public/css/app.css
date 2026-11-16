@@ -86,7 +86,6 @@ table { border-collapse: collapse; width: 100%; }
     color: color-mix(in srgb, var(--ink) 72%, transparent);
 }
 
-
 .muted { color: var(--ink-muted); }
 .small { font-size: 14px; }
 .measure { max-width: 62ch; }
@@ -126,7 +125,6 @@ table { border-collapse: collapse; width: 100%; }
     margin-bottom: 32px;
 }
 
-/* Dorong footer ke bawah layar pada halaman pendek */
 main { min-height: 60vh; }
 
 .rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
@@ -177,7 +175,6 @@ main { min-height: 60vh; }
     gap: 20px;
 }
 
-
 .header-link {
     font-size: 13px;
     color: var(--ink-muted);
@@ -204,7 +201,6 @@ main { min-height: 60vh; }
     padding: 72px 0 0;
 }
 
-/* halaman masuk/daftar tanpa jarak footer */
 body.page-auth .site-footer { margin-top: 0; }
 
 .footer-grid {
@@ -274,7 +270,6 @@ body.page-auth .site-footer { margin-top: 0; }
 }
 .btn--primary:hover { background: var(--accent); }
 
-
 .btn--outline {
     border-color: var(--ink);
     color: var(--ink);
@@ -309,14 +304,12 @@ body.page-auth .site-footer { margin-top: 0; }
     white-space: nowrap;
 }
 
-/* Status pesanan: outlined, dibedakan lewat warna + satu penanda bentuk. */
 .status--pending    { color: var(--warning); }
 .status--processing { color: var(--ink); }
 .status--shipped    { color: var(--accent); }
 .status--completed  { color: var(--success); }
 .status--cancelled  { color: var(--danger); text-decoration: line-through; opacity: .7; }
 
-/* status pembayaran, dibedakan dengan garis putus-putus */
 .status--paid       { color: var(--success); border-width: 2px; padding: 2px 8px; font-weight: 600; }
 .status--unpaid     { color: var(--warning); border-style: dashed; }
 .status--failed     { color: var(--danger);  border-style: dashed; }
@@ -404,7 +397,6 @@ body.page-auth .site-footer { margin-top: 0; }
 
 .table-wrap { overflow-x: auto; }
 
-/* Aksi baris tabel: satu baris rata, dipisah garis rambut vertikal */
 .row-actions {
     display: flex;
     align-items: center;
@@ -471,7 +463,6 @@ body.page-auth .site-footer { margin-top: 0; }
     transition: border-color 140ms ease;
 }
 
-/* Area teks memakai kotak bergaris penuh, jadi didefinisikan sekali di sini. */
 .field__textarea {
     width: 100%;
     background: transparent;
@@ -568,7 +559,6 @@ body.page-auth .site-footer { margin-top: 0; }
 .alert--error   { border-color: var(--danger);  color: var(--danger); }
 
 /* 14b. NOTIFIKASI MELAYANG */
-/* Notifikasi tampil di atas konten (fixed), tidak mendorong tata letak. */
 .flash-wrap {
     position: fixed;
     top: 88px;
@@ -628,7 +618,6 @@ body.page-auth .site-footer { margin-top: 0; }
 .pagination .is-disabled { opacity: .35; }
 
 /* 17. HOME */
-/* HERO (full bleed) */
 .hero {
     background: var(--ink);
     color: var(--paper);
@@ -642,7 +631,6 @@ body.page-auth .site-footer { margin-top: 0; }
     gap: 48px;
     align-items: center;
 }
-
 
 .hero__title {
     font-family: var(--font-serif);
@@ -741,7 +729,6 @@ body.page-auth .site-footer { margin-top: 0; }
 .fan__item:hover img { border-color: rgba(250, 246, 239, .45); }
 .fan__item:hover { z-index: 3; }
 
-/* Tombol di atas bidang gelap */
 .btn--invert { background: var(--paper); color: var(--ink); }
 .btn--invert:hover { background: #ffffff; }
 
@@ -751,7 +738,6 @@ body.page-auth .site-footer { margin-top: 0; }
 }
 .btn--ghost-light:hover { background: rgba(250, 246, 239, .1); border-color: var(--paper); }
 
-/* Header gelap khusus beranda */
 .page-home .site-header {
     background: var(--ink);
     border-bottom-color: rgba(250, 246, 239, .12);
@@ -820,7 +806,6 @@ body.page-auth .site-footer { margin-top: 0; }
     align-items: start;
 }
 
-/* buku unggulan */
 .cur-feat {
     display: grid;
     grid-template-columns: minmax(140px, 200px) minmax(0, 1fr);
@@ -887,7 +872,6 @@ body.page-auth .site-footer { margin-top: 0; }
     flex-wrap: wrap;
 }
 
-/* daftar pilihan lainnya */
 .cur-list__head {
     font-family: var(--font-mono);
     font-size: 10px;
@@ -1007,9 +991,6 @@ body.page-auth .site-footer { margin-top: 0; }
 .lot__add.is-out { color: var(--ink-muted); opacity: .55; cursor: not-allowed; }
 .lot__add.is-out:hover { color: var(--ink-muted); background: transparent; border-color: var(--rule); }
 
-
-
-
 /* 18. CATALOG */
 /* KATALOG */
 .cat-page { padding-top: 48px; }
@@ -1037,7 +1018,6 @@ body.page-auth .site-footer { margin-top: 0; }
     align-items: start;
 }
 
-/* sidebar */
 .cat-side {
     position: sticky;
     top: 92px;
@@ -1092,7 +1072,6 @@ body.page-auth .site-footer { margin-top: 0; }
     color: var(--ink-muted);
 }
 
-/* toolbar */
 .cat-toolbar {
     display: flex;
     justify-content: space-between;
@@ -1154,7 +1133,6 @@ body.page-auth .site-footer { margin-top: 0; }
     cursor: pointer;
 }
 
-/* daftar buku */
 .cat-row {
     display: grid;
     grid-template-columns: 56px minmax(0, 1fr) 90px 130px 96px;
@@ -1341,7 +1319,6 @@ body.page-auth .site-footer { margin-top: 0; }
     margin-bottom: 40px;
 }
 
-/* kondisi kosong */
 .crt-empty {
     padding: 8px 0 56px;
     border-bottom: 1px solid var(--rule);
@@ -1391,7 +1368,6 @@ body.page-auth .site-footer { margin-top: 0; }
 .crt-add.is-out { border-color: var(--rule); color: var(--ink-muted); opacity: .55; cursor: not-allowed; }
 .crt-add.is-out:hover { background: transparent; color: var(--ink-muted); }
 
-/* kondisi ada isi */
 .crt-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 400px;
@@ -1429,7 +1405,6 @@ body.page-auth .site-footer { margin-top: 0; }
 
 .crt-row__author { font-size: 13px; color: var(--ink-muted); }
 
-/* stepper */
 .crt-qty {
     display: grid;
     grid-template-columns: 34px 46px 34px;
@@ -1465,7 +1440,6 @@ body.page-auth .site-footer { margin-top: 0; }
 .crt-qty__input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .crt-qty__input:focus { outline: none; }
 
-/* subtotal per baris */
 .crt-row__sum { text-align: right; }
 
 .crt-row__total {
@@ -1505,7 +1479,6 @@ body.page-auth .site-footer { margin-top: 0; }
 }
 .crt-back:hover { color: var(--accent); }
 
-/* panel ringkasan */
 .crt-side {
     border: 1px solid var(--rule);
     padding: 32px 28px;
@@ -1563,8 +1536,6 @@ body.page-auth .site-footer { margin-top: 0; }
     color: var(--ink-muted);
     margin-top: 14px;
 }
-
-/* Responsive keranjang */
 
 .checkout-step { margin-bottom: 48px; }
 .checkout-step__head {
@@ -1658,7 +1629,6 @@ body.page-auth .site-footer { margin-top: 0; }
     margin-top: 20px;
 }
 
-/* Panel Registrasi: daftar keuntungan — angka mono, judul serif, garis pemisah. */
 .auth-benefits {
     display: flex;
     flex-direction: column;
@@ -1752,8 +1722,6 @@ body.page-auth .site-footer { margin-top: 0; }
     color: var(--ink);
 }
 
-/* Responsive */
-
 /* 23b. KONTAK */
 .ct-page { padding-top: 64px; }
 
@@ -1844,7 +1812,6 @@ body.page-auth .site-footer { margin-top: 0; }
     color: var(--ink-muted);
 }
 
-/* panel informasi */
 .ct-info {
     border: 1px solid var(--rule);
     padding: 32px 28px;
@@ -1873,8 +1840,6 @@ body.page-auth .site-footer { margin-top: 0; }
     line-height: 1.5;
     color: var(--ink);
 }
-
-/* Responsive */
 
 /* 24. ADMIN SHELL */
 .admin-shell {
@@ -1978,7 +1943,6 @@ body.page-auth .site-footer { margin-top: 0; }
 
 .admin-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 
-
 .dash-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 56px; margin-bottom: 56px; }
 
 .chart-box { border-top: 1px solid var(--ink); padding-top: 14px; }
@@ -2038,7 +2002,6 @@ body.page-auth .site-footer { margin-top: 0; }
     margin-top: 8px;
 }
 
-/* tiga angka penting */
 .db-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -2071,7 +2034,6 @@ body.page-auth .site-footer { margin-top: 0; }
     line-height: 1.4;
 }
 
-/* judul seksi */
 .db-section-title {
     font-family: var(--font-serif);
     font-size: 21px;
@@ -2092,12 +2054,10 @@ body.page-auth .site-footer { margin-top: 0; }
 .db-section-head { border-top: 1px solid var(--ink); margin-bottom: 6px; }
 .db-section-head .db-section-title { border-top: 0; padding-top: 14px; }
 
-/* grid chart + terlaris */
 .dash-grid { margin-bottom: 56px; }
 
 .chart-box { padding-top: 0; }
 
-/* keterangan buku terlaris */
 .bs-note {
     font-size: 12px;
     color: var(--ink-muted);
@@ -2105,7 +2065,6 @@ body.page-auth .site-footer { margin-top: 0; }
     line-height: 1.5;
 }
 
-/* pesanan terbaru */
 .db-orders { margin-top: 8px; }
 
 .db-orders__more {
@@ -2152,7 +2111,6 @@ body.page-auth .site-footer { margin-top: 0; }
     font-size: 12px;
 }
 
-/* indikator status bertahap */
 .db-status {
     display: flex;
     align-items: center;
@@ -2171,8 +2129,6 @@ body.page-auth .site-footer { margin-top: 0; }
 }
 
 .db-dots span.is-on { background: var(--ink); }
-
-/* responsive dashboard */
 
 /* 24c. DAFTAR PESANAN ADMIN */
 .ord-head { margin-bottom: 28px; }
@@ -2238,7 +2194,6 @@ body.page-auth .site-footer { margin-top: 0; }
 }
 .ord-search__reset:hover { color: var(--ink); }
 
-/* tabel pesanan */
 .ord-table { width: 100%; }
 
 .ord-table thead th {
@@ -2276,7 +2231,6 @@ body.page-auth .site-footer { margin-top: 0; }
 .ord-cust { color: var(--ink); }
 .ord-mail { font-size: 12px; color: var(--ink-muted); }
 
-/* pembayaran */
 .ord-pay {
     font-size: 13px;
     font-style: italic;
@@ -2285,10 +2239,8 @@ body.page-auth .site-footer { margin-top: 0; }
 .ord-pay.is-paid { color: var(--ink); }
 .ord-pay.is-unpaid { color: var(--ink-muted); }
 
-/* dot status */
 .ord-table .db-dots span.is-done { background: var(--success); }
 
-/* link detail */
 .ord-detail {
     font-size: 13px;
     color: var(--ink-muted);
@@ -2298,20 +2250,17 @@ body.page-auth .site-footer { margin-top: 0; }
 }
 .ord-detail:hover { color: var(--ink); }
 
-/* responsive */
-
 /* 25. ERROR */
 .error-page { padding: 120px 0; text-align: center; }
 .error-code { font-family: var(--font-serif); font-size: clamp(96px, 18vw, 220px); line-height: .85; color: var(--rule); letter-spacing: -.04em; }
 
-/* 26. RESPONSIVE */
+/* 25b. MOTION */
 
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 
 /* 26. RESPONSIVE */
-/* Dikelompokkan per breakpoint, urut dari layar terlebar ke tersempit. */
 
 @media (max-width: 1080px) {
     .crt-layout { grid-template-columns: 1fr; gap: 40px; }
