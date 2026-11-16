@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -46,11 +47,18 @@ class OrderController extends Controller
     /**
      * Perbarui status pesanan.
      */
-    public function updateStatus(Request $request, Order $order)
+    public function updateStatus(Request $request, Order $order, OrderService $orders)
     {
         $data = $request->validate([
             'status' => ['required', 'in:pending,processing,shipped,completed,cancelled'],
         ]);
+
+        // Saat pesanan dibatalkan, stok buku dikembalikan.
+        if ($data['status'] === 'cancelled' && $order->status !== 'cancelled') {
+            $orders->cancel($order);
+
+            return back()->with('success', 'Pesanan dibatalkan dan stok buku dikembalikan.');
+        }
 
         $order->update(['status' => $data['status']]);
 

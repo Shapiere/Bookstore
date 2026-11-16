@@ -15,7 +15,7 @@ class CartController extends Controller
     public function index()
     {
         $items = $this->cart->items(auth()->user());
-        $total = $items->sum(fn ($item) => $item->book->price * $item->qty);
+        $total = $this->cart->total(auth()->user());
         $totalQty = $items->sum('qty');
 
         // Rekomendasi saat keranjang kosong

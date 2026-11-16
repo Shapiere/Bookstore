@@ -43,6 +43,7 @@ class OrderService
                 'status' => 'pending',
                 'payment_method' => $data['payment_method'],
                 'payment_status' => 'unpaid',
+                'notes' => $data['notes'] ?? null,
             ]);
 
             foreach ($items as $item) {

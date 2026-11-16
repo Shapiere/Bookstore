@@ -309,16 +309,7 @@
 .odx-pay-act { margin-top: 24px; }
 
 /* --- responsif --- */
-
-/* Perbaikan cangkang admin pada layar sempit, hanya untuk halaman ini:
-   .admin-main dipatok ke kolom 2 dan sidebar tetap berlebar 248px,
-   sehingga isi terhimpit. Disetel ulang di sini tanpa menyentuh app.css. */
-@media (max-width: 900px) {
-    .admin-shell { grid-template-columns: minmax(0, 1fr); }
-    .admin-sidebar { width: auto; }
-    .admin-main { grid-column: 1; }
-    .admin-nav { margin-top: 0; }
-}
+/* Cangkang admin (shell/sidebar/main/nav) sudah ditangani di app.css. */
 
 @media (max-width: 1200px) {
     .odx-split { gap: 40px; }

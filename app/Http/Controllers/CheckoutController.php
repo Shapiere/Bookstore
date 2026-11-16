@@ -26,7 +26,7 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Keranjang belanja masih kosong.');
         }
 
-        $total = $items->sum(fn ($item) => $item->book->price * $item->qty);
+        $total = $this->cart->total(auth()->user());
         $user = auth()->user();
 
         return view('checkout.index', compact('items', 'total', 'user'));
