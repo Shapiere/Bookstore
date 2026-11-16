@@ -18,7 +18,9 @@ class UserController extends Controller
                     ->orWhere('email', 'like', "%{$keyword}%");
             }))
             ->withCount('orders')
-            ->latest()
+            ->withMax('orders', 'created_at')
+            ->orderByDesc('created_at')
+            ->orderBy('id')
             ->paginate(10)
             ->withQueryString();
 
@@ -29,6 +31,11 @@ class UserController extends Controller
     {
         $user->load(['orders' => fn ($q) => $q->latest()]);
 
-        return view('admin.users.show', compact('user'));
+        $orderCount = $user->orders->count();
+        $paidTotal = (float) $user->orders
+            ->where('payment_status', 'paid')
+            ->sum('total_price');
+
+        return view('admin.users.show', compact('user', 'orderCount', 'paidTotal'));
     }
 }

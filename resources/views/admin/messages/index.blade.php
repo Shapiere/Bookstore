@@ -1,56 +1,50 @@
 @extends('layouts.admin')
 
-@section('title', 'Pesan')
+@section('title', 'Pesan masuk')
 
 @section('content')
-<div class="admin-bar">
-    <div>
-        <h1 class="admin-title" style="margin-top: 8px;">Pesan Masuk</h1>
-    </div>
-    <div class="admin-actions">
-        <span class="mono-label">{{ $unread }} Belum Dibaca</span>
-    </div>
-</div>
+<div class="msg-page">
 
-<div class="table-wrap">
-    <table class="data-table">
-        <thead>
-            <tr>
-                <th style="width: 70px;">Status</th>
-                <th>Pengirim</th>
-                <th>Subjek</th>
-                <th>Tanggal</th>
-                <th style="width: 90px;"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($messages as $message)
-                <tr>
-                    <td>
-                        @if(! $message->is_read)
-                            <span class="status status--pending">Baru</span>
-                        @else
-                            <span class="muted small">Dibaca</span>
-                        @endif
-                    </td>
-                    <td>
-                        <div style="{{ $message->is_read ? '' : 'font-weight: 500;' }}">{{ $message->name }}</div>
-                        <div class="small muted">{{ $message->email }}</div>
-                    </td>
-                    <td>{{ $message->subject }}</td>
-                    <td>{{ $message->created_at->format('d/m/Y H:i') }}</td>
-                    <td>
-                        <div class="row-actions">
-                            <a href="{{ route('admin.messages.show', $message) }}">Baca</a>
-                        </div>
-                    </td>
-                </tr>
-            @empty
-                <tr><td colspan="5" class="muted" style="padding: 32px 0;">Belum ada pesan masuk.</td></tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
+    <header class="msg-head">
+        <h1 class="msg-title">Pesan masuk</h1>
+        <p class="msg-sub">
+            @if($unread > 0)
+                <span class="msg-sub__n">{{ $unread }}</span>belum dibaca
+            @elseif($messages->total() > 0)
+                Semua pesan sudah dibaca
+            @else
+                Belum ada pesan masuk
+            @endif
+        </p>
+    </header>
 
-{{ $messages->links('pagination.custom') }}
+    <div class="msg-list">
+        @forelse($messages as $message)
+            <a class="msg-row {{ $message->is_read ? 'is-read' : 'is-unread' }}"
+               href="{{ route('admin.messages.show', $message) }}">
+                <span class="msg-who">
+                    @unless($message->is_read)
+                        <span class="msg-mark"><span class="msg-sr">Belum dibaca</span></span>
+                    @endunless
+                    <span class="msg-who__text">
+                        <span class="msg-name">{{ $message->name }}</span>
+                        <span class="msg-mail">{{ $message->email }}</span>
+                    </span>
+                </span>
+
+                <span class="msg-subject">{{ $message->subject }}</span>
+
+                <time class="msg-date" datetime="{{ $message->created_at->toIso8601String() }}">{{ $message->created_at->format('d/m/Y H:i') }}</time>
+            </a>
+        @empty
+            <p class="msg-empty">Belum ada pesan masuk.</p>
+        @endforelse
+    </div>
+
+    {{ $messages->links('pagination.custom') }}
+</div>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin-messages.css') }}">
+@endpush

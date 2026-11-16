@@ -3,65 +3,80 @@
 @section('title', 'Detail Pelanggan')
 
 @section('content')
-<div class="admin-bar">
-    <div>
-        <h1 class="admin-title" style="margin-top: 8px;">{{ $user->name }}</h1>
-    </div>
-    <div class="admin-actions">
-        <a href="{{ route('admin.users.index') }}" class="btn--quiet">Kembali</a>
-    </div>
+<a href="{{ route('admin.users.index') }}" class="cus-back">— Semua pelanggan</a>
+
+<div class="cus-head">
+    <h1 class="cus-title">{{ $user->name }}</h1>
+    <p class="cus-sub">
+        {{ $orderCount }} pesanan · Rp {{ number_format($paidTotal, 0, ',', '.') }} dari pesanan lunas
+    </p>
 </div>
 
-<div class="detail-split">
-    <div class="admin-panel">
-        <div class="admin-panel__head">
-            <span class="mono-label">Riwayat Pesanan</span>
-            <span class="mono-label">{{ $user->orders->count() }} Pesanan</span>
-        </div>
+<hr class="cus-rule">
+
+<div class="cus-grid">
+    <section class="cus-hist">
+        <h2 class="cus-sec">Riwayat pesanan</h2>
+        <p class="cus-hint">Urut dari yang terbaru</p>
 
         <div class="table-wrap">
-            <table class="data-table">
+            <table class="cus-table cus-table--hist">
                 <thead>
                     <tr>
                         <th>Kode</th>
                         <th>Tanggal</th>
                         <th class="num">Total</th>
                         <th>Status</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($user->orders as $order)
+                        @php
+                            $flow = ['pending', 'processing', 'shipped', 'completed'];
+                            $posisi = array_search($order->status, $flow);
+                        @endphp
                         <tr>
-                            <td class="code">{{ $order->order_code }}</td>
-                            <td>{{ $order->created_at->format('d/m/Y') }}</td>
+                            <td class="cus-code">
+                                <a href="{{ route('admin.orders.show', $order) }}">{{ $order->order_code }}</a>
+                            </td>
+                            <td class="cus-date">{{ $order->created_at->format('d/m/Y') }}</td>
                             <td class="num">Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
-                            <td><span class="status status--{{ $order->status }}">{{ $order->statusLabel() }}</span></td>
                             <td>
-                                <div class="row-actions">
-                                    <a href="{{ route('admin.orders.show', $order) }}">Periksa</a>
+                                <div class="db-status">
+                                    <span class="db-dots">
+                                        @foreach($flow as $i => $step)
+                                            <span @class(['is-on' => $posisi !== false && $i <= $posisi, 'is-done' => $order->status === 'completed' && $posisi !== false])></span>
+                                        @endforeach
+                                    </span>
+                                    <span>{{ $order->statusLabel() }}</span>
                                 </div>
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="5" class="muted" style="padding: 24px 0;">Belum ada pesanan.</td></tr>
+                        <tr>
+                            <td colspan="4" class="cus-empty">Belum ada pesanan.</td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-    </div>
+    </section>
 
-    <aside class="panel">
-        <div class="panel__head">Profil Pelanggan</div>
+    <aside class="cus-profile">
+        <h2 class="cus-sec">Profil</h2>
 
-        <div class="info-list" style="border-top: 0;">
-            <div><dt>Nama</dt><dd>{{ $user->name }}</dd></div>
+        <dl class="cus-info">
             <div><dt>Email</dt><dd>{{ $user->email }}</dd></div>
-            <div><dt>Telepon</dt><dd>{{ $user->phone ?? '—' }}</dd></div>
-            <div><dt>Alamat</dt><dd>{{ $user->address ?? '—' }}</dd></div>
-            <div><dt>Peran</dt><dd>{{ $user->role }}</dd></div>
+            <div><dt>Telepon</dt><dd>{{ $user->phone ?: '—' }}</dd></div>
+            <div><dt>Alamat</dt><dd>{{ $user->address ?: '—' }}</dd></div>
             <div><dt>Terdaftar</dt><dd>{{ $user->created_at->format('d/m/Y H:i') }}</dd></div>
-        </div>
+        </dl>
+
+        <a href="mailto:{{ $user->email }}" class="btn btn--outline btn--sm cus-mailbtn">Kirim email</a>
     </aside>
 </div>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin-customers.css') }}">
+@endpush

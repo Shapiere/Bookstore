@@ -3,57 +3,60 @@
 @section('title', 'Pelanggan')
 
 @section('content')
-<div class="admin-bar">
-    <div>
-        <h1 class="admin-title" style="margin-top: 8px;">Pelanggan</h1>
-    </div>
-    <div class="admin-actions">
-        <span class="mono-label">{{ $users->total() }} Terdaftar</span>
-    </div>
+<div class="cus-head">
+    <h1 class="cus-title">Pelanggan</h1>
+    <p class="cus-sub">{{ $users->total() }} terdaftar</p>
 </div>
 
-<form method="GET" class="filter-bar">
-    <div class="field" style="min-width: 260px;">
-        <label class="field__label" for="q">Cari Pelanggan</label>
-        <input id="q" type="search" name="q" value="{{ $keyword }}" class="field__input"
-               placeholder="Nama atau email">
-    </div>
-    <button type="submit" class="btn btn--outline btn--sm">Cari</button>
+<form method="GET" class="cus-search" role="search">
+    <input type="search" name="q" value="{{ $keyword }}"
+           placeholder="Cari nama atau email" aria-label="Cari nama atau email pelanggan">
     @if($keyword)
-        <a href="{{ route('admin.users.index') }}" class="btn--quiet">Reset</a>
+        <a href="{{ route('admin.users.index') }}" class="cus-search__reset">Reset</a>
     @endif
 </form>
 
 <div class="table-wrap">
-    <table class="data-table">
+    <table class="cus-table cus-table--list">
         <thead>
             <tr>
-                <th style="width: 48px;">#</th>
                 <th>Nama</th>
-                <th>Email</th>
                 <th>Telepon</th>
                 <th class="num">Pesanan</th>
                 <th>Terdaftar</th>
-                <th style="width: 90px;"></th>
+                <th>Pesanan terakhir</th>
+                <th class="num cus-col-act"></th>
             </tr>
         </thead>
         <tbody>
             @forelse($users as $user)
                 <tr>
-                    <td class="code">{{ str_pad((string) ($users->firstItem() + $loop->index), 2, '0', STR_PAD_LEFT) }}</td>
-                    <td style="font-weight: 500;">{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->phone ?? '—' }}</td>
-                    <td class="num">{{ $user->orders_count }}</td>
-                    <td>{{ $user->created_at->format('d/m/Y') }}</td>
                     <td>
-                        <div class="row-actions">
-                            <a href="{{ route('admin.users.show', $user) }}">Detail</a>
-                        </div>
+                        <div class="cus-name">{{ $user->name }}</div>
+                        <div class="cus-mail">{{ $user->email }}</div>
+                    </td>
+                    <td class="cus-phone">{{ $user->phone ?: '—' }}</td>
+                    <td class="num">{{ $user->orders_count }}</td>
+                    <td class="cus-date">{{ $user->created_at->format('d/m/Y') }}</td>
+                    <td class="cus-date">
+                        {{ $user->orders_max_created_at
+                            ? \Illuminate\Support\Carbon::parse($user->orders_max_created_at)->format('d/m/Y')
+                            : '—' }}
+                    </td>
+                    <td class="cus-col-act">
+                        <a href="{{ route('admin.users.show', $user) }}" class="cus-detail">Detail</a>
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="7" class="muted" style="padding: 32px 0;">Belum ada pelanggan terdaftar.</td></tr>
+                <tr>
+                    <td colspan="6" class="cus-empty">
+                        @if($keyword)
+                            Tidak ada pelanggan yang cocok dengan pencarian.
+                        @else
+                            Belum ada pelanggan terdaftar.
+                        @endif
+                    </td>
+                </tr>
             @endforelse
         </tbody>
     </table>
@@ -61,3 +64,7 @@
 
 {{ $users->links('pagination.custom') }}
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin-customers.css') }}">
+@endpush

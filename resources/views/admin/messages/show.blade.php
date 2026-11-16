@@ -1,28 +1,27 @@
 @extends('layouts.admin')
 
-@section('title', 'Baca Pesan')
+@section('title', 'Baca pesan')
 
 @section('content')
-<div class="admin-bar">
-    <div>
-        <h1 class="admin-title" style="margin-top: 8px;">{{ $message->subject }}</h1>
-    </div>
-    <div class="admin-actions">
-        <a href="{{ route('admin.messages.index') }}" class="btn--quiet">Kembali</a>
-    </div>
-</div>
+<article class="msg-thread">
 
-<div style="max-width: 760px;">
-    <div class="panel">
-        <div class="panel__head" style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
-            <span>{{ $message->name }} &lt;{{ $message->email }}&gt;</span>
-            <span>{{ $message->created_at->format('d/m/Y H:i') }}</span>
+    <a href="{{ route('admin.messages.index') }}" class="msg-back">&larr; Pesan masuk</a>
+
+    <header class="msg-thread__head">
+        <h1 class="msg-title">{{ $message->subject }}</h1>
+
+        <div class="msg-thread__meta">
+            <span class="msg-thread__from">
+                <span class="msg-thread__name">{{ $message->name }}</span>
+                <span class="msg-thread__mail">{{ $message->email }}</span>
+            </span>
+            <time class="msg-thread__date" datetime="{{ $message->created_at->toIso8601String() }}">{{ $message->created_at->format('d/m/Y H:i') }}</time>
         </div>
+    </header>
 
-        <p style="white-space: pre-line; font-size: 15px;">{{ $message->body }}</p>
-    </div>
+    <p class="msg-thread__body">{{ $message->body }}</p>
 
-    <div style="display: flex; gap: 20px; align-items: center; margin-top: 24px; flex-wrap: wrap;">
+    <div class="msg-thread__foot">
         <a href="mailto:{{ $message->email }}?subject=Re: {{ urlencode($message->subject) }}"
            class="btn btn--primary btn--sm">Balas via Email</a>
 
@@ -30,8 +29,12 @@
               onsubmit="return confirm('Hapus pesan ini?')">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn--quiet" style="color: var(--danger);">Hapus Pesan</button>
+            <button type="submit" class="msg-delete">Hapus Pesan</button>
         </form>
     </div>
-</div>
+</article>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin-messages.css') }}">
+@endpush

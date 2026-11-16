@@ -1,0 +1,391 @@
+/* ==========================================================================
+   Detail Pesanan — Panel Admin
+   Dimuat hanya di halaman ini lewat @push('styles').
+   Tanpa bayangan, tanpa gradien, tanpa sudut membulat.
+   ========================================================================== */
+
+.odx-page { max-width: 1120px; }
+
+/* --- jalan kembali ke daftar --- */
+.odx-back {
+    display: inline-block;
+    color: var(--ink-muted);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: color 140ms ease, border-bottom-color 140ms ease;
+}
+.odx-back:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* --- kepala halaman --- */
+.odx-head { margin-top: 14px; }
+
+.odx-code {
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.odx-date {
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin-top: 10px;
+}
+
+/* garis pemisah kepala: hitam 1px, tidak penuh lebar */
+.odx-rule {
+    border-top: 1px solid var(--ink);
+    width: 55%;
+    margin: 26px 0 46px;
+}
+
+/* --- dua kolom: kiri detail pesanan, kanan ringkasan --- */
+.odx-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 40%;
+    gap: 56px;
+    align-items: start;
+}
+
+.odx-col { min-width: 0; }
+
+/* --- penanda bagian --- */
+.odx-section + .odx-section { margin-top: 56px; }
+
+.odx-h2 {
+    font-family: var(--font-serif);
+    font-size: 21px;
+    line-height: 1.25;
+    letter-spacing: -.01em;
+    font-weight: 600;
+}
+
+/* bagian yang diberi garis atas hitam */
+.odx-section--ruled {
+    border-top: 1px solid var(--ink);
+    padding-top: 16px;
+}
+
+.odx-sub {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-muted);
+    margin-top: 6px;
+}
+
+/* --- tabel buku pesanan --- */
+.odx-items { margin-top: 24px; }
+
+.odx-table { width: 100%; }
+
+.odx-table thead th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--ink-muted);
+    text-align: left;
+    padding: 0 0 11px;
+    border-bottom: 1px solid var(--ink);
+    white-space: nowrap;
+}
+
+.odx-table thead th.num {
+    text-align: right;
+    padding-left: 12px;
+}
+
+.odx-table tbody td.num { padding-left: 12px; }
+
+.odx-table tbody td {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.odx-table tbody tr:last-child td { border-bottom: 1px solid var(--rule); }
+
+.odx-table .num {
+    text-align: right;
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.odx-table .odx-col-price { width: 110px; }
+.odx-table .odx-col-amount { width: 72px; }
+.odx-table .odx-col-sum { width: 124px; }
+
+/* sel buku: sampul + judul + kategori */
+.odx-book {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.odx-cover {
+    flex: 0 0 auto;
+    width: 46px;
+    aspect-ratio: 5 / 7;
+    object-fit: cover;
+    border: 1px solid rgba(0, 0, 0, .08);
+    background: var(--paper-deep);
+}
+
+.odx-cover--none {
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-muted);
+    border-color: var(--rule);
+}
+
+.odx-book__body { min-width: 0; }
+
+.odx-book__title {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 1.32;
+    letter-spacing: -.005em;
+}
+
+.odx-book__cat {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--ink-muted);
+    margin-top: 2px;
+}
+
+/* --- ringkasan nominal --- */
+.odx-totals { margin-top: 20px; }
+
+.odx-totals__line {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 28px;
+    padding: 3px 0;
+    font-size: 13px;
+    color: var(--ink-muted);
+}
+
+.odx-totals__line .n {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    min-width: 124px;
+    text-align: right;
+}
+
+.odx-total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 28px;
+    padding-top: 14px;
+    margin-top: 8px;
+    border-top: 1px solid var(--rule);
+}
+
+.odx-total__label {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.odx-total__value {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -.015em;
+    min-width: 124px;
+    text-align: right;
+}
+
+/* --- bar status pesanan --- */
+.odx-bar {
+    display: flex;
+    gap: 6px;
+    margin-top: 24px;
+}
+
+.odx-bar span {
+    flex: 1 1 0;
+    height: 6px;
+    background: var(--rule);
+}
+
+.odx-bar span.is-on { background: var(--ink); }
+
+/* selesai: seluruh segmen hijau */
+.odx-bar.is-done span.is-on { background: var(--success); }
+
+/* dibatalkan: semua segmen abu */
+.odx-bar.is-cancelled span { background: var(--rule); }
+
+.odx-steps {
+    display: flex;
+    gap: 6px;
+    margin-top: 11px;
+}
+
+.odx-steps span {
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--ink-muted);
+}
+
+.odx-steps span.is-on { color: var(--ink); }
+.odx-steps span.is-now { font-weight: 600; }
+
+.odx-actions { margin-top: 30px; }
+
+.odx-note {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--ink-muted);
+    margin-top: 12px;
+}
+
+.odx-note--status { margin-top: 16px; }
+
+/* --- daftar keterangan (pembayaran, pengiriman) --- */
+.odx-facts { margin-top: 8px; }
+
+.odx-fact {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+}
+
+.odx-fact__k {
+    flex: 0 0 auto;
+    color: var(--ink-muted);
+}
+
+.odx-fact__v {
+    text-align: right;
+    min-width: 0;
+    word-break: break-word;
+}
+
+.odx-fact__v--unpaid {
+    font-style: italic;
+    color: var(--ink-muted);
+}
+
+.odx-fact__v--paid { color: var(--success); }
+
+.odx-fact__v--failed {
+    font-style: italic;
+    color: var(--danger);
+}
+
+.odx-fact__v .mono {
+    font-family: var(--font-mono);
+    font-size: 13px;
+}
+
+.odx-pay-act { margin-top: 24px; }
+
+/* --- responsif --- */
+
+/* Perbaikan cangkang admin pada layar sempit, hanya untuk halaman ini:
+   .admin-main dipatok ke kolom 2 dan sidebar tetap berlebar 248px,
+   sehingga isi terhimpit. Disetel ulang di sini tanpa menyentuh app.css. */
+@media (max-width: 900px) {
+    .admin-shell { grid-template-columns: minmax(0, 1fr); }
+    .admin-sidebar { width: auto; }
+    .admin-main { grid-column: 1; }
+    .admin-nav { margin-top: 0; }
+}
+
+@media (max-width: 1200px) {
+    .odx-split { gap: 40px; }
+    .odx-table .odx-col-price { width: 92px; }
+    .odx-table .odx-col-amount { width: 56px; }
+    .odx-table .odx-col-sum { width: 98px; }
+    .odx-table thead th { font-size: 9px; letter-spacing: .06em; }
+    .odx-table thead th.num,
+    .odx-table tbody td.num { padding-left: 16px; }
+    .odx-book { gap: 12px; }
+    .odx-cover { width: 40px; }
+    .odx-book__title { font-size: 15px; }
+    .odx-total__value { font-size: 27px; min-width: 0; }
+    .odx-total { gap: 18px; }
+    .odx-totals__line { gap: 18px; }
+    .odx-totals__line .n { min-width: 0; }
+}
+
+@media (max-width: 1024px) {
+    .odx-split { grid-template-columns: 1fr; gap: 48px; }
+    .odx-rule { width: 100%; }
+    .odx-table .odx-col-price { width: 110px; }
+    .odx-table .odx-col-amount { width: 72px; }
+    .odx-table .odx-col-sum { width: 124px; }
+    .odx-total__value { font-size: 30px; }
+    .odx-totals__line .n { min-width: 124px; }
+}
+
+@media (max-width: 720px) {
+    .odx-rule { margin-bottom: 34px; }
+    .odx-section + .odx-section { margin-top: 42px; }
+
+    /* Tabel buku ditumpuk: judul di atas, angka berlabel di bawah. */
+    .odx-table thead { display: none; }
+
+    .odx-table tbody tr {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px 14px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--rule);
+    }
+
+    .odx-table tbody td {
+        display: block;
+        padding: 0;
+        border-bottom: 0;
+        font-size: 14px;
+    }
+
+    .odx-table tbody td:first-child { grid-column: 1 / -1; }
+
+    .odx-table tbody td.odx-col-sum { width: auto; }
+
+    .odx-table tbody td.num { text-align: left; }
+
+    .odx-table tbody td.num::before {
+        content: attr(data-label);
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: .09em;
+        color: var(--ink-muted);
+        margin-bottom: 3px;
+    }
+
+    .odx-cover { width: 38px; }
+    .odx-book { gap: 12px; }
+    .odx-book__title { font-size: 15px; }
+
+    .odx-total { gap: 16px; }
+    .odx-total__value { font-size: 26px; min-width: 0; }
+    .odx-totals__line .n { min-width: 0; }
+    .odx-fact { gap: 16px; }
+}

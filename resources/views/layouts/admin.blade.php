@@ -6,6 +6,7 @@
     <title>@yield('title', 'Admin') — BookStore</title>
     <link rel="stylesheet" href="{{ asset('fonts/fonts.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @stack('styles')
 </head>
 <body>
 <div class="admin-shell">
@@ -58,5 +59,6 @@
         @yield('content')
     </main>
 </div>
+@stack('scripts')
 </body>
 </html>
