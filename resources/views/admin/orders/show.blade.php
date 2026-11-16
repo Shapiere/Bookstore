@@ -51,7 +51,9 @@
         {{-- ================= KOLOM KIRI ================= --}}
         <div class="odx-col">
 
-            <section class="odx-section" aria-labelledby="odx-buku">
+            {{-- Diberi garis atas hitam, sama seperti "Pembayaran" di kolom kanan,
+                 supaya kedua garis dan kedua judul berada di ketinggian yang sama. --}}
+            <section class="odx-section odx-section--ruled" aria-labelledby="odx-buku">
                 <h2 class="odx-h2" id="odx-buku">Buku pesanan</h2>
                 <p class="odx-sub">{{ $bookCount }} buku</p>
 

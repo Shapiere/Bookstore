@@ -34,11 +34,13 @@
     margin-top: 10px;
 }
 
-/* garis pemisah kepala: hitam 1px, tidak penuh lebar */
+/* Garis pembuka: hitam 1px, penuh lebar (melintasi kedua kolom).
+   Garis ini adalah pemisah antara kepala halaman dan isi; grid dua kolom
+   baru dimulai sesudahnya, jadi kedua judul kolom berangkat dari titik sama. */
 .odx-rule {
     border-top: 1px solid var(--ink);
-    width: 55%;
-    margin: 26px 0 46px;
+    width: 100%;
+    margin: 26px 0 44px;
 }
 
 /* --- dua kolom: kiri detail pesanan, kanan ringkasan --- */
@@ -60,9 +62,14 @@
     line-height: 1.25;
     letter-spacing: -.01em;
     font-weight: 600;
+    /* Tanpa margin atas: judul kiri dan kanan mulai tepat di bawah garisnya. */
+    margin: 0;
+    padding: 0;
 }
 
-/* bagian yang diberi garis atas hitam */
+/* Bagian bergaris atas hitam. Bagian PERTAMA pada kedua kolom memakai kelas
+   ini (border 1px + padding 16px yang identik), sehingga garis atas dan judul
+   "Buku pesanan" sejajar persis dengan "Pembayaran". */
 .odx-section--ruled {
     border-top: 1px solid var(--ink);
     padding-top: 16px;

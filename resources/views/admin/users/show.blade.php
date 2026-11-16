@@ -72,7 +72,7 @@
             <div><dt>Terdaftar</dt><dd>{{ $user->created_at->format('d/m/Y H:i') }}</dd></div>
         </dl>
 
-        <a href="mailto:{{ $user->email }}" class="btn btn--outline btn--sm cus-mailbtn">Kirim email</a>
+        <a href="mailto:{{ $user->email }}" class="cus-mailbtn">Kirim email</a>
     </aside>
 </div>
 @endsection

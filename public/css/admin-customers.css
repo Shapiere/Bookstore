@@ -206,39 +206,71 @@
     padding-top: 18px;
 }
 
+/* judul profil: serif, tebal wajar, 21px */
+.cus-profile .cus-sec {
+    font-size: 21px;
+    font-weight: 500;
+}
+
+/* daftar profil: tanpa jarak antar baris, garis bawah sebagai pemisah */
 .cus-info { margin: 20px 0 0; }
 
 .cus-info > div {
-    display: grid;
-    grid-template-columns: 96px minmax(0, 1fr);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
     gap: 18px;
-    padding: 13px 0;
+    margin: 0;
+    padding: 10px 0;
     border-bottom: 1px solid var(--rule);
 }
-.cus-info > div:first-child { border-top: 1px solid var(--rule); }
 
+/* label: sans biasa, kapitalisasi normal */
 .cus-info dt {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: .07em;
-    text-transform: uppercase;
+    flex: 0 0 auto;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
     color: var(--ink-muted);
-    padding-top: 1px;
+    padding-top: 0;
 }
 
+/* nilai: 15px, rata kanan */
 .cus-info dd {
-    font-size: 14px;
-    line-height: 1.5;
+    flex: 1 1 auto;
+    min-width: 0;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.45;
     color: var(--ink);
+    text-align: right;
     word-break: break-word;
 }
 
+/* tombol kirim email: bingkai tipis, lebar penuh */
 .cus-mailbtn {
-    margin-top: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    margin-top: 26px;
+    padding: 12px;
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--ink);
     text-align: center;
+    cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease;
 }
+.cus-mailbtn:hover { background: var(--ink); color: var(--paper); }
 
 /* ---------- 6. RESPONSIF ---------- */
 @media (max-width: 1080px) {
@@ -275,5 +307,6 @@
     .cus-table--hist tbody td:nth-child(2) { display: none; }
     .cus-table--hist .db-dots { display: none; }
 
-    .cus-info > div { grid-template-columns: 84px minmax(0, 1fr); gap: 14px; }
+    .cus-info > div { gap: 12px; }
+    .cus-info dd { font-size: 14px; }
 }
