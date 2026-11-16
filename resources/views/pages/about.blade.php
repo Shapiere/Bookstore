@@ -3,61 +3,55 @@
 @section('title', 'Tentang Kami')
 
 @section('content')
-<div class="container" style="padding-top: 56px;">
-    <div class="section-opener" style="margin-bottom: 40px;">
-        <span class="mono-label">Tentang Kami</span>
-        <span class="mono-label">Berdiri Sejak 2020</span>
-    </div>
+<div class="container ab-page">
+    {{-- JUDUL --}}
+    <h1 class="ab-title">
+        Merawat kebiasaan membaca<br>
+        <span class="em">di tengah bising digital.</span>
+    </h1>
 
-    <h1 class="display-l" style="margin-bottom: 20px;">Merawat kebiasaan membaca<br><span class="em">di tengah bising digital.</span></h1>
-    <p class="muted measure" style="margin-bottom: 48px;">
-        BookStore adalah toko buku daring yang menyediakan koleksi pilihan dari berbagai kategori
-        untuk semua kalangan pembaca di Indonesia.
-    </p>
+    {{-- TIGA KOLOM --}}
+    <div class="ab-cols">
+        <article class="ab-col">
+            <h2 class="ab-col__title">Siapa kami</h2>
 
-    <div class="detail-split" style="margin-top: 64px;">
-        <div class="prose">
-            <h2>Siapa Kami</h2>
-            <p>
-                BookStore berdiri sejak 2020 sebagai toko buku daring. Kami menyediakan ribuan judul
-                dari berbagai kategori seperti fiksi, non-fiksi, teknologi, buku anak, dan buku
-                pendidikan. Setiap judul dipilih dengan pertimbangan kualitas isi, bukan sekadar
+            <p class="ab-col__text">
+                BookStore berdiri sejak 2020 sebagai toko buku daring. Kami menyediakan koleksi
+                buku dari berbagai kategori: fiksi, non-fiksi, teknologi, buku anak, dan buku
+                pendidikan. Setiap judul dipilih dengan pertimbangan kualitas, bukan sekadar
                 popularitas.
             </p>
-            <p>
-                Kami percaya bahwa akses terhadap buku adalah hak semua orang. Karena itu kami
-                menghadirkan pengalaman berbelanja buku yang mudah, cepat, dan terjangkau — langsung
-                dari rumah Anda.
+
+            <p class="ab-col__text">
+                Kami percaya akses terhadap buku adalah hak semua orang. Karena itu kami
+                menghadirkan pengalaman berbelanja buku yang mudah, cepat, dan terjangkau,
+                langsung dari rumah Anda.
+            </p>
+        </article>
+
+        <article class="ab-col">
+            <h2 class="ab-col__title">Visi</h2>
+
+            <p class="ab-col__text ab-col__text--quote">
+                Menjadi toko buku daring terpercaya yang menumbuhkan budaya membaca di Indonesia.
+            </p>
+        </article>
+
+        <article class="ab-col">
+            <h2 class="ab-col__title">Misi</h2>
+
+            <p class="ab-col__text">
+                Menyediakan koleksi buku yang lengkap dengan harga terjangkau.
             </p>
 
-            <h2>Visi</h2>
-            <p>Menjadi toko buku daring terpercaya yang menumbuhkan budaya membaca di Indonesia.</p>
+            <p class="ab-col__text">
+                Memberikan pelayanan cepat dan ramah kepada setiap pelanggan.
+            </p>
 
-            <h2>Misi</h2>
-            <ul>
-                <li>Menyediakan koleksi buku yang lengkap dengan harga terjangkau.</li>
-                <li>Memberikan pelayanan cepat dan ramah kepada setiap pelanggan.</li>
-                <li>Mendukung penulis dan penerbit lokal Indonesia.</li>
-            </ul>
-        </div>
-
-        <aside>
-            <div class="panel">
-                <div class="panel__head">Informasi Toko</div>
-
-                <div class="info-list" style="border-top: 0;">
-                    <div><dt>Alamat</dt><dd>Jl. Pendidikan No. 123, Bandung, Jawa Barat</dd></div>
-                    <div><dt>Telepon</dt><dd>(022) 1234-5678</dd></div>
-                    <div><dt>Email</dt><dd>halo@bookstore.test</dd></div>
-                    <div><dt>Jam Buka</dt><dd>Senin – Sabtu, 08.00 – 20.00 WIB</dd></div>
-                    <div><dt>Pembayaran</dt><dd>Bayar di Tempat (COD)</dd></div>
-                </div>
-
-                <a href="{{ route('contact.show') }}" class="btn btn--primary btn--block" style="margin-top: 24px;">
-                    Hubungi Kami
-                </a>
-            </div>
-        </aside>
+            <p class="ab-col__text">
+                Mendukung penulis dan penerbit lokal Indonesia.
+            </p>
+        </article>
     </div>
 </div>
 @endsection

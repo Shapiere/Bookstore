@@ -21,6 +21,7 @@ class DashboardController extends Controller
             'orders' => Order::count(),
             'pending' => Order::where('status', 'pending')->count(),
             'unread_messages' => Message::where('is_read', false)->count(),
+            'low_stock' => Book::where('stock', '>', 0)->where('stock', '<=', 5)->count(),
             'revenue' => Order::where('payment_status', 'paid')->sum('total_price'),
         ];
 
@@ -46,10 +47,15 @@ class DashboardController extends Controller
             $salesData[] = (float) ($salesRaw[$key] ?? 0);
         }
 
-        // 5 buku terlaris
+        // 5 buku terlaris — pesanan yang dibatalkan tidak dihitung
         $topBooks = Book::select('books.id', 'books.title', 'books.author', 'books.price', 'books.cover_image')
             ->selectRaw('COALESCE(SUM(order_items.qty), 0) as sold')
             ->leftJoin('order_items', 'books.id', '=', 'order_items.book_id')
+            ->leftJoin('orders', 'order_items.order_id', '=', 'orders.id')
+            ->where(function ($q) {
+                $q->where('orders.status', '!=', 'cancelled')
+                  ->orWhereNull('orders.id');
+            })
             ->groupBy('books.id', 'books.title', 'books.author', 'books.price', 'books.cover_image')
             ->orderByDesc('sold')
             ->take(5)

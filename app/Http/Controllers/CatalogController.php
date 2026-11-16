@@ -8,12 +8,91 @@ use Illuminate\Http\Request;
 
 class CatalogController extends Controller
 {
-    public function home()
+    public function home(Request $request)
     {
+        $categories = Category::withCount('books')->get();
         $latest = Book::with('category')->active()->latest()->take(8)->get();
+
+        // Pilihan editor — bisa difilter lewat tab kategori (?pilih=slug)
+        $activeSlug = $request->query('pilih');
+
+        $curation = Book::with('category')
+            ->active()
+            ->when($activeSlug, fn ($q) => $q->whereHas(
+                'category',
+                fn ($c) => $c->where('slug', $activeSlug)
+            ))
+            ->latest()
+            ->take(6)
+            ->get();
+
+        $feature = $curation->first();
+        $others = $curation->slice(1)->values();
+        $activeCategory = $activeSlug ? $categories->firstWhere('slug', $activeSlug) : null;
+
+        // Rak buku terbaru — bisa difilter lewat tab kategori (?rak=slug)
+        $latestSlug = $request->query('rak');
+        $latestCategory = $latestSlug ? $categories->firstWhere('slug', $latestSlug) : null;
+
+        $latestBooks = Book::with('category')
+            ->active()
+            ->when($latestCategory, fn ($q) => $q->where('category_id', $latestCategory->id))
+            ->latest()
+            ->take(8)
+            ->get();
+
+        return view('home', compact(
+            'latest', 'categories', 'feature', 'others', 'activeSlug', 'activeCategory',
+            'latestBooks', 'latestSlug'
+        ));
+    }
+
+    /**
+     * Potongan HTML section "Baru masuk rak" untuk pemuatan tanpa reload.
+     */
+    public function latestBooks(Request $request)
+    {
+        $categories = Category::withCount('books')->get();
+        $latestSlug = $request->query('rak');
+        $latestCategory = $latestSlug ? $categories->firstWhere('slug', $latestSlug) : null;
+
+        $latestBooks = Book::with('category')
+            ->active()
+            ->when($latestCategory, fn ($q) => $q->where('category_id', $latestCategory->id))
+            ->latest()
+            ->take(8)
+            ->get();
+
+        return response()
+            ->view('partials.latest-books', compact('categories', 'latestBooks', 'latestSlug'))
+            ->header('Cache-Control', 'no-store');
+    }
+
+    /**
+     * Potongan HTML section "Paling dicari" untuk pemuatan tanpa reload.
+     */
+    public function curation(Request $request)
+    {
         $categories = Category::withCount('books')->get();
 
-        return view('home', compact('latest', 'categories'));
+        $activeSlug = $request->query('pilih');
+        $activeCategory = $activeSlug ? $categories->firstWhere('slug', $activeSlug) : null;
+
+        $books = Book::with('category')
+            ->active()
+            ->when($activeCategory, fn ($q) => $q->where('category_id', $activeCategory->id))
+            ->latest()
+            ->take(6)
+            ->get();
+
+        $feature = $books->first();
+        $others = $books->slice(1)->values();
+
+        return response()
+            ->view('partials.curation', compact(
+                'categories', 'feature', 'others', 'activeSlug', 'activeCategory'
+            ))
+            ->header('Cache-Control', 'no-store');
     }
 
     public function index(Request $request)

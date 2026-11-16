@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [CatalogController::class, 'home'])->name('home');
+Route::get('/beranda/paling-dicari', [CatalogController::class, 'curation'])->name('home.curation');
+Route::get('/beranda/baru-masuk-rak', [CatalogController::class, 'latestBooks'])->name('home.latest');
 Route::get('/katalog', [CatalogController::class, 'index'])->name('catalog.index');
 Route::get('/buku/{book:slug}', [CatalogController::class, 'show'])->name('catalog.show');
 Route::get('/tentang-kami', [PageController::class, 'about'])->name('about');

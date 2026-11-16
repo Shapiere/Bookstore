@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('fonts/fonts.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
-<body>
+<body class="@yield('body_class')">
 @php($cartCount = auth()->check() ? auth()->user()->carts()->sum('qty') : 0)
 
 <header class="site-header">
@@ -22,10 +22,6 @@
         </nav>
 
         <div class="header-actions">
-            <form class="header-search" action="{{ route('catalog.index') }}" method="GET" role="search">
-                <input type="search" name="q" value="{{ request('q') }}" placeholder="Cari judul atau penulis" aria-label="Cari buku">
-            </form>
-
             <a href="{{ route('cart.index') }}" class="header-link">
                 Keranjang
                 <span class="cart-count">{{ str_pad((string) $cartCount, 2, '0', STR_PAD_LEFT) }}</span>

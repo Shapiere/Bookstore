@@ -8,64 +8,48 @@
     $plotW = 460; $plotH = 190; $baseY = 220; $leftPad = 44;
     $slot = $plotW / max(count($salesData), 1);
     $barW = min(46, $slot * 0.62);
-    $fmt = function ($v) {
-        if ($v >= 1000000) return 'Rp ' . rtrim(rtrim(number_format($v / 1000000, 1, ',', '.'), '0'), ',') . ' jt';
-        if ($v >= 1000) return 'Rp ' . number_format($v / 1000, 0, ',', '.') . ' rb';
-        return 'Rp ' . number_format($v, 0, ',', '.');
-    };
+
+    $totalSales = array_sum($salesData);
+    $salesTotalLabel = $totalSales >= 1000000
+        ? 'Rp ' . rtrim(rtrim(number_format($totalSales / 1000000, 1, ',', '.'), '0'), ',') . ' juta'
+        : 'Rp ' . number_format($totalSales / 1000, 0, ',', '.') . ' ribu';
 @endphp
 
-<div class="admin-bar">
-    <div>
-        <div class="mono-label">01 / Ringkasan Sistem</div>
-        <h1 class="admin-title" style="margin-top: 8px;">Dashboard</h1>
+{{-- JUDUL --}}
+<div class="db-head">
+    <h1 class="db-title">Dashboard</h1>
+    <p class="db-sub">
+        {{ $stats['books'] }} buku di {{ $stats['categories'] }} kategori &middot;
+        {{ $stats['users'] }} pelanggan &middot;
+        {{ $stats['orders'] }} pesanan &middot;
+        {{ now()->translatedFormat('l, d F Y') }}
+    </p>
+</div>
+
+{{-- TIGA ANGKA PENTING --}}
+<div class="db-stats">
+    <div class="db-stat">
+        <div class="db-stat__n">{{ $stats['pending'] }}</div>
+        <div class="db-stat__label">pesanan menunggu diproses</div>
     </div>
-    <div class="admin-actions">
-        <span class="mono-label">{{ now()->translatedFormat('l, d F Y') }}</span>
+    <div class="db-stat">
+        <div class="db-stat__n">{{ $stats['unread_messages'] }}</div>
+        <div class="db-stat__label">pesan belum dibaca</div>
+    </div>
+    <div class="db-stat">
+        <div class="db-stat__n">{{ $stats['low_stock'] }}</div>
+        <div class="db-stat__label">buku stok menipis</div>
     </div>
 </div>
 
-{{-- STAT ROW --}}
-<div class="stat-row">
-    <div class="stat-cell">
-        <div class="stat-cell__label">Total Buku</div>
-        <div class="stat-cell__value">{{ $stats['books'] }}</div>
-        <div class="stat-cell__meta">{{ $stats['categories'] }} kategori</div>
-    </div>
-    <div class="stat-cell">
-        <div class="stat-cell__label">Kategori</div>
-        <div class="stat-cell__value">{{ $stats['categories'] }}</div>
-        <div class="stat-cell__meta">Aktif</div>
-    </div>
-    <div class="stat-cell">
-        <div class="stat-cell__label">Pelanggan</div>
-        <div class="stat-cell__value">{{ $stats['users'] }}</div>
-        <div class="stat-cell__meta">Terdaftar</div>
-    </div>
-    <div class="stat-cell">
-        <div class="stat-cell__label">Pesanan</div>
-        <div class="stat-cell__value">{{ $stats['orders'] }}</div>
-        <div class="stat-cell__meta">Sepanjang waktu</div>
-    </div>
-    <div class="stat-cell">
-        <div class="stat-cell__label">Pending</div>
-        <div class="stat-cell__value is-accent">{{ $stats['pending'] }}</div>
-        <div class="stat-cell__meta">Perlu diproses</div>
-    </div>
-    <div class="stat-cell">
-        <div class="stat-cell__label">Pendapatan</div>
-        <div class="stat-cell__value" style="font-size: 24px;">{{ $fmt($stats['revenue']) }}</div>
-        <div class="stat-cell__meta">Dari pesanan lunas</div>
-    </div>
-</div>
-
+{{-- GRAFIK + TERLARIS --}}
 <div class="dash-grid">
     {{-- CHART --}}
     <div class="chart-box">
-        <div class="chart-box__head">
-            <span class="mono-label">Tren Pendapatan 6 Bulan Terakhir</span>
-            <span class="mono-label">Dalam Rupiah</span>
-        </div>
+        <h2 class="db-section-title">Pendapatan 6 bulan terakhir</h2>
+        <p class="db-section-desc">
+            Total {{ $salesTotalLabel }} dari pesanan lunas. {{ now()->translatedFormat('F') }} berjalan.
+        </p>
 
         <svg class="chart-svg" viewBox="0 0 520 250" role="img" aria-label="Grafik pendapatan enam bulan terakhir">
             @for($g = 0; $g <= 4; $g++)
@@ -100,11 +84,6 @@
             <line x1="{{ $leftPad }}" y1="{{ $baseY }}" x2="{{ $leftPad + $plotW }}" y2="{{ $baseY }}"
                   stroke="#14110F" stroke-width="1" />
         </svg>
-
-        <p class="chart-note">
-            Total pendapatan dari pesanan berstatus lunas. Angka dihitung dari kolom total_price
-            pada tabel orders.
-        </p>
     </div>
 
     {{-- BESTSELLER --}}
@@ -113,6 +92,7 @@
             <span class="mono-label">Buku Terlaris</span>
             <a href="{{ route('admin.books.index') }}" class="btn--quiet">Semua Buku</a>
         </div>
+        <p class="bs-note">Berdasarkan eksemplar terjual. Pesanan dibatalkan tidak dihitung.</p>
 
         @forelse($topBooks as $book)
             <div class="bestseller-row">
@@ -130,43 +110,47 @@
     </div>
 </div>
 
-{{-- RECENT ORDERS --}}
-<div class="admin-panel">
-    <div class="admin-panel__head">
-        <span class="mono-label">Pesanan Terbaru</span>
-        <a href="{{ route('admin.orders.index') }}" class="btn--quiet">Buka Semua Pesanan</a>
+{{-- PESANAN TERBARU --}}
+<div class="db-orders">
+    <div class="db-section-head">
+        <h2 class="db-section-title">Pesanan terbaru</h2>
     </div>
 
+    <a href="{{ route('admin.orders.index') }}" class="db-orders__more">Buka semua pesanan</a>
+
     <div class="table-wrap">
-        <table class="data-table">
+        <table class="db-table">
             <thead>
                 <tr>
                     <th>Kode</th>
-                    <th>Tanggal</th>
                     <th>Pelanggan</th>
                     <th class="num">Total</th>
-                    <th>Metode</th>
                     <th>Status</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($recentOrders as $order)
                     <tr>
                         <td class="code">{{ $order->order_code }}</td>
-                        <td>{{ $order->created_at->format('d/m/Y') }}</td>
                         <td>{{ $order->customer_name }}</td>
                         <td class="num">Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
-                        <td>{{ $order->payment_method === 'cod' ? 'COD' : 'Midtrans' }}</td>
-                        <td><span class="status status--{{ $order->status }}">{{ $order->statusLabel() }}</span></td>
                         <td>
-                            <div class="row-actions">
-                                <a href="{{ route('admin.orders.show', $order) }}">Periksa</a>
+                            @php
+                                $flow = ['pending', 'processing', 'shipped', 'completed'];
+                                $posisi = array_search($order->status, $flow);
+                            @endphp
+                            <div class="db-status">
+                                <span class="db-dots">
+                                    @foreach($flow as $i => $step)
+                                        <span @class(['is-on' => $posisi !== false && $i <= $posisi])></span>
+                                    @endforeach
+                                </span>
+                                <span>{{ $order->statusLabel() }}</span>
                             </div>
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="7" class="muted" style="padding: 28px 0;">Belum ada pesanan.</td></tr>
+                    <tr><td colspan="4" class="muted" style="padding: 28px 0;">Belum ada pesanan.</td></tr>
                 @endforelse
             </tbody>
         </table>

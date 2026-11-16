@@ -16,8 +16,14 @@ class CartController extends Controller
     {
         $items = $this->cart->items(auth()->user());
         $total = $items->sum(fn ($item) => $item->book->price * $item->qty);
+        $totalQty = $items->sum('qty');
 
-        return view('cart.index', compact('items', 'total'));
+        // Rekomendasi saat keranjang kosong
+        $suggestions = $items->isEmpty()
+            ? Book::with('category')->active()->latest()->take(4)->get()
+            : collect();
+
+        return view('cart.index', compact('items', 'total', 'totalQty', 'suggestions'));
     }
 
     public function add(Request $request, Book $book)

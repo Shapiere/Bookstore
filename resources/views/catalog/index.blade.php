@@ -3,66 +3,66 @@
 @section('title', 'Katalog Buku')
 
 @section('content')
-<div class="container" style="padding-top: 56px;">
-    <div class="section-opener" style="margin-bottom: 40px;">
-        <span class="mono-label">Katalog</span>
-        <span class="mono-label">{{ $books->total() }} Judul Ditemukan</span>
+<div class="container cat-page">
+    <div class="cat-head">
+        <h1 class="cat-head__title">Katalog buku</h1>
+        <p class="cat-head__desc">{{ $books->total() }} judul ditemukan</p>
     </div>
 
-    <h1 class="display-l" style="margin-bottom: 48px;">Katalog Buku</h1>
+    <div class="cat-layout">
+        {{-- SIDEBAR --}}
+        <aside class="cat-side">
+            <form action="{{ route('catalog.index') }}" method="GET" class="cat-side__block">
+                <label class="cat-side__label" for="cat-q">Cari</label>
+                @if($categoryId)
+                    <input type="hidden" name="category" value="{{ $categoryId }}">
+                @endif
+                @if($sort !== 'latest')
+                    <input type="hidden" name="sort" value="{{ $sort }}">
+                @endif
+                <input id="cat-q" type="search" name="q" value="{{ $keyword }}"
+                       placeholder="Judul, penulis, penerbit" class="cat-search">
+            </form>
 
-    <div class="catalog-layout">
-        {{-- RAIL --}}
-        <aside class="catalog-rail">
-            <div class="rail-block rail-search">
-                <div class="rail-block__head">Cari</div>
-                <form action="{{ route('catalog.index') }}" method="GET">
-                    @if($categoryId)
-                        <input type="hidden" name="category" value="{{ $categoryId }}">
-                    @endif
-                    @if($sort !== 'latest')
-                        <input type="hidden" name="sort" value="{{ $sort }}">
-                    @endif
-                    <input type="search" name="q" value="{{ $keyword }}" placeholder="Judul, penulis, penerbit">
-                </form>
-            </div>
-
-            <div class="rail-block rail-cat">
-                <div class="rail-block__head">Kategori</div>
-                <a href="{{ route('catalog.index', array_filter(['q' => $keyword, 'sort' => $sort])) }}"
-                   @class(['is-active' => ! $categoryId])>
-                    Semua Kategori
-                    <span class="count">{{ $categories->sum('books_count') }}</span>
-                </a>
-                @foreach($categories as $category)
-                    <a href="{{ route('catalog.index', array_filter(['category' => $category->id, 'q' => $keyword, 'sort' => $sort])) }}"
-                       @class(['is-active' => $categoryId == $category->id])>
-                        {{ $category->name }}
-                        <span class="count">{{ $category->books_count }}</span>
+            <div class="cat-side__block">
+                <div class="cat-side__label">Kategori</div>
+                <nav class="cat-cats">
+                    <a href="{{ route('catalog.index', array_filter(['q' => $keyword, 'sort' => $sort])) }}"
+                       @class(['is-active' => ! $categoryId])>
+                        <span>Semua</span>
+                        <span class="cat-cats__n">{{ $categories->sum('books_count') }}</span>
                     </a>
-                @endforeach
-            </div>
-
-            <div class="rail-block rail-sort">
-                <div class="rail-block__head">Urutkan</div>
-                @foreach(['latest' => 'Terbaru', 'price_asc' => 'Harga Terendah', 'price_desc' => 'Harga Tertinggi'] as $value => $label)
-                    <a href="{{ route('catalog.index', array_filter(['q' => $keyword, 'category' => $categoryId, 'sort' => $value])) }}"
-                       @class(['is-active' => $sort === $value])>{{ $label }}</a>
-                @endforeach
+                    @foreach($categories as $category)
+                        <a href="{{ route('catalog.index', array_filter(['category' => $category->id, 'q' => $keyword, 'sort' => $sort])) }}"
+                           @class(['is-active' => $categoryId == $category->id])>
+                            <span>{{ $category->name }}</span>
+                            <span class="cat-cats__n">{{ $category->books_count }}</span>
+                        </a>
+                    @endforeach
+                </nav>
             </div>
         </aside>
 
-        {{-- RESULTS --}}
-        <div>
-            <div class="catalog-bar">
-                <span class="mono-label">
+        {{-- HASIL --}}
+        <div class="cat-main">
+            <div class="cat-toolbar">
+                <span class="cat-toolbar__count">{{ $books->total() }} judul</span>
+
+                <form action="{{ route('catalog.index') }}" method="GET" class="cat-sort">
                     @if($keyword)
-                        Hasil untuk "{{ $keyword }}"
-                    @else
-                        Semua Buku
+                        <input type="hidden" name="q" value="{{ $keyword }}">
                     @endif
-                </span>
-                <span class="mono-label">Halaman {{ $books->currentPage() }} dari {{ $books->lastPage() }}</span>
+                    @if($categoryId)
+                        <input type="hidden" name="category" value="{{ $categoryId }}">
+                    @endif
+                    <label class="cat-sort__label" for="cat-sort">Urutkan</label>
+                    <select id="cat-sort" name="sort" class="cat-sort__select" onchange="this.form.submit()">
+                        @foreach(['latest' => 'Terbaru', 'price_asc' => 'Harga terendah', 'price_desc' => 'Harga tertinggi'] as $value => $label)
+                            <option value="{{ $value }}" @selected($sort === $value)>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                    <noscript><button type="submit" class="cat-sort__go">Terapkan</button></noscript>
+                </form>
             </div>
 
             @if($books->isEmpty())
@@ -72,20 +72,52 @@
                     <a href="{{ route('catalog.index') }}" class="btn btn--outline">Reset Pencarian</a>
                 </div>
             @else
-                @foreach($books as $book)
-                    <a href="{{ route('catalog.show', $book) }}" class="catalogue-row">
-                        <span class="catalogue-row__idx">{{ str_pad((string) ($books->firstItem() + $loop->index), 2, '0', STR_PAD_LEFT) }}</span>
-                        <span class="catalogue-row__cover">
-                            <img src="{{ asset('storage/'.$book->cover_image) }}" alt="" loading="lazy">
-                        </span>
-                        <span>
-                            <span class="catalogue-row__title">{{ $book->title }}</span>
-                            <span class="catalogue-row__author">{{ $book->author }}</span>
-                        </span>
-                        <span class="catalogue-row__cat">{{ $book->category->name }}</span>
-                        <span class="catalogue-row__price">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
-                    </a>
-                @endforeach
+                <div class="cat-list">
+                    @foreach($books as $book)
+                        <article class="cat-row">
+                            <a href="{{ route('catalog.show', $book) }}" class="cat-row__cover">
+                                <img src="{{ asset('storage/'.$book->cover_image) }}" alt="Sampul {{ $book->title }}" loading="lazy">
+                            </a>
+
+                            <div class="cat-row__body">
+                                <a href="{{ route('catalog.show', $book) }}" class="cat-row__title">{{ $book->title }}</a>
+                                <div class="cat-row__author">{{ $book->author }}</div>
+
+                                <div class="cat-row__meta">
+                                    <span>{{ $book->publisher ?? '-' }}@if($book->year), {{ $book->year }}@endif</span>
+                                    <span class="cat-row__tag">{{ $book->category->name }}</span>
+                                </div>
+                            </div>
+
+                            <div class="cat-row__stock">
+                                @if($book->stock < 1)
+                                    <span class="is-out">Habis</span>
+                                @elseif($book->stock <= 5)
+                                    <span class="is-low">Sisa {{ $book->stock }}</span>
+                                @else
+                                    <span>Stok {{ $book->stock }}</span>
+                                @endif
+                            </div>
+
+                            <div class="cat-row__price">Rp {{ number_format($book->price, 0, ',', '.') }}</div>
+
+                            <div class="cat-row__act">
+                                @auth
+                                    @if($book->stock > 0)
+                                        <form action="{{ route('cart.add', $book) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="cat-add">Tambah</button>
+                                        </form>
+                                    @else
+                                        <span class="cat-add is-out">Tambah</span>
+                                    @endif
+                                @else
+                                    <a href="{{ route('login') }}" class="cat-add">Tambah</a>
+                                @endauth
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
 
                 {{ $books->links('pagination.custom') }}
             @endif

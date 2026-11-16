@@ -5,7 +5,6 @@
 @section('content')
 <div class="admin-bar">
     <div>
-        <div class="mono-label">02 / Katalog</div>
         <h1 class="admin-title" style="margin-top: 8px;">Kategori Buku</h1>
     </div>
     <div class="admin-actions">

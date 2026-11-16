@@ -5,7 +5,6 @@
 @section('content')
 <div class="admin-bar">
     <div>
-        <div class="mono-label">05 / Transaksi / Pesanan</div>
         <h1 class="admin-title" style="margin-top: 8px;">{{ $order->order_code }}</h1>
         <div class="mono-label" style="margin-top: 10px;">{{ $order->created_at->translatedFormat('d F Y, H:i') }} WIB</div>
     </div>
