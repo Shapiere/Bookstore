@@ -3,13 +3,13 @@
 @section('title', 'Checkout')
 
 @section('content')
-<div class="container" style="padding-top: 56px;">
-    <div class="section-opener" style="margin-bottom: 40px;">
+<div class="container page-top">
+    <div class="section-opener section-opener--tight">
         <span class="mono-label">Checkout</span>
         <span class="mono-label">{{ $items->sum('qty') }} Buku</span>
     </div>
 
-    <h1 class="display-l" style="margin-bottom: 48px;">Selesaikan Pesanan</h1>
+    <h1 class="display-l title--spaced">Selesaikan Pesanan</h1>
 
     <form action="{{ route('checkout.store') }}" method="POST">
         @csrf
@@ -99,7 +99,7 @@
                     <span class="summary-total__value">Rp {{ number_format($total, 0, ',', '.') }}</span>
                 </div>
 
-                <div style="margin-top: 20px;">
+                <div class="block-xl">
                     <a href="{{ route('cart.index') }}" class="btn--quiet">Kembali ke Keranjang</a>
                 </div>
             </aside>

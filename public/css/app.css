@@ -2260,6 +2260,71 @@ body.page-auth .site-footer { margin-top: 0; }
     *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 
+/* ---------- 27. KELAS BANTU HALAMAN ---------- */
+.admin-bar .admin-title { margin-top: 8px; }
+
+.page-top { padding-top: 56px; }
+.page-top--sm { padding-top: 48px; }
+
+.section-opener--tight { margin-bottom: 40px; }
+.section-opener--far { margin-top: 96px; margin-bottom: 32px; }
+.section-opener--flush { border-top: 0; padding-top: 0; }
+
+.title--gap { margin: 12px 0 10px; }
+.title--offset { margin-top: 16px; }
+.title--spaced { margin-bottom: 48px; }
+.title--spaced-lg { margin-bottom: 40px; }
+
+.info-list--spaced { margin-top: 40px; }
+.info-list--flush { border-top: 0; }
+
+.block-sm { margin-top: 10px; }
+.block-md { margin-top: 16px; }
+.block-lg { margin-top: 18px; }
+.block-xl { margin-top: 24px; }
+
+.form-narrow { max-width: 560px; }
+.add-form { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+
+.check-row { display: flex; align-items: center; gap: 10px; }
+.checkbox { accent-color: var(--accent); }
+.check-row label { margin: 0; }
+
+.cell-strong { font-weight: 500; }
+.cell-empty { padding: 32px 0; }
+.cell-empty--sm { padding: 20px 0; }
+.cell-empty--md { padding: 28px 0; }
+
+.col-cover { width: 56px; }
+.col-no { width: 48px; }
+.col-actions { width: 140px; }
+.col-actions--wide { width: 150px; }
+
+.book-cover--preview { max-width: 220px; }
+
+/* Halaman galat */
+.err-title { margin: 24px 0 12px; }
+.err-text { margin-bottom: 32px; }
+.err-actions { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+/* Panel auth */
+.auth-aside__mark { color: rgba(251, 248, 243, .5); }
+.auth-aside__foot { color: rgba(251, 248, 243, .35); }
+.auth-panel { width: 100%; }
+.auth-title { margin: 12px 0 10px; }
+.auth-lede { margin-bottom: 36px; }
+.auth-lede--sm { margin-bottom: 32px; }
+
+/* Halaman sukses */
+.success-actions { display: flex; gap: 24px; align-items: center; margin-top: 48px; flex-wrap: wrap; }
+.success-block { margin-top: 48px; max-width: 520px; }
+.instruction .title { margin-top: 10px; }
+.instruction p { margin-top: 10px; }
+.instruction .btn { margin-top: 18px; }
+
+/* Sidebar admin */
+.admin-sidebar__logout { margin-top: 10px; }
+
 /* 26. RESPONSIVE */
 
 @media (max-width: 1080px) {

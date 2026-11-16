@@ -3,15 +3,15 @@
 @section('title', 'Detail Pesanan')
 
 @section('content')
-<div class="container" style="padding-top: 56px;">
-    <div class="section-opener" style="margin-bottom: 40px;">
+<div class="container page-top">
+    <div class="section-opener section-opener--tight">
         <span class="mono-label">
             <a href="{{ route('orders.index') }}" class="link">Pesanan Saya</a> / {{ $order->order_code }}
         </span>
         <span class="status status--{{ $order->status }}">{{ $order->statusLabel() }}</span>
     </div>
 
-    <h1 class="display-m" style="margin-bottom: 40px;">{{ $order->order_code }}</h1>
+    <h1 class="display-m title--spaced-lg">{{ $order->order_code }}</h1>
 
     <div class="detail-split">
         <div>
@@ -53,7 +53,7 @@
             <div class="panel">
                 <div class="panel__head">Informasi Pesanan</div>
 
-                <div class="info-list" style="border-top: 0;">
+                <div class="info-list info-list--flush">
                     <div><dt>Tanggal</dt><dd>{{ $order->created_at->format('d/m/Y H:i') }}</dd></div>
                     <div><dt>Penerima</dt><dd>{{ $order->customer_name }}</dd></div>
                     <div><dt>Telepon</dt><dd>{{ $order->phone }}</dd></div>
@@ -69,7 +69,7 @@
                 </div>
 
                 @if($order->notes)
-                    <p class="small muted" style="margin-top: 16px;">Catatan: {{ $order->notes }}</p>
+                    <p class="small muted block-md">Catatan: {{ $order->notes }}</p>
                 @endif
             </div>
         </aside>

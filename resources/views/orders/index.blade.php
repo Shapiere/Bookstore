@@ -3,8 +3,8 @@
 @section('title', 'Pesanan Saya')
 
 @section('content')
-<div class="container" style="padding-top: 56px;">
-    <h1 class="display-l" style="margin-bottom: 48px;">Riwayat Pesanan</h1>
+<div class="container page-top">
+    <h1 class="display-l title--spaced">Riwayat Pesanan</h1>
 
     @if($orders->isEmpty())
         <div class="empty">

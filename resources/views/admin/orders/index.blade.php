@@ -84,7 +84,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="8" class="muted" style="padding: 32px 0;">Belum ada pesanan.</td></tr>
+                <tr><td colspan="8" class="muted cell-empty">Belum ada pesanan.</td></tr>
             @endforelse
         </tbody>
     </table>

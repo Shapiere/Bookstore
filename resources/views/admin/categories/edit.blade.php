@@ -5,14 +5,14 @@
 @section('content')
 <div class="admin-bar">
     <div>
-        <h1 class="admin-title" style="margin-top: 8px;">Ubah Kategori</h1>
+        <h1 class="admin-title">Ubah Kategori</h1>
     </div>
     <div class="admin-actions">
         <a href="{{ route('admin.categories.index') }}" class="btn--quiet">Kembali</a>
     </div>
 </div>
 
-<div style="max-width: 560px;">
+<div class="form-narrow">
     <form action="{{ route('admin.categories.update', $category) }}" method="POST">
         @csrf
         @method('PUT')

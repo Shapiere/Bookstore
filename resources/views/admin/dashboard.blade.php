@@ -105,7 +105,7 @@
                 <div class="bestseller-row__num">{{ (int) $book->sold }} terjual</div>
             </div>
         @empty
-            <p class="small muted" style="padding: 20px 0;">Belum ada data penjualan.</p>
+            <p class="small muted cell-empty--sm">Belum ada data penjualan.</p>
         @endforelse
     </div>
 </div>
@@ -150,7 +150,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="4" class="muted" style="padding: 28px 0;">Belum ada pesanan.</td></tr>
+                    <tr><td colspan="4" class="muted cell-empty--md">Belum ada pesanan.</td></tr>
                 @endforelse
             </tbody>
         </table>

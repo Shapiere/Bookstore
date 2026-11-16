@@ -5,7 +5,7 @@
 @section('content')
 <div class="admin-bar">
     <div>
-        <h1 class="admin-title" style="margin-top: 8px;">Kategori Buku</h1>
+        <h1 class="admin-title">Kategori Buku</h1>
     </div>
     <div class="admin-actions">
         <a href="{{ route('admin.categories.create') }}" class="btn btn--primary btn--sm">Tambah Kategori</a>
@@ -16,11 +16,11 @@
     <table class="data-table">
         <thead>
             <tr>
-                <th style="width: 48px;">#</th>
+                <th class="col-no">#</th>
                 <th>Nama Kategori</th>
                 <th>Kode URL</th>
                 <th class="num">Jumlah Buku</th>
-                <th style="width: 150px;">Aksi</th>
+                <th class="col-actions--wide">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +28,7 @@
                 <tr>
                     <td class="code">{{ str_pad((string) ($categories->firstItem() + $loop->index), 2, '0', STR_PAD_LEFT) }}</td>
                     <td>
-                        <div style="font-weight: 500;">{{ $category->name }}</div>
+                        <div class="cell-strong">{{ $category->name }}</div>
                         @if($category->description)
                             <div class="small muted">{{ $category->description }}</div>
                         @endif
@@ -48,7 +48,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="5" class="muted" style="padding: 32px 0;">Belum ada kategori.</td></tr>
+                <tr><td colspan="5" class="muted cell-empty">Belum ada kategori.</td></tr>
             @endforelse
         </tbody>
     </table>

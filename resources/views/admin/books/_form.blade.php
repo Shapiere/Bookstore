@@ -95,10 +95,10 @@
                           class="field__textarea">{{ old('description', $book->description ?? '') }}</textarea>
             </div>
 
-            <div class="field" style="display: flex; align-items: center; gap: 10px;">
-                <input type="checkbox" name="is_active" value="1" id="is_active" style="accent-color: var(--accent);"
+            <div class="field check-row">
+                <input type="checkbox" name="is_active" value="1" id="is_active" class="checkbox"
                        @checked(old('is_active', $book->is_active ?? true))>
-                <label for="is_active" class="small" style="margin: 0;">Tampilkan di katalog</label>
+                <label for="is_active" class="small">Tampilkan di katalog</label>
             </div>
         </div>
     </div>
@@ -123,7 +123,7 @@
                     <div class="field">
                         <span class="field__label">Cover Saat Ini</span>
                         <img src="{{ asset('storage/'.$book->cover_image) }}" alt="Cover saat ini"
-                             class="book-cover" style="max-width: 220px;">
+                             class="book-cover book-cover--preview">
                     </div>
                 @endif
             @endisset

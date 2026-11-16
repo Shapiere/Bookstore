@@ -5,7 +5,7 @@
 @section('content')
 <div class="admin-bar">
     <div>
-        <h1 class="admin-title" style="margin-top: 8px;">Data Buku</h1>
+        <h1 class="admin-title">Data Buku</h1>
     </div>
     <div class="admin-actions">
         <a href="{{ route('admin.books.create') }}" class="btn btn--primary btn--sm">Tambah Buku</a>
@@ -37,13 +37,13 @@
     <table class="data-table">
         <thead>
             <tr>
-                <th style="width: 56px;">Cover</th>
+                <th class="col-cover">Cover</th>
                 <th>Judul</th>
                 <th>Kategori</th>
                 <th class="num">Harga</th>
                 <th class="num">Stok</th>
                 <th>Status</th>
-                <th style="width: 140px;">Aksi</th>
+                <th class="col-actions">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -57,7 +57,7 @@
                         @endif
                     </td>
                     <td>
-                        <div style="font-weight: 500;">{{ $book->title }}</div>
+                        <div class="cell-strong">{{ $book->title }}</div>
                         <div class="small muted">{{ $book->author }}</div>
                     </td>
                     <td>{{ $book->category->name }}</td>
@@ -81,7 +81,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="7" class="muted" style="padding: 32px 0;">Belum ada buku.</td></tr>
+                <tr><td colspan="7" class="muted cell-empty">Belum ada buku.</td></tr>
             @endforelse
         </tbody>
     </table>

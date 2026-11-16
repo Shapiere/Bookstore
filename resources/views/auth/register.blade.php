@@ -7,7 +7,7 @@
 @section('content')
 <div class="auth-split">
     <aside class="auth-aside">
-        <div class="mono-label" style="color: rgba(251,248,243,.5);">Mengapa BookStore</div>
+        <div class="mono-label auth-aside__mark">Mengapa BookStore</div>
 
         <ol class="auth-benefits">
             <li class="auth-benefit">
@@ -33,14 +33,14 @@
             </li>
         </ol>
 
-        <div class="mono-label" style="color: rgba(251,248,243,.35);">Bayar di Tempat Tersedia</div>
+        <div class="mono-label auth-aside__foot">Bayar di Tempat Tersedia</div>
     </aside>
 
     <div class="auth-form-wrap">
-        <div style="width: 100%;">
+        <div class="auth-panel">
             <span class="mono-label">Registrasi</span>
-            <h1 class="display-m" style="margin: 12px 0 10px;">Buat akun baru</h1>
-            <p class="small muted" style="margin-bottom: 32px;">Daftar untuk mulai berbelanja di BookStore.</p>
+            <h1 class="display-m auth-title">Buat akun baru</h1>
+            <p class="small muted auth-lede auth-lede--sm">Daftar untuk mulai berbelanja di BookStore.</p>
 
             <form method="POST" action="{{ route('register.store') }}">
                 @csrf
@@ -89,7 +89,7 @@
                 <button type="submit" class="btn btn--primary btn--block">Daftar</button>
             </form>
 
-            <p class="small muted" style="margin-top: 24px;">
+            <p class="small muted block-xl">
                 Sudah punya akun? <a href="{{ route('login') }}" class="link">Masuk di sini</a>
             </p>
         </div>

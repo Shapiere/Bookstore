@@ -39,7 +39,7 @@
 
         <div class="admin-sidebar__foot">
             <a href="{{ route('home') }}">&larr; Lihat Toko</a>
-            <form method="POST" action="{{ route('logout') }}" style="margin-top: 10px;">
+            <form method="POST" action="{{ route('logout') }}" class="admin-sidebar__logout">
                 @csrf
                 <button type="submit">Keluar</button>
             </form>

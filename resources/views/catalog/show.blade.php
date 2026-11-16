@@ -3,8 +3,8 @@
 @section('title', $book->title)
 
 @section('content')
-<div class="container" style="padding-top: 48px;">
-    <div class="section-opener" style="margin-bottom: 40px;">
+<div class="container page-top--sm">
+    <div class="section-opener section-opener--tight">
         <span class="mono-label">
             <a href="{{ route('catalog.index') }}" class="link">Katalog</a> / {{ $book->category->name }}
         </span>
@@ -36,7 +36,7 @@
         {{-- Info --}}
         <div>
             <span class="mono-label">{{ $book->category->name }}</span>
-            <h1 class="display-l" style="margin: 12px 0 10px;">{{ $book->title }}</h1>
+            <h1 class="display-l title--gap">{{ $book->title }}</h1>
             <div class="detail-author">{{ $book->author }}</div>
 
             <p class="detail-desc">{{ $book->description }}</p>
@@ -49,10 +49,10 @@
 
                 @auth
                     @if($book->stock > 0)
-                        <form action="{{ route('cart.add', $book) }}" method="POST" style="display:flex; align-items:flex-end; gap:16px; flex-wrap:wrap;">
+                        <form action="{{ route('cart.add', $book) }}" method="POST" class="add-form">
                             @csrf
                             <div>
-                                <span class="field__label" style="display:block;">Jumlah</span>
+                                <span class="field__label">Jumlah</span>
                                 <div class="qty">
                                     <input type="number" name="qty" value="1" min="1" max="{{ $book->stock }}"
                                            inputmode="numeric" aria-label="Jumlah">
@@ -71,7 +71,7 @@
     </div>
 
     @if($related->count())
-        <div class="section-opener" style="margin-top: 96px; margin-bottom: 32px;">
+        <div class="section-opener section-opener--far">
             <span class="mono-label">Buku Terkait</span>
             <a href="{{ route('catalog.index', ['category' => $book->category_id]) }}" class="btn--quiet">
                 Semua {{ $book->category->name }}
