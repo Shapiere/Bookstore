@@ -2,6 +2,8 @@
 
 @section('title', 'Masuk')
 
+@section('body_class', 'page-auth')
+
 @section('content')
 <div class="auth-split">
     <aside class="auth-aside">

@@ -44,7 +44,7 @@
 .cus-rule {
     border: 0;
     border-top: 1px solid var(--ink);
-    margin: 34px 0 46px;
+    margin: 34px 0 14px;
 }
 
 /* ---------- 2. PENCARIAN ---------- */
@@ -152,7 +152,29 @@
 }
 .cus-detail:hover { color: var(--ink); }
 
-.cus-col-act { width: 78px; text-align: right; }
+/* ---------- 3b. KOLOM TABEL DAFTAR ---------- */
+/* Lebar tetap + jarak antar kolom yang konsisten, supaya judul dan isi
+   tidak berdempetan dan kolom aksi tidak menempel tepi kanan. */
+.cus-table--list thead th,
+.cus-table--list tbody td {
+    padding-left: 32px;
+}
+
+.cus-table--list thead th:first-child,
+.cus-table--list tbody td:first-child {
+    padding-left: 0;
+}
+
+.cus-table--list thead th:nth-child(2) { width: 190px; }  /* Telepon */
+.cus-table--list thead th:nth-child(3) { width: 108px; }  /* Pesanan */
+.cus-table--list thead th:nth-child(4) { width: 148px; }  /* Terdaftar */
+.cus-table--list thead th:nth-child(5) { width: 168px; }  /* Pesanan terakhir */
+
+.cus-col-act {
+    width: 96px;
+    text-align: right;
+    padding-right: 0;
+}
 
 /* baris kosong */
 .cus-table tbody td.cus-empty {
@@ -201,9 +223,9 @@
 .cus-table .db-dots span.is-done { background: var(--success); }
 
 /* ---------- 5. PROFIL ---------- */
+/* Tanpa garis atas: header Profil sejajar dengan header Riwayat pesanan. */
 .cus-profile {
-    border-top: 1px solid var(--ink);
-    padding-top: 18px;
+    padding-top: 0;
 }
 
 /* judul profil: serif, tebal wajar, 21px */
@@ -273,6 +295,21 @@
 .cus-mailbtn:hover { background: var(--ink); color: var(--paper); }
 
 /* ---------- 6. RESPONSIF ---------- */
+@media (max-width: 1280px) {
+    /* Tabel menyempit: lebarkan ruang untuk kolom Nama, sembunyikan "Terdaftar". */
+    .cus-table--list thead th,
+    .cus-table--list tbody td { padding-left: 20px; }
+
+    .cus-table--list thead th:nth-child(4),
+    .cus-table--list tbody td:nth-child(4) { display: none; }
+
+    .cus-table--list thead th:nth-child(2) { width: 150px; }
+    .cus-table--list thead th:nth-child(3) { width: 92px; }
+    .cus-table--list thead th:nth-child(5) { width: 140px; }
+
+    .cus-col-act { width: 80px; }
+}
+
 @media (max-width: 1080px) {
     .cus-grid {
         grid-template-columns: minmax(0, 1fr);

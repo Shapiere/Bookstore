@@ -45,15 +45,24 @@
 </header>
 
 <main>
+    {{-- Notifikasi melayang: tidak mendorong konten di bawahnya. --}}
     @if(session('success') || session('error'))
-        <div class="container" style="padding-top: 24px;">
+        <div class="flash-wrap" role="status" aria-live="polite">
             @if(session('success'))
-                <div class="alert alert--success">{{ session('success') }}</div>
+                <div class="flash flash--success">{{ session('success') }}</div>
             @endif
             @if(session('error'))
-                <div class="alert alert--error">{{ session('error') }}</div>
+                <div class="flash flash--error">{{ session('error') }}</div>
             @endif
         </div>
+        <script>
+            // Notifikasi melayang menutup sendiri setelah 5 detik.
+            setTimeout(function () {
+                var wrap = document.querySelector('.flash-wrap');
+                if (wrap) { wrap.style.opacity = '0'; wrap.style.transition = 'opacity 300ms'; }
+                setTimeout(function () { if (wrap) { wrap.remove(); } }, 300);
+            }, 5000);
+        </script>
     @endif
 
     @yield('content')

@@ -210,6 +210,9 @@ main { min-height: 60vh; }
     padding: 72px 0 0;
 }
 
+/* Halaman masuk/daftar: panel auth sudah setinggi layar, jadi tanpa jarak footer. */
+body.page-auth .site-footer { margin-top: 0; }
+
 .footer-grid {
     display: grid;
     grid-template-columns: 5fr 3fr 4fr;
@@ -570,6 +573,43 @@ main { min-height: 60vh; }
 }
 .alert--success { border-color: var(--success); color: var(--success); }
 .alert--error   { border-color: var(--danger);  color: var(--danger); }
+
+/* ---------- 14b. NOTIFIKASI MELAYANG ---------- */
+/* Notifikasi tampil di atas konten (fixed), tidak mendorong tata letak. */
+.flash-wrap {
+    position: fixed;
+    top: 88px;
+    right: 24px;
+    z-index: 120;
+    width: min(380px, calc(100vw - 48px));
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.flash {
+    pointer-events: auto;
+    padding: 14px 18px;
+    font-size: 14px;
+    line-height: 1.5;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left-width: 3px;
+    animation: flash-in 200ms ease-out;
+}
+
+.flash--success { border-left-color: var(--success); color: var(--success); }
+.flash--error   { border-left-color: var(--danger);  color: var(--danger); }
+
+@keyframes flash-in {
+    from { opacity: 0; transform: translateX(14px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 680px) {
+    .flash-wrap { top: 76px; right: 12px; left: 12px; width: auto; }
+}
 
 /* ---------- 15. EMPTY STATE ---------- */
 .empty {
@@ -1665,6 +1705,7 @@ main { min-height: 60vh; }
     justify-content: center;
     max-width: 480px;
     width: 100%;
+    margin-inline: auto;
 }
 
 /* ---------- 23. TENTANG KAMI ---------- */

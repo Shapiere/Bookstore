@@ -4,11 +4,6 @@
 
 @section('content')
 <div class="container" style="padding-top: 56px;">
-    <div class="section-opener" style="margin-bottom: 40px;">
-        <span class="mono-label">Pesanan Saya</span>
-        <span class="mono-label">{{ $orders->total() }} Pesanan</span>
-    </div>
-
     <h1 class="display-l" style="margin-bottom: 48px;">Riwayat Pesanan</h1>
 
     @if($orders->isEmpty())
