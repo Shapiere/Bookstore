@@ -18,7 +18,7 @@
             <tr>
                 <th style="width: 48px;">#</th>
                 <th>Nama Kategori</th>
-                <th>Slug</th>
+                <th>Kode URL</th>
                 <th class="num">Jumlah Buku</th>
                 <th style="width: 150px;">Aksi</th>
             </tr>

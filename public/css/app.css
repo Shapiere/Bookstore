@@ -2332,6 +2332,146 @@ main { min-height: 60vh; }
     .db-stat__n { font-size: 28px; }
 }
 
+/* ---------- 24c. DAFTAR PESANAN ADMIN ---------- */
+.ord-head { margin-bottom: 28px; }
+.ord-sub { font-size: 14px; color: var(--ink-muted); margin-top: 6px; }
+
+.ord-tabs {
+    display: flex;
+    gap: 26px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 20px;
+}
+
+.ord-tabs a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 10px;
+    font-size: 14px;
+    color: var(--ink-muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 140ms ease, border-color 140ms ease;
+}
+.ord-tabs a:hover { color: var(--ink); }
+.ord-tabs a.is-active {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+}
+
+.ord-tabs a span {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+}
+.ord-tabs a.is-active span { color: var(--ink); }
+
+.ord-search {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.ord-search input {
+    width: 100%;
+    max-width: 320px;
+    border: 1px solid var(--rule);
+    background: transparent;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: var(--font-sans);
+    transition: border-color 140ms ease;
+}
+.ord-search input:focus { outline: none; border-color: var(--ink); }
+.ord-search input::placeholder { color: var(--ink-muted); }
+
+.ord-search__reset {
+    font-size: 13px;
+    color: var(--ink-muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.ord-search__reset:hover { color: var(--ink); }
+
+/* tabel pesanan */
+.ord-table { width: 100%; }
+
+.ord-table thead th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    color: var(--ink-muted);
+    text-align: left;
+    padding: 10px 14px 10px 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    white-space: nowrap;
+}
+
+.ord-table tbody td {
+    padding: 14px 14px 14px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.ord-table .num {
+    text-align: right;
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+}
+
+.ord-table .code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.ord-cust { color: var(--ink); }
+.ord-mail { font-size: 12px; color: var(--ink-muted); }
+
+/* pembayaran */
+.ord-pay {
+    font-size: 13px;
+    font-style: italic;
+    white-space: nowrap;
+}
+.ord-pay.is-paid { color: var(--ink); }
+.ord-pay.is-unpaid { color: var(--ink-muted); }
+
+/* dot status */
+.ord-table .db-dots span.is-done { background: var(--success); }
+
+/* link detail */
+.ord-detail {
+    font-size: 13px;
+    color: var(--ink-muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+}
+.ord-detail:hover { color: var(--ink); }
+
+/* responsive */
+@media (max-width: 900px) {
+    .ord-tabs { gap: 18px; }
+    .ord-table thead th:nth-child(2),
+    .ord-table tbody td:nth-child(2) { display: none; }
+    .ord-table thead th:nth-child(4),
+    .ord-table tbody td:nth-child(4) { display: none; }
+}
+
+@media (max-width: 680px) {
+    .ord-tabs { gap: 14px; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 2px; }
+    .ord-tabs a { font-size: 13px; white-space: nowrap; }
+    .ord-search input { max-width: none; }
+    .ord-table .db-dots { display: none; }
+}
+
 /* ---------- 25. ERROR ---------- */
 .error-page { padding: 120px 0; text-align: center; }
 .error-code { font-family: var(--font-serif); font-size: clamp(96px, 18vw, 220px); line-height: .85; color: var(--rule); letter-spacing: -.04em; }

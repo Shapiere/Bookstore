@@ -11,7 +11,7 @@
             <li class="auth-benefit">
                 <span class="auth-benefit__num">01</span>
                 <div>
-                    <div class="auth-benefit__title">Katalog terkurasi</div>
+                    <div class="auth-benefit__title">Buku pilihan editor</div>
                     <p class="auth-benefit__desc">Ribuan judul pilihan, dari sastra sampai esai.</p>
                 </div>
             </li>

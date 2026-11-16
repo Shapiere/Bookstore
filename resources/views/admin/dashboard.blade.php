@@ -92,7 +92,7 @@
             <span class="mono-label">Buku Terlaris</span>
             <a href="{{ route('admin.books.index') }}" class="btn--quiet">Semua Buku</a>
         </div>
-        <p class="bs-note">Berdasarkan eksemplar terjual. Pesanan dibatalkan tidak dihitung.</p>
+        <p class="bs-note">Berdasarkan jumlah buku terjual. Pesanan dibatalkan tidak dihitung.</p>
 
         @forelse($topBooks as $book)
             <div class="bestseller-row">
@@ -102,7 +102,7 @@
                     <div class="bestseller-row__title">{{ Str::limit($book->title, 40) }}</div>
                     <div class="bestseller-row__meta">{{ $book->author }}</div>
                 </div>
-                <div class="bestseller-row__num">{{ (int) $book->sold }} eks.</div>
+                <div class="bestseller-row__num">{{ (int) $book->sold }} terjual</div>
             </div>
         @empty
             <p class="small muted" style="padding: 20px 0;">Belum ada data penjualan.</p>
