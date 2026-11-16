@@ -4,7 +4,7 @@
 
 @section('content')
 @php
-    // Empat langkah perjalanan pesanan: 1 Menunggu, 2 Diproses, 3 Dikirim, 4 Selesai.
+    // Empat langkah status pesanan berurutan.
     $flow = [
         'pending' => 'Menunggu',
         'processing' => 'Diproses',
@@ -48,11 +48,9 @@
 
     <div class="odx-split">
 
-        {{-- ================= KOLOM KIRI ================= --}}
+        {{-- Kolom kiri --}}
         <div class="odx-col">
 
-            {{-- Diberi garis atas hitam, sama seperti "Pembayaran" di kolom kanan,
-                 supaya kedua garis dan kedua judul berada di ketinggian yang sama. --}}
             <section class="odx-section odx-section--ruled" aria-labelledby="odx-buku">
                 <h2 class="odx-h2" id="odx-buku">Buku pesanan</h2>
                 <p class="odx-sub">{{ $bookCount }} buku</p>
@@ -151,7 +149,7 @@
 
         </div>
 
-        {{-- ================= KOLOM KANAN ================= --}}
+        {{-- Kolom kanan --}}
         <aside class="odx-col">
 
             <section class="odx-section odx-section--ruled" aria-labelledby="odx-bayar">

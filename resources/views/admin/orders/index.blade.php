@@ -8,7 +8,7 @@
     <p class="ord-sub">{{ $counts['all'] }} pesanan sepanjang waktu</p>
 </div>
 
-{{-- TAB STATUS --}}
+{{-- Tab status --}}
 <div class="ord-tabs" role="group" aria-label="Filter status">
     <a href="{{ route('admin.orders.index', array_filter(['q' => $keyword])) }}"
        @class(['is-active' => ! $status])>
@@ -22,7 +22,7 @@
     @endforeach
 </div>
 
-{{-- PENCARIAN --}}
+{{-- Pencarian --}}
 <form method="GET" class="ord-search">
     @if($status)
         <input type="hidden" name="status" value="{{ $status }}">

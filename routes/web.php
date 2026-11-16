@@ -16,11 +16,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentCallbackController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Halaman Publik
-|--------------------------------------------------------------------------
-*/
+// Halaman publik
 Route::get('/', [CatalogController::class, 'home'])->name('home');
 Route::get('/beranda/paling-dicari', [CatalogController::class, 'curation'])->name('home.curation');
 Route::get('/beranda/baru-masuk-rak', [CatalogController::class, 'latestBooks'])->name('home.latest');
@@ -30,11 +26,7 @@ Route::get('/tentang-kami', [PageController::class, 'about'])->name('about');
 Route::get('/kontak', [ContactController::class, 'show'])->name('contact.show');
 Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
 
-/*
-|--------------------------------------------------------------------------
-| Autentikasi
-|--------------------------------------------------------------------------
-*/
+// Autentikasi
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.store');
@@ -44,11 +36,7 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
-/*
-|--------------------------------------------------------------------------
-| Area User (perlu login)
-|--------------------------------------------------------------------------
-*/
+// Area user, perlu login
 Route::middleware('auth')->group(function () {
     // Keranjang
     Route::get('/keranjang', [CartController::class, 'index'])->name('cart.index');
@@ -66,20 +54,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/pesanan/{order}', [OrderController::class, 'show'])->name('orders.show');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Webhook pembayaran (tanpa CSRF, diverifikasi lewat signature)
-|--------------------------------------------------------------------------
-*/
+// Webhook pembayaran, tanpa CSRF, diverifikasi lewat signature
 Route::post('/payment/callback', [PaymentCallbackController::class, 'handle'])
     ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class])
     ->name('payment.callback');
 
-/*
-|--------------------------------------------------------------------------
-| Area Admin
-|--------------------------------------------------------------------------
-*/
+// Area admin
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

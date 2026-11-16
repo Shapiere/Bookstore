@@ -4,7 +4,7 @@
 @section('body_class', 'page-home')
 
 @section('content')
-{{-- HERO --}}
+{{-- Hero --}}
 <section class="hero">
     <div class="container hero__inner">
         <div class="hero__content">
@@ -39,14 +39,14 @@
     </div>
 </section>
 
-{{-- PALING DICARI --}}
+{{-- Paling dicari --}}
 <section class="cur" id="paling-dicari">
     <div class="container" data-cur-body>
         @include('partials.curation')
     </div>
 </section>
 
-{{-- BUKU TERBARU --}}
+{{-- Buku terbaru --}}
 <section class="section lot" id="buku-terbaru">
     <div class="container" data-lot-body>
         @include('partials.latest-books')

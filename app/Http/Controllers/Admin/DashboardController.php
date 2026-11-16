@@ -27,7 +27,7 @@ class DashboardController extends Controller
 
         $recentOrders = Order::with('user')->latest()->take(5)->get();
 
-        // Grafik penjualan 6 bulan terakhir
+        // Grafik penjualan enam bulan terakhir
         $salesRaw = Order::where('payment_status', 'paid')
             ->where('created_at', '>=', now()->subMonths(5)->startOfMonth())
             ->select(
@@ -47,7 +47,7 @@ class DashboardController extends Controller
             $salesData[] = (float) ($salesRaw[$key] ?? 0);
         }
 
-        // 5 buku terlaris — pesanan yang dibatalkan tidak dihitung
+        // Lima buku terlaris, pesanan dibatalkan tidak dihitung
         $topBooks = Book::select('books.id', 'books.title', 'books.author', 'books.price', 'books.cover_image')
             ->selectRaw('COALESCE(SUM(order_items.qty), 0) as sold')
             ->leftJoin('order_items', 'books.id', '=', 'order_items.book_id')

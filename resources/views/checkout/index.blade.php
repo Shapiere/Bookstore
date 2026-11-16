@@ -16,7 +16,7 @@
 
         <div class="cart-layout">
             <div>
-                {{-- 01 DATA PENERIMA --}}
+                {{-- Data penerima --}}
                 <div class="checkout-step">
                     <div class="checkout-step__head">
                         <span class="checkout-step__num">01</span>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                {{-- 02 METODE PEMBAYARAN --}}
+                {{-- Metode pembayaran --}}
                 <div class="checkout-step">
                     <div class="checkout-step__head">
                         <span class="checkout-step__num">02</span>

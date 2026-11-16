@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class PaymentCallbackController extends Controller
 {
-    /**
-     * Endpoint notifikasi (webhook) dari Midtrans.
-     */
+    // Webhook notifikasi pembayaran dari Midtrans.
     public function handle(Request $request, PaymentService $payment, OrderService $orders)
     {
         $payload = $request->all();

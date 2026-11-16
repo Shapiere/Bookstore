@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // ================= USERS =================
+        // Pengguna
         $admin = User::create([
             'name' => 'Administrator',
             'email' => 'admin@booknest.test',
@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
             'address' => 'Jl. Diponegoro No. 12, Surabaya',
         ]);
 
-        // ================= CATEGORIES =================
+        // Kategori
         $categoriesData = [
             ['name' => 'Fiksi', 'description' => 'Novel, cerpen, dan karya fiksi lainnya'],
             ['name' => 'Non-Fiksi', 'description' => 'Buku pengetahuan, biografi, dan esai'],
@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // ================= BOOKS =================
+        // Buku
         $booksData = [
             // Fiksi
             ['Fiksi', 'Laskar Pelangi', 'Andrea Hirata', 'Bentang Pustaka', 2005, 85000, 25],
@@ -130,10 +130,10 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // ================= SAMPLE ORDERS =================
-        // Dibuat tersebar dalam 6 bulan terakhir agar grafik penjualan terisi.
+        // Contoh pesanan
+        // Disebar dalam enam bulan terakhir agar grafik penjualan terisi.
         $orderPlan = [
-            // [userIndex, status, payment_status, items[bookIndex, qty], monthsAgo, dayOffset]
+            // Format: user, status, pembayaran, item, bulan lalu, selisih hari.
             [0, 'completed', 'paid', [[0, 2], [2, 1]], 5, 8],
             [1, 'completed', 'paid', [[8, 1]], 5, 20],
             [0, 'completed', 'paid', [[9, 1], [10, 2]], 4, 5],
@@ -158,7 +158,7 @@ class DatabaseSeeder extends Seeder
             $customer = $customers[$userIdx];
             $createdAt = now()->startOfMonth()->subMonths($monthsAgo)->addDays($day - 1);
 
-            // Jika tanggal melebihi hari ini pada bulan berjalan, kurangi.
+            // Tarik mundur bila tanggal melewati hari ini.
             if ($createdAt->isFuture()) {
                 $createdAt = now()->subDays(1);
             }

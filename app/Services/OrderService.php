@@ -14,12 +14,7 @@ class OrderService
     {
     }
 
-    /**
-     * Buat pesanan dari isi keranjang user.
-     *
-     * Seluruh proses dibungkus transaksi: jika satu langkah gagal,
-     * semua perubahan dibatalkan sehingga stok dan pesanan tetap konsisten.
-     */
+    // Buat pesanan dari keranjang dalam satu transaksi agar stok tetap konsisten.
     public function create(User $user, array $data): Order
     {
         return DB::transaction(function () use ($user, $data) {
@@ -47,7 +42,7 @@ class OrderService
             ]);
 
             foreach ($items as $item) {
-                // Kunci baris buku agar stok tidak bentrok saat ada pesanan bersamaan.
+                // Kunci baris buku agar stok tidak bentrok saat pesanan bersamaan.
                 $book = Book::lockForUpdate()->find($item->book_id);
 
                 if ($book->stock < $item->qty) {
@@ -71,9 +66,6 @@ class OrderService
         });
     }
 
-    /**
-     * Tandai pesanan sebagai lunas.
-     */
     public function markAsPaid(Order $order): void
     {
         $order->update([
@@ -82,9 +74,7 @@ class OrderService
         ]);
     }
 
-    /**
-     * Batalkan pesanan dan kembalikan stok buku.
-     */
+    // Batalkan pesanan sekaligus kembalikan stok.
     public function cancel(Order $order): void
     {
         DB::transaction(function () use ($order) {
@@ -98,9 +88,7 @@ class OrderService
         });
     }
 
-    /**
-     * Buat kode pesanan unik, contoh: INV-20261114-0001
-     */
+    // Kode pesanan harian, contoh INV-20261114-0001.
     private function generateCode(): string
     {
         $prefix = 'INV-' . now()->format('Ymd') . '-';

@@ -24,7 +24,7 @@ class OrderController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        // Jumlah per status untuk tab filter
+        // Jumlah pesanan per status untuk tab filter
         $counts = [
             'all' => Order::count(),
             'pending' => Order::where('status', 'pending')->count(),
@@ -44,16 +44,14 @@ class OrderController extends Controller
         return view('admin.orders.show', compact('order'));
     }
 
-    /**
-     * Perbarui status pesanan.
-     */
+    // Ubah status pesanan.
     public function updateStatus(Request $request, Order $order, OrderService $orders)
     {
         $data = $request->validate([
             'status' => ['required', 'in:pending,processing,shipped,completed,cancelled'],
         ]);
 
-        // Saat pesanan dibatalkan, stok buku dikembalikan.
+        // Pesanan dibatalkan, stok buku dikembalikan.
         if ($data['status'] === 'cancelled' && $order->status !== 'cancelled') {
             $orders->cancel($order);
 
@@ -65,9 +63,7 @@ class OrderController extends Controller
         return back()->with('success', 'Status pesanan diperbarui menjadi ' . $order->statusLabel() . '.');
     }
 
-    /**
-     * Verifikasi pembayaran (khusus COD: dibayar saat buku diterima).
-     */
+    // Tandai lunas, khusus COD yang dibayar saat buku diterima.
     public function verifyPayment(Order $order)
     {
         if ($order->payment_status === 'paid') {

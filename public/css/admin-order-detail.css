@@ -1,12 +1,7 @@
-/* ==========================================================================
-   Detail Pesanan — Panel Admin
-   Dimuat hanya di halaman ini lewat @push('styles').
-   Tanpa bayangan, tanpa gradien, tanpa sudut membulat.
-   ========================================================================== */
-
+/* Admin - Detail Pesanan */
 .odx-page { width: 100%; max-width: none; }
 
-/* --- jalan kembali ke daftar --- */
+/* jalan kembali ke daftar */
 .odx-back {
     display: inline-block;
     color: var(--ink-muted);
@@ -16,7 +11,7 @@
 }
 .odx-back:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-/* --- kepala halaman --- */
+/* kepala halaman */
 .odx-head { margin-top: 14px; }
 
 .odx-code {
@@ -34,16 +29,14 @@
     margin-top: 10px;
 }
 
-/* Garis pembuka: hitam 1px, penuh lebar (melintasi kedua kolom).
-   Garis ini adalah pemisah antara kepala halaman dan isi; grid dua kolom
-   baru dimulai sesudahnya, jadi kedua judul kolom berangkat dari titik sama. */
+/* garis pembuka, melintasi kedua kolom */
 .odx-rule {
     border-top: 0;
     width: 100%;
     margin: 30px 0 0;
 }
 
-/* --- dua kolom: kiri detail pesanan, kanan ringkasan --- */
+/* dua kolom: kiri detail pesanan, kanan ringkasan */
 .odx-split {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 40%;
@@ -53,7 +46,7 @@
 
 .odx-col { min-width: 0; }
 
-/* --- penanda bagian --- */
+/* penanda bagian */
 .odx-section + .odx-section { margin-top: 56px; }
 
 .odx-h2 {
@@ -62,14 +55,12 @@
     line-height: 1.25;
     letter-spacing: -.01em;
     font-weight: 600;
-    /* Tanpa margin atas: judul kiri dan kanan mulai tepat di bawah garisnya. */
+    /* tanpa margin atas agar judul sejajar */
     margin: 0;
     padding: 0;
 }
 
-/* Bagian bergaris atas hitam. Bagian PERTAMA pada kedua kolom memakai kelas
-   ini (border 1px + padding 16px yang identik), sehingga garis atas dan judul
-   "Buku pesanan" sejajar persis dengan "Pembayaran". */
+/* bagian bergaris atas, dipakai kedua kolom agar sejajar */
 .odx-section--ruled {
     border-top: 1px solid var(--ink);
     padding-top: 16px;
@@ -82,8 +73,8 @@
     margin-top: 6px;
 }
 
-/* --- tabel buku pesanan --- */
-.odx-items { margin-top: 24px; }
+/* tabel buku pesanan */
+
 
 .odx-table { width: 100%; }
 
@@ -169,7 +160,7 @@
     margin-top: 2px;
 }
 
-/* --- ringkasan nominal --- */
+/* ringkasan nominal */
 .odx-totals { margin-top: 20px; }
 
 .odx-totals__line {
@@ -216,7 +207,7 @@
     text-align: right;
 }
 
-/* --- bar status pesanan --- */
+/* bar status pesanan */
 .odx-bar {
     display: flex;
     gap: 6px;
@@ -265,7 +256,7 @@
 
 .odx-note--status { margin-top: 16px; }
 
-/* --- daftar keterangan (pembayaran, pengiriman) --- */
+/* daftar keterangan (pembayaran, pengiriman) */
 .odx-facts { margin-top: 8px; }
 
 .odx-fact {
@@ -308,7 +299,7 @@
 
 .odx-pay-act { margin-top: 24px; }
 
-/* --- responsif --- */
+/* responsif */
 /* Cangkang admin (shell/sidebar/main/nav) sudah ditangani di app.css. */
 
 @media (max-width: 1200px) {

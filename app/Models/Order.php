@@ -33,18 +33,6 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function statusBadgeClass(): string
-    {
-        return match ($this->status) {
-            'pending' => 'warning',
-            'processing' => 'info',
-            'shipped' => 'primary',
-            'completed' => 'success',
-            'cancelled' => 'danger',
-            default => 'secondary',
-        };
-    }
-
     public function statusLabel(): string
     {
         return match ($this->status) {

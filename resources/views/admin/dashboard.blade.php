@@ -15,7 +15,7 @@
         : 'Rp ' . number_format($totalSales / 1000, 0, ',', '.') . ' ribu';
 @endphp
 
-{{-- JUDUL --}}
+{{-- Judul --}}
 <div class="db-head">
     <h1 class="db-title">Dashboard</h1>
     <p class="db-sub">
@@ -26,7 +26,7 @@
     </p>
 </div>
 
-{{-- TIGA ANGKA PENTING --}}
+{{-- Tiga angka penting --}}
 <div class="db-stats">
     <div class="db-stat">
         <div class="db-stat__n">{{ $stats['pending'] }}</div>
@@ -42,9 +42,9 @@
     </div>
 </div>
 
-{{-- GRAFIK + TERLARIS --}}
+{{-- Grafik dan terlaris --}}
 <div class="dash-grid">
-    {{-- CHART --}}
+    {{-- Grafik --}}
     <div class="chart-box">
         <h2 class="db-section-title">Pendapatan 6 bulan terakhir</h2>
         <p class="db-section-desc">
@@ -86,7 +86,7 @@
         </svg>
     </div>
 
-    {{-- BESTSELLER --}}
+    {{-- Terlaris --}}
     <div class="admin-panel">
         <div class="admin-panel__head">
             <span class="mono-label">Buku Terlaris</span>
@@ -110,7 +110,7 @@
     </div>
 </div>
 
-{{-- PESANAN TERBARU --}}
+{{-- Pesanan terbaru --}}
 <div class="db-orders">
     <div class="db-section-head">
         <h2 class="db-section-title">Pesanan terbaru</h2>

@@ -12,7 +12,7 @@
     </div>
 
     <div class="detail-layout">
-        {{-- COVER --}}
+        {{-- Sampul --}}
         <div class="detail-cover">
             <img src="{{ asset('storage/'.$book->cover_image) }}" alt="Sampul {{ $book->title }}" class="book-cover">
 
@@ -33,7 +33,7 @@
             </dl>
         </div>
 
-        {{-- INFO --}}
+        {{-- Info --}}
         <div>
             <span class="mono-label">{{ $book->category->name }}</span>
             <h1 class="display-l" style="margin: 12px 0 10px;">{{ $book->title }}</h1>

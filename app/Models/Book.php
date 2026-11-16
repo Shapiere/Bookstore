@@ -31,11 +31,6 @@ class Book extends Model
         return $this->hasMany(Cart::class);
     }
 
-    public function orderItems(): HasMany
-    {
-        return $this->hasMany(OrderItem::class);
-    }
-
     public function scopeActive($query)
     {
         return $query->where('is_active', true);

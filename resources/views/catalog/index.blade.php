@@ -10,7 +10,7 @@
     </div>
 
     <div class="cat-layout">
-        {{-- SIDEBAR --}}
+        {{-- Sidebar --}}
         <aside class="cat-side">
             <form action="{{ route('catalog.index') }}" method="GET" class="cat-side__block">
                 <label class="cat-side__label" for="cat-q">Cari</label>
@@ -43,7 +43,7 @@
             </div>
         </aside>
 
-        {{-- HASIL --}}
+        {{-- Hasil --}}
         <div class="cat-main">
             <div class="cat-toolbar">
                 <span class="cat-toolbar__count">{{ $books->total() }} judul</span>

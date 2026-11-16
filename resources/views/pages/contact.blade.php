@@ -12,7 +12,7 @@
     </p>
 
     <div class="ct-layout">
-        {{-- FORM --}}
+        {{-- Form --}}
         <form action="{{ route('contact.store') }}" method="POST" class="ct-form">
             @csrf
 
@@ -54,7 +54,7 @@
             </div>
         </form>
 
-        {{-- INFO --}}
+        {{-- Info --}}
         <aside class="ct-info">
             <h2 class="ct-info__title">Informasi kontak</h2>
 

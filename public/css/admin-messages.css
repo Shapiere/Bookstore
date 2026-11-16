@@ -1,13 +1,8 @@
-/* ==========================================================================
-   Pesan Masuk — Panel Admin
-   Dimuat hanya di halaman pesan lewat @push('styles').
-   Tanpa bayangan, tanpa gradien, tanpa sudut membulat.
-   ========================================================================== */
-
-/* halaman pesan mengisi penuh lebar area konten admin-main */
+/* Admin - Pesan */
+/* daftar pesan mengisi penuh lebar konten */
 .msg-page { width: 100%; max-width: none; }
 
-/* --- kepala halaman --- */
+/* kepala halaman */
 .msg-head { padding: 4px 14px 22px; }
 
 .msg-title {
@@ -33,7 +28,7 @@
     margin-right: 4px;
 }
 
-/* --- daftar pesan --- */
+/* daftar pesan */
 .msg-list {
     width: 100%;
     border-top: 1px solid var(--ink);
@@ -140,9 +135,7 @@
     border: 0;
 }
 
-/* ==========================================================================
-   Halaman baca pesan (detail)
-   ========================================================================== */
+/* Halaman baca pesan */
 
 .msg-thread {
     max-width: 760px;
@@ -229,7 +222,7 @@
 }
 .msg-delete:hover { color: var(--danger); border-bottom-color: var(--danger); }
 
-/* --- responsif --- */
+/* responsif */
 @media (max-width: 1100px) {
     .msg-row { grid-template-columns: 200px minmax(0, 1fr) auto; }
 }

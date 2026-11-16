@@ -1,9 +1,5 @@
-/* ==========================================================================
-   BookStore — Design System
-   Arah: toko buku editorial. Tipografi-led, garis rambut, tanpa bayangan.
-   ========================================================================== */
-
-/* ---------- 1. TOKENS ---------- */
+/* BookStore - Design System */
+/* 1. TOKENS */
 :root {
     --paper:      #FAF6EF;
     --paper-deep: #F3EDE0;
@@ -24,7 +20,7 @@
     --pad:   40px;
 }
 
-/* ---------- 2. RESET ---------- */
+/* 2. RESET */
 *, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; }
@@ -54,7 +50,7 @@ table { border-collapse: collapse; width: 100%; }
     outline-offset: 3px;
 }
 
-/* ---------- 3. TIPOGRAFI ---------- */
+/* 3. TIPOGRAFI */
 
 .display-l {
     font-family: var(--font-serif);
@@ -102,7 +98,7 @@ table { border-collapse: collapse; width: 100%; }
 }
 .link:hover { border-bottom-color: var(--accent); color: var(--accent-dk); }
 
-/* ---------- 4. LAYOUT ---------- */
+/* 4. LAYOUT */
 .container {
     max-width: var(--max-w);
     margin: 0 auto;
@@ -110,8 +106,6 @@ table { border-collapse: collapse; width: 100%; }
 }
 
 .section { padding: 96px 0; }
-.section--deep { background: var(--paper-deep); }
-.section--tight { padding: 48px 0; }
 
 .section-opener {
     border-top: 1px solid var(--ink);
@@ -137,7 +131,7 @@ main { min-height: 60vh; }
 
 .rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 
-/* ---------- 5. HEADER ---------- */
+/* 5. HEADER */
 .site-header {
     position: sticky;
     top: 0;
@@ -202,7 +196,7 @@ main { min-height: 60vh; }
     color: var(--ink);
 }
 
-/* ---------- 6. FOOTER ---------- */
+/* 6. FOOTER */
 .site-footer {
     background: var(--ink);
     color: var(--paper);
@@ -210,7 +204,7 @@ main { min-height: 60vh; }
     padding: 72px 0 0;
 }
 
-/* Halaman masuk/daftar: panel auth sudah setinggi layar, jadi tanpa jarak footer. */
+/* halaman masuk/daftar tanpa jarak footer */
 body.page-auth .site-footer { margin-top: 0; }
 
 .footer-grid {
@@ -255,7 +249,7 @@ body.page-auth .site-footer { margin-top: 0; }
     color: rgba(250, 246, 239, .45);
 }
 
-/* ---------- 7. BUTTONS ---------- */
+/* 7. BUTTONS */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -303,7 +297,7 @@ body.page-auth .site-footer { margin-top: 0; }
 .btn--block { width: 100%; }
 .btn[disabled] { opacity: .4; cursor: not-allowed; }
 
-/* ---------- 8. STATUS BADGE ---------- */
+/* 8. STATUS BADGE */
 .status {
     display: inline-block;
     font-family: var(--font-mono);
@@ -322,13 +316,12 @@ body.page-auth .site-footer { margin-top: 0; }
 .status--completed  { color: var(--success); }
 .status--cancelled  { color: var(--danger); text-decoration: line-through; opacity: .7; }
 
-/* Status pembayaran: outlined juga, namun garisnya lebih tegas / putus-putus
-   agar tidak tertukar dengan status pesanan. */
+/* status pembayaran, dibedakan dengan garis putus-putus */
 .status--paid       { color: var(--success); border-width: 2px; padding: 2px 8px; font-weight: 600; }
 .status--unpaid     { color: var(--warning); border-style: dashed; }
 .status--failed     { color: var(--danger);  border-style: dashed; }
 
-/* ---------- 9. BOOK ---------- */
+/* 9. BOOK */
 .book-cover {
     display: block;
     width: 100%;
@@ -374,8 +367,8 @@ body.page-auth .site-footer { margin-top: 0; }
     gap: 40px 32px;
 }
 
-/* ---------- 10. CATALOGUE ROW ---------- */
-/* ---------- 11. TABEL DATA ---------- */
+/* 10. CATALOGUE ROW */
+/* 11. TABEL DATA */
 .data-table { width: 100%; }
 
 .data-table thead th {
@@ -453,7 +446,7 @@ body.page-auth .site-footer { margin-top: 0; }
 
 .row-actions button { font: inherit; color: inherit; }
 
-/* ---------- 12. FORM ---------- */
+/* 12. FORM */
 .field { margin-bottom: 24px; }
 
 .field__label {
@@ -523,7 +516,7 @@ body.page-auth .site-footer { margin-top: 0; }
 
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
 
-/* ---------- 13. PANEL ---------- */
+/* 13. PANEL */
 .panel {
     border: 1px solid var(--rule);
     padding: 32px;
@@ -563,7 +556,7 @@ body.page-auth .site-footer { margin-top: 0; }
 .summary-total__label { font-family: var(--font-serif); font-size: 18px; }
 .summary-total__value { font-family: var(--font-mono); font-size: 24px; color: var(--accent); }
 
-/* ---------- 14. ALERT ---------- */
+/* 14. ALERT */
 .alert {
     padding: 14px 18px;
     border-left: 2px solid;
@@ -574,7 +567,7 @@ body.page-auth .site-footer { margin-top: 0; }
 .alert--success { border-color: var(--success); color: var(--success); }
 .alert--error   { border-color: var(--danger);  color: var(--danger); }
 
-/* ---------- 14b. NOTIFIKASI MELAYANG ---------- */
+/* 14b. NOTIFIKASI MELAYANG */
 /* Notifikasi tampil di atas konten (fixed), tidak mendorong tata letak. */
 .flash-wrap {
     position: fixed;
@@ -611,7 +604,7 @@ body.page-auth .site-footer { margin-top: 0; }
     .flash-wrap { top: 76px; right: 12px; left: 12px; width: auto; }
 }
 
-/* ---------- 15. EMPTY STATE ---------- */
+/* 15. EMPTY STATE */
 .empty {
     padding: 80px 0;
     text-align: center;
@@ -621,7 +614,7 @@ body.page-auth .site-footer { margin-top: 0; }
 .empty__title { font-family: var(--font-serif); font-size: clamp(24px, 3vw, 34px); letter-spacing: -.015em; margin-bottom: 10px; }
 .empty__desc { color: var(--ink-muted); margin-bottom: 24px; }
 
-/* ---------- 16. PAGINATION ---------- */
+/* 16. PAGINATION */
 .pagination { display: flex; gap: 6px; align-items: center; padding-top: 40px; }
 .pagination a, .pagination span {
     font-family: var(--font-mono);
@@ -634,8 +627,8 @@ body.page-auth .site-footer { margin-top: 0; }
 .pagination .is-current { color: var(--accent); border-bottom-color: var(--accent); }
 .pagination .is-disabled { opacity: .35; }
 
-/* ---------- 17. HOME ---------- */
-/* --- HERO (full bleed) --- */
+/* 17. HOME */
+/* HERO (full bleed) */
 .hero {
     background: var(--ink);
     color: var(--paper);
@@ -748,7 +741,7 @@ body.page-auth .site-footer { margin-top: 0; }
 .fan__item:hover img { border-color: rgba(250, 246, 239, .45); }
 .fan__item:hover { z-index: 3; }
 
-/* --- Tombol di atas bidang gelap --- */
+/* Tombol di atas bidang gelap */
 .btn--invert { background: var(--paper); color: var(--ink); }
 .btn--invert:hover { background: #ffffff; }
 
@@ -758,7 +751,7 @@ body.page-auth .site-footer { margin-top: 0; }
 }
 .btn--ghost-light:hover { background: rgba(250, 246, 239, .1); border-color: var(--paper); }
 
-/* --- Header gelap khusus beranda --- */
+/* Header gelap khusus beranda */
 .page-home .site-header {
     background: var(--ink);
     border-bottom-color: rgba(250, 246, 239, .12);
@@ -827,7 +820,7 @@ body.page-auth .site-footer { margin-top: 0; }
     align-items: start;
 }
 
-/* --- buku unggulan --- */
+/* buku unggulan */
 .cur-feat {
     display: grid;
     grid-template-columns: minmax(140px, 200px) minmax(0, 1fr);
@@ -894,7 +887,7 @@ body.page-auth .site-footer { margin-top: 0; }
     flex-wrap: wrap;
 }
 
-/* --- daftar pilihan lainnya --- */
+/* daftar pilihan lainnya */
 .cur-list__head {
     font-family: var(--font-mono);
     font-size: 10px;
@@ -957,7 +950,7 @@ body.page-auth .site-footer { margin-top: 0; }
 }
 .cur-list__more:hover { border-bottom-color: var(--accent); }
 
-/* --- BARU MASUK RAK --- */
+/* BARU MASUK RAK */
 .lot__head {
     display: flex;
     justify-content: space-between;
@@ -1017,8 +1010,8 @@ body.page-auth .site-footer { margin-top: 0; }
 
 
 
-/* ---------- 18. CATALOG ---------- */
-/* --- KATALOG --- */
+/* 18. CATALOG */
+/* KATALOG */
 .cat-page { padding-top: 48px; }
 
 .cat-head { margin-bottom: 40px; }
@@ -1044,7 +1037,7 @@ body.page-auth .site-footer { margin-top: 0; }
     align-items: start;
 }
 
-/* --- sidebar --- */
+/* sidebar */
 .cat-side {
     position: sticky;
     top: 92px;
@@ -1099,7 +1092,7 @@ body.page-auth .site-footer { margin-top: 0; }
     color: var(--ink-muted);
 }
 
-/* --- toolbar --- */
+/* toolbar */
 .cat-toolbar {
     display: flex;
     justify-content: space-between;
@@ -1161,7 +1154,7 @@ body.page-auth .site-footer { margin-top: 0; }
     cursor: pointer;
 }
 
-/* --- daftar buku --- */
+/* daftar buku */
 .cat-row {
     display: grid;
     grid-template-columns: 56px minmax(0, 1fr) 90px 130px 96px;
@@ -1256,7 +1249,7 @@ body.page-auth .site-footer { margin-top: 0; }
 }
 .cat-add.is-out:hover { background: transparent; color: var(--ink-muted); }
 
-/* ---------- 19. DETAIL ---------- */
+/* 19. DETAIL */
 .detail-layout {
     display: grid;
     grid-template-columns: 5fr 7fr;
@@ -1330,7 +1323,7 @@ body.page-auth .site-footer { margin-top: 0; }
     gap: 24px;
 }
 
-/* ---------- 20. KERANJANG / CHECKOUT ---------- */
+/* 20. KERANJANG / CHECKOUT */
 .crt-page { padding-top: 64px; }
 
 .crt-title {
@@ -1348,7 +1341,7 @@ body.page-auth .site-footer { margin-top: 0; }
     margin-bottom: 40px;
 }
 
-/* --- kondisi kosong --- */
+/* kondisi kosong */
 .crt-empty {
     padding: 8px 0 56px;
     border-bottom: 1px solid var(--rule);
@@ -1398,7 +1391,7 @@ body.page-auth .site-footer { margin-top: 0; }
 .crt-add.is-out { border-color: var(--rule); color: var(--ink-muted); opacity: .55; cursor: not-allowed; }
 .crt-add.is-out:hover { background: transparent; color: var(--ink-muted); }
 
-/* --- kondisi ada isi --- */
+/* kondisi ada isi */
 .crt-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 400px;
@@ -1512,7 +1505,7 @@ body.page-auth .site-footer { margin-top: 0; }
 }
 .crt-back:hover { color: var(--accent); }
 
-/* --- panel ringkasan --- */
+/* panel ringkasan */
 .crt-side {
     border: 1px solid var(--rule);
     padding: 32px 28px;
@@ -1602,7 +1595,7 @@ body.page-auth .site-footer { margin-top: 0; }
 
 .pay-option input { position: absolute; opacity: 0; pointer-events: none; }
 
-/* ---------- 21. SUCCESS ---------- */
+/* 21. SUCCESS */
 .success-wrap { max-width: 860px; padding: 64px 0; }
 .order-code {
     font-family: var(--font-mono);
@@ -1635,7 +1628,7 @@ body.page-auth .site-footer { margin-top: 0; }
     color: var(--accent);
 }
 
-/* ---------- 22. AUTH ---------- */
+/* 22. AUTH */
 .auth-split {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1708,7 +1701,7 @@ body.page-auth .site-footer { margin-top: 0; }
     margin-inline: auto;
 }
 
-/* ---------- 23. TENTANG KAMI ---------- */
+/* 23. TENTANG KAMI */
 .ab-page { padding-top: 64px; }
 
 .ab-title {
@@ -1761,7 +1754,7 @@ body.page-auth .site-footer { margin-top: 0; }
 
 /* Responsive */
 
-/* ---------- 23b. KONTAK ---------- */
+/* 23b. KONTAK */
 .ct-page { padding-top: 64px; }
 
 .ct-title {
@@ -1883,7 +1876,7 @@ body.page-auth .site-footer { margin-top: 0; }
 
 /* Responsive */
 
-/* ---------- 24. ADMIN SHELL ---------- */
+/* 24. ADMIN SHELL */
 .admin-shell {
     display: grid;
     grid-template-columns: 248px minmax(0, 1fr);
@@ -2028,7 +2021,7 @@ body.page-auth .site-footer { margin-top: 0; }
 
 .detail-split { display: grid; grid-template-columns: 7fr 5fr; gap: 56px; align-items: start; }
 
-/* ---------- 24b. DASHBOARD ADMIN ---------- */
+/* 24b. DASHBOARD ADMIN */
 .db-head { margin-bottom: 32px; }
 
 .db-title {
@@ -2181,7 +2174,7 @@ body.page-auth .site-footer { margin-top: 0; }
 
 /* responsive dashboard */
 
-/* ---------- 24c. DAFTAR PESANAN ADMIN ---------- */
+/* 24c. DAFTAR PESANAN ADMIN */
 .ord-head { margin-bottom: 28px; }
 .ord-sub { font-size: 14px; color: var(--ink-muted); margin-top: 6px; }
 
@@ -2307,17 +2300,17 @@ body.page-auth .site-footer { margin-top: 0; }
 
 /* responsive */
 
-/* ---------- 25. ERROR ---------- */
+/* 25. ERROR */
 .error-page { padding: 120px 0; text-align: center; }
 .error-code { font-family: var(--font-serif); font-size: clamp(96px, 18vw, 220px); line-height: .85; color: var(--rule); letter-spacing: -.04em; }
 
-/* ---------- 26. RESPONSIVE ---------- */
+/* 26. RESPONSIVE */
 
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 
-/* ---------- 26. RESPONSIVE ---------- */
+/* 26. RESPONSIVE */
 /* Dikelompokkan per breakpoint, urut dari layar terlebar ke tersempit. */
 
 @media (max-width: 1080px) {
@@ -2440,7 +2433,6 @@ body.page-auth .site-footer { margin-top: 0; }
 
     :root { --pad: 20px; }
     .section { padding: 64px 0; }
-    .section--tight { padding: 36px 0; }
     .book-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 18px; }
     .related-strip { grid-template-columns: repeat(2, 1fr); }
     .cat-row { grid-template-columns: 44px minmax(0, 1fr) 80px; gap: 12px; padding: 16px 0; }
@@ -2462,7 +2454,6 @@ body.page-auth .site-footer { margin-top: 0; }
     .site-nav a { font-size: 13px; }
     .footer-grid { grid-template-columns: 1fr; }
     .field-row { grid-template-columns: 1fr; }
-    .two-col-text { columns: 1; }
     .filter-bar { gap: 12px; }
     .bestseller-row { grid-template-columns: 28px 40px minmax(0, 1fr); }
     .bestseller-row__num { display: none; }
@@ -2471,5 +2462,4 @@ body.page-auth .site-footer { margin-top: 0; }
     .cur-row { grid-template-columns: 48px minmax(0, 1fr); gap: 14px; }
     .cur-row__price { grid-column: 2; }
     .ab-page { padding-top: 32px; }
-    .ab-principle { grid-template-columns: 36px minmax(0, 1fr); gap: 14px; }
 }

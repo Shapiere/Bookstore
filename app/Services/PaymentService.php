@@ -7,12 +7,7 @@ use Illuminate\Support\Facades\Log;
 
 class PaymentService
 {
-    /**
-     * Buat Snap token untuk pembayaran online.
-     *
-     * Mengembalikan null jika library Midtrans belum terpasang
-     * atau kredensial belum dikonfigurasi, sehingga alur COD tetap berjalan.
-     */
+    // Kembalikan null bila library atau kredensial belum siap, agar COD tetap jalan.
     public function createSnapToken(Order $order): ?string
     {
         if (! class_exists(\Midtrans\Snap::class)) {
@@ -59,9 +54,7 @@ class PaymentService
         }
     }
 
-    /**
-     * Verifikasi signature notifikasi Midtrans.
-     */
+    // Cocokkan signature notifikasi Midtrans dengan server key.
     public function isValidSignature(array $payload): bool
     {
         $serverKey = config('midtrans.server_key');

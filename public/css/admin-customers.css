@@ -1,11 +1,5 @@
-/* ==========================================================================
-   ADMIN - PELANGGAN (daftar + detail)
-   Dimuat hanya oleh resources/views/admin/users/index.blade.php
-   dan resources/views/admin/users/show.blade.php
-   Aturan: sudut 0, tanpa bayangan, tanpa gradien.
-   ========================================================================== */
-
-/* ---------- 1. KEPALA HALAMAN ---------- */
+/* Admin - Pelanggan */
+/* 1. KEPALA HALAMAN */
 .cus-head { margin-bottom: 4px; }
 
 .cus-title {
@@ -47,7 +41,7 @@
     margin: 34px 0 14px;
 }
 
-/* ---------- 2. PENCARIAN ---------- */
+/* 2. PENCARIAN */
 .cus-search {
     display: flex;
     align-items: center;
@@ -81,7 +75,7 @@
 }
 .cus-search__reset:hover { color: var(--ink); }
 
-/* ---------- 3. TABEL ---------- */
+/* 3. TABEL */
 .cus-table { width: 100%; }
 
 .cus-table thead th {
@@ -152,9 +146,8 @@
 }
 .cus-detail:hover { color: var(--ink); }
 
-/* ---------- 3b. KOLOM TABEL DAFTAR ---------- */
-/* Lebar tetap + jarak antar kolom yang konsisten, supaya judul dan isi
-   tidak berdempetan dan kolom aksi tidak menempel tepi kanan. */
+/* 3b. KOLOM TABEL DAFTAR */
+/* lebar tetap dan jarak antar kolom */
 .cus-table--list thead th,
 .cus-table--list tbody td {
     padding-left: 32px;
@@ -183,7 +176,7 @@
     color: var(--ink-muted);
 }
 
-/* ---------- 4. TATA LETAK DETAIL ---------- */
+/* 4. TATA LETAK DETAIL */
 .cus-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.66fr);
@@ -222,7 +215,7 @@
 /* tahap selesai: batang hijau */
 .cus-table .db-dots span.is-done { background: var(--success); }
 
-/* ---------- 5. PROFIL ---------- */
+/* 5. PROFIL */
 /* Tanpa garis atas: header Profil sejajar dengan header Riwayat pesanan. */
 .cus-profile {
     padding-top: 0;
@@ -294,7 +287,7 @@
 }
 .cus-mailbtn:hover { background: var(--ink); color: var(--paper); }
 
-/* ---------- 6. RESPONSIF ---------- */
+/* 6. RESPONSIF */
 @media (max-width: 1280px) {
     /* Tabel menyempit: lebarkan ruang untuk kolom Nama, sembunyikan "Terdaftar". */
     .cus-table--list thead th,

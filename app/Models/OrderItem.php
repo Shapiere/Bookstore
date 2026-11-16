@@ -17,11 +17,6 @@ class OrderItem extends Model
         ];
     }
 
-    public function order(): BelongsTo
-    {
-        return $this->belongsTo(Order::class);
-    }
-
     public function book(): BelongsTo
     {
         return $this->belongsTo(Book::class);

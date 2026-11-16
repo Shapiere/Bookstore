@@ -4,13 +4,13 @@
 
 @section('content')
 <div class="container ab-page">
-    {{-- JUDUL --}}
+    {{-- Judul --}}
     <h1 class="ab-title">
         Merawat kebiasaan membaca<br>
         <span class="em">di tengah bising digital.</span>
     </h1>
 
-    {{-- TIGA KOLOM --}}
+    {{-- Tiga kolom --}}
     <div class="ab-cols">
         <article class="ab-col">
             <h2 class="ab-col__title">Siapa kami</h2>

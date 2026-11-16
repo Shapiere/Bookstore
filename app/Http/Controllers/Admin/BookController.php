@@ -90,9 +90,7 @@ class BookController extends Controller
             ->with('success', 'Buku berhasil dihapus.');
     }
 
-    /**
-     * Buat slug unik. Jika sudah dipakai, tambahkan akhiran angka.
-     */
+    // Slug unik, diberi akhiran angka bila sudah dipakai.
     private function uniqueSlug(string $title, ?int $ignoreId = null): string
     {
         $base = Str::slug($title);

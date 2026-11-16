@@ -13,7 +13,7 @@ class CatalogController extends Controller
         $categories = Category::withCount('books')->get();
         $latest = Book::with('category')->active()->latest()->take(8)->get();
 
-        // Pilihan editor — bisa difilter lewat tab kategori (?pilih=slug)
+        // Pilihan editor, bisa difilter tab kategori lewat ?pilih=slug
         $activeSlug = $request->query('pilih');
 
         $curation = Book::with('category')
@@ -30,7 +30,7 @@ class CatalogController extends Controller
         $others = $curation->slice(1)->values();
         $activeCategory = $activeSlug ? $categories->firstWhere('slug', $activeSlug) : null;
 
-        // Rak buku terbaru — bisa difilter lewat tab kategori (?rak=slug)
+        // Rak buku terbaru, bisa difilter tab kategori lewat ?rak=slug
         $latestSlug = $request->query('rak');
         $latestCategory = $latestSlug ? $categories->firstWhere('slug', $latestSlug) : null;
 
@@ -47,9 +47,7 @@ class CatalogController extends Controller
         ));
     }
 
-    /**
-     * Potongan HTML section "Baru masuk rak" untuk pemuatan tanpa reload.
-     */
+    // Potongan HTML rak buku terbaru untuk pemuatan tanpa reload.
     public function latestBooks(Request $request)
     {
         $categories = Category::withCount('books')->get();
@@ -68,9 +66,7 @@ class CatalogController extends Controller
             ->header('Cache-Control', 'no-store');
     }
 
-    /**
-     * Potongan HTML section "Paling dicari" untuk pemuatan tanpa reload.
-     */
+    // Potongan HTML paling dicari untuk pemuatan tanpa reload.
     public function curation(Request $request)
     {
         $categories = Category::withCount('books')->get();

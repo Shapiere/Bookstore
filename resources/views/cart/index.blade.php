@@ -7,7 +7,7 @@
     <h1 class="crt-title">Keranjang belanja</h1>
 
     @if($items->isEmpty())
-        {{-- ===== KONDISI KOSONG ===== --}}
+        {{-- Kondisi kosong --}}
         <p class="crt-sub">Keranjang Anda masih kosong.</p>
 
         <div class="crt-empty">
@@ -59,7 +59,7 @@
         @endif
 
     @else
-        {{-- ===== KONDISI ADA ISI ===== --}}
+        {{-- Kondisi ada isi --}}
         <p class="crt-sub">{{ $items->count() }} judul, {{ $totalQty }} buku</p>
 
         <div class="crt-layout">
