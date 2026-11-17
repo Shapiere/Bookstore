@@ -19,6 +19,13 @@ return [
     'is_production' => env('MIDTRANS_IS_PRODUCTION', false),
 
     /*
+    | Mode simulasi: pembayaran online dijalankan tanpa memanggil API Midtrans.
+    | Dipakai saat akun Midtrans belum mengaktifkan metode pembayaran.
+    */
+
+    'mock' => env('MIDTRANS_MOCK', true),
+
+    /*
     | URL script Snap yang dimuat di halaman pembayaran.
     */
 

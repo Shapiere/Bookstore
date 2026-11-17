@@ -46,6 +46,19 @@
                     Bayar Sekarang
                 </button>
             </div>
+        @elseif(config('midtrans.mock'))
+            <div class="instruction">
+                <div class="mono-label">Pembayaran Online &mdash; Simulasi</div>
+                <div class="title">Selesaikan pembayaran Anda</div>
+                <p class="small muted">
+                    Pembayaran online disimulasikan karena akun Midtrans belum mengaktifkan metode pembayaran.
+                    Tekan tombol di bawah untuk menandai pesanan sudah dibayar.
+                </p>
+                <form action="{{ route('orders.simulate', $order) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn--primary">Simulasikan Pembayaran</button>
+                </form>
+            </div>
         @else
             <div class="instruction">
                 <div class="mono-label">Pembayaran Online</div>

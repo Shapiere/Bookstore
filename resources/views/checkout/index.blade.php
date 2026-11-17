@@ -63,7 +63,7 @@
                         <label class="ckp-pay">
                             <input type="radio" name="payment_method" value="midtrans" @checked(old('payment_method') === 'midtrans')>
                             <span class="ckp-pay__body">
-                                <span class="ckp-pay__name">Bayar sekarang (Midtrans)</span>
+                                <span class="ckp-pay__name">Bayar sekarang (simulasi)</span>
                                 <span class="ckp-pay__desc">Kartu, transfer bank, atau dompet digital.</span>
                             </span>
                         </label>

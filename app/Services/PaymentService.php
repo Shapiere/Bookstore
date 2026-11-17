@@ -10,6 +10,12 @@ class PaymentService
     // Kembalikan null bila library atau kredensial belum siap, agar COD tetap jalan.
     public function createSnapToken(Order $order): ?string
     {
+        if (config('midtrans.mock')) {
+            Log::info('Mode simulasi aktif. Snap token tidak dibuat.');
+
+            return null;
+        }
+
         if (! class_exists(\Midtrans\Snap::class)) {
             Log::warning('Library midtrans-php belum terpasang. Pembayaran online dilewati.');
 
