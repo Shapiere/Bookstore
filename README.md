@@ -40,12 +40,13 @@ Aplikasi memiliki **2 aktor**: **Admin** (mengelola data buku dan pesanan) dan *
 | Framework | Laravel 13.42 |
 | Bahasa | PHP 8.3 |
 | Database | MySQL / MariaDB 10.4 |
-| CSS | Bootstrap 5 (lokal, tanpa CDN) |
-| Grafik | Chart.js 4 (lokal, tanpa CDN) |
+| CSS | CSS custom (tanpa framework) |
+| Grafik | SVG native (tanpa library) |
 | Payment Gateway | Midtrans Snap (opsional) |
 
-> Bootstrap dan Chart.js disimpan lokal di public/vendor/ agar aplikasi tetap tampil normal
-> saat demonstrasi tanpa koneksi internet.
+> Seluruh CSS ditulis sendiri di `public/css/` tanpa Bootstrap atau Tailwind. Grafik dashboard
+> memakai SVG native, bukan Chart.js. Font Fraunces, Inter, dan JetBrains Mono disimpan lokal
+> di `public/fonts/` agar demonstrasi tetap normal tanpa koneksi internet.
 
 ---
 
