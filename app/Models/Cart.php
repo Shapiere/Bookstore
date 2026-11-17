@@ -19,8 +19,4 @@ class Cart extends Model
         return $this->belongsTo(Book::class);
     }
 
-    public function getSubtotalAttribute(): float
-    {
-        return (float) $this->book->price * $this->qty;
-    }
 }

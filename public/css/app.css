@@ -524,17 +524,6 @@ body.page-auth .site-footer { margin-top: 0; }
     margin-bottom: 20px;
 }
 
-.summary-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 13px 0;
-    border-bottom: 1px solid var(--rule);
-    font-size: 14px;
-}
-.summary-row:last-of-type { border-bottom: 0; }
-.summary-row .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
-
 .summary-total {
     display: flex;
     justify-content: space-between;
@@ -2505,7 +2494,6 @@ body.page-auth .site-footer { margin-top: 0; }
 .info-list--spaced { margin-top: 40px; }
 .info-list--flush { border-top: 0; }
 
-.block-sm { margin-top: 10px; }
 .block-md { margin-top: 16px; }
 .block-lg { margin-top: 18px; }
 .block-xl { margin-top: 24px; }
