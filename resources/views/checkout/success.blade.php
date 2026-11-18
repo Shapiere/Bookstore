@@ -3,62 +3,111 @@
 @section('title', 'Pesanan Berhasil')
 
 @section('content')
-<div class="container">
-    <div class="success-wrap">
-        <div class="section-opener section-opener--flush">
-            <span class="mono-label">Konfirmasi Pesanan</span>
-            <span class="status status--{{ $order->status }}">{{ $order->statusLabel() }}</span>
-        </div>
+@php
+    $steps = [
+        'pending' => 'Menunggu',
+        'processing' => 'Diproses',
+        'shipped' => 'Dikirim',
+        'completed' => 'Selesai',
+    ];
+    $position = array_search($order->status, array_keys($steps), true);
+    $filled = $position === false ? 0 : $position + 1;
+    $note = match ($order->status) {
+        'pending' => 'Menunggu konfirmasi admin.',
+        'processing' => 'Pesanan sedang disiapkan.',
+        'shipped' => 'Buku sedang dalam pengiriman.',
+        'completed' => 'Pesanan sudah selesai.',
+        default => 'Pesanan ini dibatalkan.',
+    };
+@endphp
 
-        <h1 class="display-l title--offset">Pesanan Anda telah tercatat.</h1>
+<div class="container page-top--sm">
+    <div class="scc-grid">
+        <div>
+            <h1 class="scc-title">Pesanan Anda telah tercatat.</h1>
 
-        <p class="muted measure block-lg">
-            Terima kasih telah berbelanja di BookStore. Simpan kode pesanan berikut untuk
-            melacak status pengiriman.
-        </p>
+            <p class="scc-lede">
+                Terima kasih telah berbelanja di BookStore. Simpan nomor pesanan ini
+                untuk melacak status pengiriman.
+            </p>
 
-        <div class="order-code">{{ $order->order_code }}</div>
+            <div class="scc-code-row">
+                <span class="scc-code-label">Nomor pesanan</span>
+                <span class="scc-code" id="order-code">{{ $order->order_code }}</span>
+                <button type="button" class="scc-copy" onclick="copyCode()">Salin</button>
+            </div>
 
-        <div class="mono-label">
-            {{ $order->created_at->translatedFormat('d F Y, H:i') }} WIB &middot;
-            Metode: Bayar di Tempat (COD)
-        </div>
+            <div class="scc-date">
+                {{ $order->created_at->translatedFormat('d F Y, H:i') }} WIB
+            </div>
 
-        <div class="instruction">
-            <div class="mono-label">Instruksi Pembayaran COD</div>
-            <div class="title">Siapkan uang pas saat kurir tiba</div>
-            <ol>
-                <li>Sediakan pembayaran sebesar Rp {{ number_format($order->total_price, 0, ',', '.') }} kepada kurir.</li>
+            <h2 class="scc-h">Status pesanan</h2>
+            <div class="scc-note">{{ $note }}</div>
+
+            <div class="scc-bar">
+                @foreach(array_values($steps) as $label)
+                    <span @class(['is-on' => $filled >= $loop->iteration])></span>
+                @endforeach
+            </div>
+            <div class="scc-labels">
+                @foreach(array_values($steps) as $label)
+                    <span @class(['is-on' => $filled >= $loop->iteration])>{{ $label }}</span>
+                @endforeach
+            </div>
+
+            <h2 class="scc-h">Bayar saat buku tiba</h2>
+            <ol class="scc-steps">
+                <li>Siapkan uang pas Rp {{ number_format($order->total_price, 0, ',', '.') }} untuk dibayarkan kepada kurir.</li>
                 <li>Periksa kondisi buku sebelum menerima paket.</li>
                 <li>Tanda tangani bukti terima sebagai konfirmasi.</li>
                 <li>Admin akan menandai pesanan lunas setelah buku diterima.</li>
             </ol>
-        </div>
 
-        <div class="summary-total success-block">
-            <span class="summary-total__label">Total Pembayaran</span>
-            <span class="summary-total__value">Rp {{ number_format($order->total_price, 0, ',', '.') }}</span>
-        </div>
-
-        <div class="info-list success-block">
-            <div>
-                <dt>Alamat Pengiriman</dt>
-                <dd>{{ $order->shipping_address }}</dd>
-            </div>
-            <div>
-                <dt>Penerima</dt>
-                <dd>{{ $order->customer_name }} &middot; {{ $order->phone }}</dd>
-            </div>
-            <div>
-                <dt>Jumlah Item</dt>
-                <dd>{{ $order->items->sum('qty') }} buku</dd>
+            <div class="scc-actions">
+                <a href="{{ route('orders.index') }}" class="btn btn--primary">Lihat pesanan saya</a>
+                <a href="{{ route('catalog.index') }}" class="btn btn--outline">Kembali ke katalog</a>
             </div>
         </div>
 
-        <div class="success-actions">
-            <a href="{{ route('orders.index') }}" class="btn btn--primary">Lihat Pesanan Saya</a>
-            <a href="{{ route('catalog.index') }}" class="btn--quiet">Kembali ke Katalog</a>
-        </div>
+        <aside class="scc-panel">
+            <h2 class="scc-panel__title">Ringkasan</h2>
+
+            @foreach($order->items as $item)
+                <div class="scc-item">
+                    <img src="{{ asset('storage/'.$item->book->cover_image) }}"
+                         alt="Sampul {{ $item->title_snapshot }}" class="scc-item__cover">
+                    <span>
+                        <span class="scc-item__name">{{ $item->title_snapshot }}</span>
+                        <span class="scc-item__qty">{{ $item->qty }} buku</span>
+                    </span>
+                    <span class="scc-item__price">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</span>
+                </div>
+            @endforeach
+
+            <div class="scc-total">
+                <span class="scc-total__label">Total</span>
+                <span class="scc-total__value">Rp {{ number_format($order->total_price, 0, ',', '.') }}</span>
+            </div>
+
+            <dl class="scc-facts">
+                <div><dt>Pembayaran</dt><dd>Bayar di tempat (COD), belum dibayar</dd></div>
+                <div><dt>Penerima</dt><dd>{{ $order->customer_name }}, {{ $order->phone }}</dd></div>
+                <div><dt>Alamat</dt><dd>{{ $order->shipping_address }}</dd></div>
+            </dl>
+        </aside>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    function copyCode() {
+        var code = document.getElementById('order-code').textContent.trim();
+        navigator.clipboard.writeText(code).then(function () {
+            var button = document.querySelector('.scc-copy');
+            button.textContent = 'Tersalin';
+            setTimeout(function () { button.textContent = 'Salin'; }, 2000);
+        });
+    }
+</script>
+@endpush

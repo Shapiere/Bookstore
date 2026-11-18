@@ -4,78 +4,73 @@
 
 @section('content')
 <div class="container page-top--sm">
-    <div class="section-opener section-opener--tight">
-        <span class="mono-label">
-            <a href="{{ route('catalog.index') }}" class="link">Katalog</a> / {{ $book->category->name }}
-        </span>
-        <span class="mono-label">{{ $book->isbn ?? '-' }}</span>
+    <div class="dtl-crumb">
+        <a href="{{ route('catalog.index') }}">Katalog</a> /
+        <a href="{{ route('catalog.index', ['category' => $book->category_id]) }}">{{ $book->category->name }}</a> /
+        <span class="is-now">{{ $book->title }}</span>
     </div>
 
-    <div class="detail-layout">
-        {{-- Sampul --}}
-        <div class="detail-cover">
-            <img src="{{ asset('storage/'.$book->cover_image) }}" alt="Sampul {{ $book->title }}" class="book-cover">
+    <div class="dtl-grid">
+        <div>
+            <img src="{{ asset('storage/'.$book->cover_image) }}" alt="Sampul {{ $book->title }}" class="dtl-cover-img">
+        </div>
 
-            <dl class="detail-specs">
+        <div>
+            <div class="dtl-cat">{{ $book->category->name }}</div>
+            <h1 class="dtl-title">{{ $book->title }}</h1>
+            <div class="dtl-author">{{ $book->author }}</div>
+
+            <p class="dtl-desc">{{ $book->description }}</p>
+
+            <div class="dtl-price-row">
+                <span class="dtl-price">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
+                @if($book->stock > 0)
+                    <span class="dtl-stock">Tersedia, sisa {{ $book->stock }}</span>
+                @else
+                    <span class="dtl-stock is-out">Stok habis</span>
+                @endif
+            </div>
+
+            @auth
+                @if($book->stock > 0)
+                    <form action="{{ route('cart.add', $book) }}" method="POST">
+                        @csrf
+                        <div class="dtl-buy">
+                            <div class="dtl-qty">
+                                <button type="button" onclick="qtyStep(this, -1)" aria-label="Kurangi jumlah">&minus;</button>
+                                <input type="number" name="qty" value="1" min="1" max="{{ $book->stock }}"
+                                       inputmode="numeric" aria-label="Jumlah">
+                                <button type="button" onclick="qtyStep(this, 1)" aria-label="Tambah jumlah">+</button>
+                            </div>
+                            <button type="submit" class="btn btn--primary">Tambah ke keranjang</button>
+                        </div>
+                    </form>
+                    <p class="dtl-note">Bayar di tempat saat buku tiba.</p>
+                @else
+                    <div class="dtl-buy">
+                        <span class="status status--cancelled">Stok habis</span>
+                    </div>
+                @endif
+            @else
+                <div class="dtl-buy">
+                    <a href="{{ route('login') }}" class="btn btn--primary">Masuk untuk membeli</a>
+                </div>
+                <p class="dtl-note">Bayar di tempat saat buku tiba.</p>
+            @endauth
+
+            <dl class="dtl-specs">
                 <div><dt>Penerbit</dt><dd>{{ $book->publisher ?? '-' }}</dd></div>
                 <div><dt>Tahun</dt><dd>{{ $book->year ?? '-' }}</dd></div>
                 <div><dt>ISBN</dt><dd>{{ $book->isbn ?? '-' }}</dd></div>
-                <div>
-                    <dt>Stok</dt>
-                    <dd>
-                        @if($book->stock > 0)
-                            {{ $book->stock }} tersedia
-                        @else
-                            Habis
-                        @endif
-                    </dd>
-                </div>
+                <div><dt>Kategori</dt><dd>{{ $book->category->name }}</dd></div>
             </dl>
-        </div>
-
-        {{-- Info --}}
-        <div>
-            <span class="mono-label">{{ $book->category->name }}</span>
-            <h1 class="display-l title--gap">{{ $book->title }}</h1>
-            <div class="detail-author">{{ $book->author }}</div>
-
-            <p class="detail-desc">{{ $book->description }}</p>
-
-            <div class="buy-block">
-                <div class="buy-price">
-                    <small>Harga</small>
-                    Rp {{ number_format($book->price, 0, ',', '.') }}
-                </div>
-
-                @auth
-                    @if($book->stock > 0)
-                        <form action="{{ route('cart.add', $book) }}" method="POST" class="add-form">
-                            @csrf
-                            <div>
-                                <span class="field__label">Jumlah</span>
-                                <div class="qty">
-                                    <input type="number" name="qty" value="1" min="1" max="{{ $book->stock }}"
-                                           inputmode="numeric" aria-label="Jumlah">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn--primary">Tambah ke Keranjang</button>
-                        </form>
-                    @else
-                        <span class="status status--cancelled">Stok Habis</span>
-                    @endif
-                @else
-                    <a href="{{ route('login') }}" class="btn btn--primary">Masuk untuk Membeli</a>
-                @endauth
-            </div>
         </div>
     </div>
 
     @if($related->count())
-        <div class="section-opener section-opener--far">
-            <span class="mono-label">Buku Terkait</span>
-            <a href="{{ route('catalog.index', ['category' => $book->category_id]) }}" class="btn--quiet">
-                Semua {{ $book->category->name }}
-            </a>
+        <div class="dtl-related">
+            <h2>Buku lain di {{ $book->category->name }}</h2>
+            <a href="{{ route('catalog.index', ['category' => $book->category_id]) }}" class="link small">Lihat semua</a>
         </div>
 
         <div class="related-strip">
@@ -86,3 +81,15 @@
     @endif
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    function qtyStep(button, delta) {
+        var field = button.parentNode.querySelector('input[name="qty"]');
+        var min = parseInt(field.min, 10) || 1;
+        var max = parseInt(field.max, 10) || 99;
+        var next = (parseInt(field.value, 10) || 1) + delta;
+        field.value = Math.min(Math.max(next, min), max);
+    }
+</script>
+@endpush
