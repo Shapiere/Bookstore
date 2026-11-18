@@ -105,16 +105,6 @@ table { border-collapse: collapse; width: 100%; }
 
 .section { padding: 96px 0; }
 
-.section-opener {
-    border-top: 1px solid var(--ink);
-    padding-top: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 24px;
-    flex-wrap: wrap;
-}
-
 .section-head {
     display: flex;
     justify-content: space-between;
@@ -2994,20 +2984,9 @@ body.page-auth .site-footer { margin-top: 0; }
 .page-top { padding-top: 56px; }
 .page-top--sm { padding-top: 48px; }
 
-.section-opener--tight { margin-bottom: 40px; }
-.section-opener--far { margin-top: 96px; margin-bottom: 32px; }
-.section-opener--flush { border-top: 0; padding-top: 0; }
-
-.title--gap { margin: 12px 0 10px; }
-.title--offset { margin-top: 16px; }
-.title--spaced { margin-bottom: 48px; }
-.title--spaced-lg { margin-bottom: 40px; }
-
 .info-list--spaced { margin-top: 40px; }
-.info-list--flush { border-top: 0; }
 
 .block-md { margin-top: 16px; }
-.block-lg { margin-top: 18px; }
 .block-xl { margin-top: 24px; }
 
 .form-narrow { max-width: 560px; }

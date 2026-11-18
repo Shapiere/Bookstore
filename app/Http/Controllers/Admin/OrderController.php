@@ -64,16 +64,13 @@ class OrderController extends Controller
     }
 
     // Tandai lunas, khusus COD yang dibayar saat buku diterima.
-    public function verifyPayment(Order $order)
+    public function verifyPayment(Order $order, OrderService $orders)
     {
         if ($order->payment_status === 'paid') {
             return back()->with('error', 'Pesanan ini sudah ditandai lunas.');
         }
 
-        $order->update([
-            'payment_status' => 'paid',
-            'paid_at' => now(),
-        ]);
+        $orders->markAsPaid($order);
 
         return back()->with('success', 'Pembayaran pesanan ' . $order->order_code . ' telah diverifikasi.');
     }
