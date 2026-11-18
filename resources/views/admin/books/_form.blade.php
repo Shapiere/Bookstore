@@ -114,7 +114,7 @@
                 <label class="field__label" for="cover_image">Berkas Cover</label>
                 <input id="cover_image" type="file" name="cover_image" accept="image/*"
                        class="field__input @error('cover_image') is-error @enderror">
-                <span class="field__hint">JPG, PNG, atau WEBP. Maksimal 2 MB.</span>
+                <span class="field__hint">JPG, PNG, atau WEBP. Maksimal 4 MB.</span>
                 @error('cover_image') <span class="field__error">{{ $message }}</span> @enderror
             </div>
 

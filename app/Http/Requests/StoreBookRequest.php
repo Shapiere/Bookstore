@@ -23,7 +23,7 @@ class StoreBookRequest extends FormRequest
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
             'description' => ['nullable', 'string', 'max:2000'],
-            'cover_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'cover_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
             'is_active' => ['nullable', 'boolean'],
         ];
     }
@@ -38,8 +38,10 @@ class StoreBookRequest extends FormRequest
             'price.required' => 'Harga wajib diisi.',
             'price.numeric' => 'Harga harus berupa angka.',
             'stock.required' => 'Stok wajib diisi.',
+            'cover_image.uploaded' => 'Cover gagal diunggah. Ukuran berkas kemungkinan melebihi batas server.',
             'cover_image.image' => 'Cover harus berupa gambar.',
-            'cover_image.max' => 'Ukuran cover maksimal 2 MB.',
+            'cover_image.mimes' => 'Format cover harus JPG, JPEG, PNG, atau WEBP.',
+            'cover_image.max' => 'Ukuran cover maksimal 4 MB.',
         ];
     }
 }

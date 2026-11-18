@@ -38,6 +38,10 @@ class BookController extends Controller
 
     public function store(StoreBookRequest $request)
     {
+        if ($pesan = $this->coverUploadError()) {
+            return back()->withInput()->withErrors(['cover_image' => $pesan]);
+        }
+
         $data = $request->validated();
         $data['slug'] = $this->uniqueSlug($data['title']);
         $data['is_active'] = $request->boolean('is_active');
@@ -61,6 +65,10 @@ class BookController extends Controller
 
     public function update(UpdateBookRequest $request, Book $book)
     {
+        if ($pesan = $this->coverUploadError()) {
+            return back()->withInput()->withErrors(['cover_image' => $pesan]);
+        }
+
         $data = $request->validated();
         $data['slug'] = $this->uniqueSlug($data['title'], $book->id);
         $data['is_active'] = $request->boolean('is_active');
@@ -88,6 +96,23 @@ class BookController extends Controller
 
         return redirect()->route('admin.books.index')
             ->with('success', 'Buku berhasil dihapus.');
+    }
+
+    // Deteksi berkas cover yang dibuang PHP sebelum sempat divalidasi.
+    private function coverUploadError(): ?string
+    {
+        $error = $_FILES['cover_image']['error'] ?? UPLOAD_ERR_NO_FILE;
+
+        if ($error === UPLOAD_ERR_OK || $error === UPLOAD_ERR_NO_FILE) {
+            return null;
+        }
+
+        return match ($error) {
+            UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE => 'Ukuran cover melebihi batas server. Maksimal 4 MB.',
+            UPLOAD_ERR_PARTIAL => 'Cover hanya terunggah sebagian. Silakan ulangi.',
+            UPLOAD_ERR_NO_TMP_DIR, UPLOAD_ERR_CANT_WRITE => 'Server gagal menyimpan cover. Silakan coba lagi.',
+            default => 'Cover gagal diunggah. Silakan coba lagi.',
+        };
     }
 
     // Slug unik, diberi akhiran angka bila sudah dipakai.
