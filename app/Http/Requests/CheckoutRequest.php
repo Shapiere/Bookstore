@@ -29,6 +29,7 @@ class CheckoutRequest extends FormRequest
             'phone.required' => 'Nomor telepon wajib diisi.',
             'shipping_address.required' => 'Alamat pengiriman wajib diisi.',
             'payment_method.required' => 'Metode pembayaran wajib dipilih.',
+            'payment_method.in' => 'Metode pembayaran yang tersedia hanya bayar di tempat (COD).',
         ];
     }
 }
