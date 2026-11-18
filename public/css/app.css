@@ -88,7 +88,6 @@ table { border-collapse: collapse; width: 100%; }
 
 .muted { color: var(--ink-muted); }
 .small { font-size: 14px; }
-.measure { max-width: 62ch; }
 
 .link {
     color: var(--accent);
@@ -523,18 +522,6 @@ body.page-auth .site-footer { margin-top: 0; }
     border-bottom: 1px solid var(--rule);
     margin-bottom: 20px;
 }
-
-.summary-total {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 16px;
-    padding-top: 18px;
-    border-top: 1px solid var(--ink);
-    margin-top: 6px;
-}
-.summary-total__label { font-family: var(--font-serif); font-size: 18px; }
-.summary-total__value { font-family: var(--font-mono); font-size: 24px; color: var(--accent); }
 
 /* 14. ALERT */
 .alert {
@@ -1251,6 +1238,254 @@ body.page-auth .site-footer { margin-top: 0; }
     gap: 24px;
 }
 
+/* 19c. PESANAN SAYA */
+.oh-sub {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-top: 6px;
+}
+
+.oh-group { margin-top: 36px; }
+
+.oh-group__head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    border-top: 1px solid var(--ink);
+    padding-top: 12px;
+}
+
+.oh-group__title {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+}
+
+.oh-group__count {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-muted);
+}
+
+.oh-row {
+    display: grid;
+    grid-template-columns: 78px minmax(0, 1fr) 168px 150px 82px;
+    gap: 18px;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--rule);
+}
+
+.oh-covers { display: flex; gap: 3px; }
+
+.oh-covers img,
+.oh-covers span {
+    width: 24px;
+    height: 34px;
+    object-fit: cover;
+    display: block;
+    border: 1px solid rgba(0, 0, 0, .08);
+    background: var(--paper-deep);
+}
+
+.oh-code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink);
+}
+
+.oh-meta { font-size: 12px; color: var(--ink-muted); margin-top: 3px; }
+
+.oh-price {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.oh-pay {
+    font-size: 12px;
+    color: var(--ink-muted);
+    text-align: right;
+    margin-top: 3px;
+    font-style: italic;
+}
+
+.oh-link {
+    font-size: 12px;
+    color: var(--ink-muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-align: right;
+    white-space: nowrap;
+}
+.oh-link:hover { color: var(--ink); }
+
+/* 19d. DETAIL PESANAN */
+.odt-back {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--ink-muted);
+    display: inline-block;
+    margin-bottom: 12px;
+}
+.odt-back:hover { color: var(--ink); }
+
+.odt-title {
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3.6vw, 42px);
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    font-weight: 400;
+}
+
+.odt-date { font-size: 13px; color: var(--ink-muted); margin-top: 6px; }
+
+.odt-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 48px;
+    align-items: start;
+    margin-top: 26px;
+}
+
+.odt-sec { border-top: 1px solid var(--ink); padding-top: 14px; margin-top: 26px; }
+.odt-sec:first-child { margin-top: 0; }
+
+.odt-h {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+}
+
+.odt-note { font-size: 13px; color: var(--ink-muted); margin-top: 5px; }
+
+.odt-bar { display: flex; gap: 4px; margin-top: 14px; }
+.odt-bar span { flex: 1; height: 5px; background: var(--rule); }
+.odt-bar span.is-on { background: var(--ink); }
+
+.odt-labels { display: flex; gap: 4px; margin-top: 6px; }
+.odt-labels span { flex: 1; font-size: 12px; color: var(--ink-muted); }
+.odt-labels span.is-on { color: var(--ink); font-weight: 600; }
+
+.odt-table { width: 100%; margin-top: 14px; }
+
+.odt-table thead th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--ink-muted);
+    text-align: left;
+    white-space: nowrap;
+    padding: 0 0 9px;
+    border-bottom: 1px solid var(--ink);
+}
+
+.odt-table thead th.num { text-align: right; }
+
+.odt-table tbody td {
+    padding: 14px 0;
+    font-size: 13px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--rule);
+}
+
+.odt-table tbody td.num {
+    text-align: right;
+    font-family: var(--font-mono);
+    white-space: nowrap;
+}
+
+.odt-book { display: flex; align-items: center; gap: 12px; }
+
+.odt-book img {
+    width: 32px;
+    height: 44px;
+    object-fit: cover;
+    border: 1px solid rgba(0, 0, 0, .08);
+    background: var(--paper-deep);
+    flex-shrink: 0;
+}
+
+.odt-book__title { display: block; font-size: 13px; line-height: 1.35; }
+.odt-book__cat { display: block; font-size: 12px; color: var(--ink-muted); margin-top: 1px; }
+
+.odt-total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 24px;
+    padding-top: 14px;
+}
+
+.odt-total__label {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.odt-total__value {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -.015em;
+}
+
+.odt-panel { border: 1px solid var(--rule); padding: 22px 20px; }
+
+.odt-panel__title {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    margin-bottom: 10px;
+}
+
+.odt-facts div {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 13px;
+    line-height: 1.45;
+}
+.odt-facts dt { color: var(--ink-muted); min-width: 92px; flex-shrink: 0; }
+.odt-facts dd { color: var(--ink); }
+
+.odt-help { font-size: 12px; color: var(--ink-muted); margin-top: 14px; }
+.odt-help a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+}
+
+@media (max-width: 1080px) {
+    .odt-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+}
+
+@media (max-width: 900px) {
+    .oh-row { grid-template-columns: 78px minmax(0, 1fr) auto; row-gap: 6px; }
+    .oh-status { grid-column: 2; }
+    .oh-price-cell { grid-column: 2; text-align: left; }
+    .oh-price, .oh-pay, .oh-link { text-align: left; }
+    .oh-cell-link { grid-column: 3; }
+}
+
+@media (max-width: 680px) {
+    .oh-row { grid-template-columns: 60px minmax(0, 1fr); }
+    .oh-covers img, .oh-covers span { width: 19px; height: 27px; }
+    .oh-cell-link { grid-column: 2; text-align: left; }
+    .odt-table thead th:nth-child(2),
+    .odt-table tbody td:nth-child(2) { display: none; }
+}
+
 /* 20. KERANJANG / CHECKOUT */
 .crt-page { padding-top: 64px; }
 
@@ -1764,15 +1999,6 @@ body.page-auth .site-footer { margin-top: 0; }
     align-items: start;
 }
 
-.dtl-cover-img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 5 / 7;
-    object-fit: cover;
-    border: 1px solid rgba(0, 0, 0, .08);
-    box-shadow: 0 20px 40px -20px rgba(20, 17, 15, .45);
-}
-
 .dtl-cat {
     font-family: var(--font-mono);
     font-size: 10px;
@@ -2096,7 +2322,6 @@ body.page-auth .site-footer { margin-top: 0; }
 
 @media (max-width: 680px) {
     .dtl-grid { grid-template-columns: 1fr; gap: 28px; }
-    .dtl-cover-img { max-width: 240px; }
     .dtl-specs { grid-template-columns: 1fr; gap: 0; }
     .dtl-related { margin-top: 44px; }
 }
@@ -2631,6 +2856,7 @@ body.page-auth .site-footer { margin-top: 0; }
 }
 
 .db-dots span.is-on { background: var(--ink); }
+.db-dots span.is-done { background: var(--success); }
 
 /* 24c. DAFTAR PESANAN ADMIN */
 .ord-head { margin-bottom: 28px; }

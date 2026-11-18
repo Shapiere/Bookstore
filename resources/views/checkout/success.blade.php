@@ -5,15 +5,7 @@
 @section('content')
 @php
     $steps = \App\Models\Order::flow();
-    $position = array_search($order->status, array_keys($steps), true);
-    $filled = $position === false ? 0 : $position + 1;
-    $note = match ($order->status) {
-        'pending' => 'Menunggu konfirmasi admin.',
-        'processing' => 'Pesanan sedang disiapkan.',
-        'shipped' => 'Buku sedang dalam pengiriman.',
-        'completed' => 'Pesanan sudah selesai.',
-        default => 'Pesanan ini dibatalkan.',
-    };
+    $filled = $order->statusStep();
 @endphp
 
 <div class="container page-top--sm">
@@ -37,7 +29,7 @@
             </div>
 
             <h2 class="scc-h">Status pesanan</h2>
-            <div class="scc-note">{{ $note }}</div>
+            <div class="scc-note">{{ $order->statusNote() }}</div>
 
             <div class="scc-bar">
                 @foreach(array_values($steps) as $label)

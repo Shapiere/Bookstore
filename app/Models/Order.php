@@ -54,4 +54,23 @@ class Order extends Model
     {
         return self::statusLabels()[$this->status] ?? $this->status;
     }
+
+    // Posisi status dalam alur (1 sampai 4). Nol bila di luar alur, misalnya dibatalkan.
+    public function statusStep(): int
+    {
+        $position = array_search($this->status, array_keys(self::flow()), true);
+
+        return $position === false ? 0 : $position + 1;
+    }
+
+    public function statusNote(): string
+    {
+        return match ($this->status) {
+            'pending' => 'Menunggu konfirmasi admin.',
+            'processing' => 'Pesanan sedang disiapkan.',
+            'shipped' => 'Buku dalam perjalanan ke alamat Anda.',
+            'completed' => 'Pesanan sudah selesai.',
+            default => 'Pesanan ini dibatalkan.',
+        };
+    }
 }
