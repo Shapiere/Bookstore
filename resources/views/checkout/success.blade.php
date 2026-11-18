@@ -61,8 +61,7 @@
 
             @foreach($order->items as $item)
                 <div class="scc-item">
-                    <img src="{{ asset('storage/'.$item->book->cover_image) }}"
-                         alt="Sampul {{ $item->title_snapshot }}" class="scc-item__cover">
+                    @include('partials.cover', ['book' => $item->book, 'class' => 'scc-item__cover', 'title' => $item->title_snapshot])
                     <span>
                         <span class="scc-item__name">{{ $item->title_snapshot }}</span>
                         <span class="scc-item__qty">{{ $item->qty }} buku</span>

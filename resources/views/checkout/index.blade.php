@@ -70,8 +70,7 @@
 
                 @foreach($items as $item)
                     <div class="ckp-item">
-                        <img src="{{ asset('storage/'.$item->book->cover_image) }}"
-                             alt="Sampul {{ $item->book->title }}" class="ckp-item__cover">
+                        @include('partials.cover', ['book' => $item->book, 'class' => 'ckp-item__cover'])
                         <span>
                             <span class="ckp-item__name">{{ $item->book->title }}</span>
                             <span class="ckp-item__qty">{{ $item->qty }} buku</span>

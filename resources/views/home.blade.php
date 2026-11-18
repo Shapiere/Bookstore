@@ -31,7 +31,7 @@
             <div class="hero__fan" aria-hidden="true">
                 @foreach($latest->take(4) as $book)
                     <a href="{{ route('catalog.show', $book) }}" class="fan__item">
-                        <img src="{{ asset('storage/'.$book->cover_image) }}" alt="">
+                        @include('partials.cover', ['book' => $book, 'class' => '', 'alt' => ''])
                     </a>
                 @endforeach
             </div>

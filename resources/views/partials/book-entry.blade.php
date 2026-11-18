@@ -1,10 +1,6 @@
 <a href="{{ route('catalog.show', $book) }}" class="book-entry">
     <div class="book-entry__cover">
-        @if($book->cover_image)
-            <img src="{{ asset('storage/'.$book->cover_image) }}" alt="Sampul {{ $book->title }}" class="book-cover" loading="lazy">
-        @else
-            <div class="book-cover"></div>
-        @endif
+        @include('partials.cover', ['book' => $book, 'class' => 'book-cover', 'lazy' => true])
     </div>
     <div class="book-entry__meta">
         <span class="book-entry__cat">{{ $book->category->name ?? '-' }}</span>

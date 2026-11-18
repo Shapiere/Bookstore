@@ -12,7 +12,7 @@
 
     <div class="dtl-grid">
         <div>
-            <img src="{{ asset('storage/'.$book->cover_image) }}" alt="Sampul {{ $book->title }}" class="dtl-cover-img">
+            @include('partials.cover', ['book' => $book, 'class' => 'dtl-cover-img'])
         </div>
 
         <div>

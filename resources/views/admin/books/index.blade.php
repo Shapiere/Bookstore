@@ -50,11 +50,7 @@
             @forelse($books as $book)
                 <tr>
                     <td>
-                        @if($book->cover_image)
-                            <img src="{{ asset('storage/'.$book->cover_image) }}" alt="" class="data-table__thumb">
-                        @else
-                            <span class="muted small">—</span>
-                        @endif
+                        @include('partials.cover', ['book' => $book, 'class' => 'data-table__thumb', 'alt' => ''])
                     </td>
                     <td>
                         <div class="cell-strong">{{ $book->title }}</div>

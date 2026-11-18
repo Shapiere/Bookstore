@@ -31,8 +31,7 @@
                     @if($isNew)
                         <span class="lot__badge">Baru</span>
                     @endif
-                    <img src="{{ asset('storage/'.$book->cover_image) }}" alt="Sampul {{ $book->title }}"
-                         class="book-cover" loading="lazy">
+                    @include('partials.cover', ['book' => $book, 'class' => 'book-cover', 'lazy' => true])
                 </a>
 
                 <div class="book-entry__meta">

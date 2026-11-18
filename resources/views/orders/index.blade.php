@@ -43,12 +43,7 @@
                     <div class="oh-row">
                         <div class="oh-covers">
                             @foreach($order->items->take(3) as $item)
-                                @if($item->book?->cover_image)
-                                    <img src="{{ asset('storage/'.$item->book->cover_image) }}"
-                                         alt="Sampul {{ $item->title_snapshot }}">
-                                @else
-                                    <span></span>
-                                @endif
+                                @include('partials.cover', ['book' => $item->book, 'class' => '', 'title' => $item->title_snapshot])
                             @endforeach
                         </div>
 

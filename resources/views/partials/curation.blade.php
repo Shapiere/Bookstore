@@ -19,7 +19,7 @@
     @if($feature)
         <article class="cur-feat">
             <a href="{{ route('catalog.show', $feature) }}" class="cur-feat__cover">
-                <img src="{{ asset('storage/'.$feature->cover_image) }}" alt="Sampul {{ $feature->title }}">
+                @include('partials.cover', ['book' => $feature])
             </a>
 
             <div>
@@ -55,7 +55,7 @@
 
             @forelse($others as $book)
                 <a href="{{ route('catalog.show', $book) }}" class="cur-row">
-                    <img src="{{ asset('storage/'.$book->cover_image) }}" alt="" class="cur-row__cover">
+                    @include('partials.cover', ['book' => $book, 'class' => 'cur-row__cover', 'alt' => ''])
                     <div class="cur-row__body">
                         <div class="cur-row__title">{{ $book->title }}</div>
                         <div class="cur-row__meta">{{ $book->author }} &middot; {{ $book->category->name }}</div>

@@ -51,10 +51,7 @@
                             <tr>
                                 <td>
                                     <div class="odt-book">
-                                        @if($item->book?->cover_image)
-                                            <img src="{{ asset('storage/'.$item->book->cover_image) }}"
-                                                 alt="Sampul {{ $item->title_snapshot }}">
-                                        @endif
+                                        @include('partials.cover', ['book' => $item->book, 'class' => '', 'title' => $item->title_snapshot])
                                         <span>
                                             <span class="odt-book__title">{{ $item->title_snapshot }}</span>
                                             <span class="odt-book__cat">{{ $item->book?->category?->name ?? '-' }}</span>

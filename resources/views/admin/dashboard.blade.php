@@ -97,7 +97,7 @@
         @forelse($topBooks as $book)
             <div class="bestseller-row">
                 <span class="bestseller-row__rank">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
-                <img src="{{ asset('storage/'.$book->cover_image) }}" alt="" class="bestseller-row__cover">
+                @include('partials.cover', ['book' => $book, 'class' => 'bestseller-row__cover', 'alt' => ''])
                 <div>
                     <div class="bestseller-row__title">{{ Str::limit($book->title, 40) }}</div>
                     <div class="bestseller-row__meta">{{ $book->author }}</div>

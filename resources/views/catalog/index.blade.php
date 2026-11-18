@@ -76,7 +76,7 @@
                     @foreach($books as $book)
                         <article class="cat-row">
                             <a href="{{ route('catalog.show', $book) }}" class="cat-row__cover">
-                                <img src="{{ asset('storage/'.$book->cover_image) }}" alt="Sampul {{ $book->title }}" loading="lazy">
+                                @include('partials.cover', ['book' => $book, 'class' => '', 'lazy' => true])
                             </a>
 
                             <div class="cat-row__body">

@@ -27,8 +27,7 @@
                         <div>
                             <a href="{{ route('catalog.show', $book) }}" class="book-entry">
                                 <div class="book-entry__cover">
-                                    <img src="{{ asset('storage/'.$book->cover_image) }}"
-                                         alt="Sampul {{ $book->title }}" class="book-cover" loading="lazy">
+                                    @include('partials.cover', ['book' => $book, 'class' => 'book-cover', 'lazy' => true])
                                 </div>
                                 <div class="book-entry__meta">
                                     <span class="book-entry__cat">{{ $book->category->name }}</span>
@@ -67,7 +66,7 @@
                 @foreach($items as $item)
                     <div class="crt-row">
                         <a href="{{ route('catalog.show', $item->book) }}" class="crt-row__cover">
-                            <img src="{{ asset('storage/'.$item->book->cover_image) }}" alt="Sampul {{ $item->book->title }}">
+                            @include('partials.cover', ['book' => $item->book])
                         </a>
 
                         <div class="crt-row__body">
