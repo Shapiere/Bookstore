@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Message;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
@@ -200,6 +201,26 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        $this->command->info('Seeder selesai: 3 user, 5 kategori, ' . count($books) . ' buku, ' . count($orderPlan) . ' pesanan.');
+        // Pesan masuk dari halaman Kontak
+        $messagesData = [
+            [$user, 'Tanya stok buku Clean Code', 'Apakah stok Clean Code masih tersedia? Saya ingin memesan 2 eksemplar.', 1],
+            [$user2, 'Konfirmasi pembayaran COD', 'Pesanan saya sudah diterima. Terima kasih atas pelayanannya.', 1],
+            [null, 'Kerja sama reseller', 'Apakah BookStore menerima kerja sama reseller untuk wilayah Bandung?', 0],
+        ];
+
+        foreach ($messagesData as [$sender, $subject, $body, $isRead]) {
+            Message::create([
+                'user_id' => $sender?->id,
+                'name' => $sender?->name ?? 'Pengunjung',
+                'email' => $sender?->email ?? 'pengunjung@example.test',
+                'subject' => $subject,
+                'body' => $body,
+                'is_read' => $isRead,
+                'created_at' => now()->subDays(rand(1, 5)),
+                'updated_at' => now(),
+            ]);
+        }
+
+        $this->command->info('Seeder selesai: 3 user, 5 kategori, ' . count($books) . ' buku, ' . count($orderPlan) . ' pesanan, ' . count($messagesData) . ' pesan.');
     }
 }

@@ -58,7 +58,7 @@
                     <div><dt>Penerima</dt><dd>{{ $order->customer_name }}</dd></div>
                     <div><dt>Telepon</dt><dd>{{ $order->phone }}</dd></div>
                     <div><dt>Alamat</dt><dd>{{ $order->shipping_address }}</dd></div>
-                    <div><dt>Metode Bayar</dt><dd>{{ $order->payment_method === 'cod' ? 'COD' : 'Midtrans' }}</dd></div>
+                    <div><dt>Metode Bayar</dt><dd>COD</dd></div>
                     <div>
                         <dt>Status Bayar</dt>
                         <dd><span class="status status--{{ $order->payment_status }}">{{ $order->payment_status === 'paid' ? 'Lunas' : 'Belum Bayar' }}</span></dd>

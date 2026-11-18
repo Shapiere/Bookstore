@@ -53,18 +53,10 @@
 
                     <div class="ckp-pays">
                         <label class="ckp-pay">
-                            <input type="radio" name="payment_method" value="cod" @checked(old('payment_method', 'cod') === 'cod')>
+                            <input type="radio" name="payment_method" value="cod" checked>
                             <span class="ckp-pay__body">
                                 <span class="ckp-pay__name">Bayar di tempat (COD)</span>
                                 <span class="ckp-pay__desc">Bayar tunai saat buku diantar ke alamat Anda.</span>
-                            </span>
-                        </label>
-
-                        <label class="ckp-pay">
-                            <input type="radio" name="payment_method" value="midtrans" @checked(old('payment_method') === 'midtrans')>
-                            <span class="ckp-pay__body">
-                                <span class="ckp-pay__name">Bayar sekarang (simulasi)</span>
-                                <span class="ckp-pay__desc">Kartu, transfer bank, atau dompet digital.</span>
                             </span>
                         </label>
                     </div>

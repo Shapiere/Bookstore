@@ -32,7 +32,7 @@
 
     $paymentPaid = $order->payment_status === 'paid';
     $paymentFailed = $order->payment_status === 'failed';
-    $paymentMethod = $order->payment_method === 'cod' ? 'Bayar di tempat (COD)' : 'Midtrans';
+    $paymentMethod = 'Bayar di tempat (COD)';
     $bookCount = $order->items->sum('qty');
 @endphp
 

@@ -62,7 +62,7 @@
                     <td>
                         <span class="ord-pay {{ $order->payment_status === 'paid' ? 'is-paid' : 'is-unpaid' }}">
                             {{ $order->payment_status === 'paid' ? 'Lunas' : 'Belum bayar' }}
-                            ({{ $order->payment_method === 'cod' ? 'COD' : 'Midtrans' }})
+                            (COD)
                         </span>
                     </td>
                     <td>

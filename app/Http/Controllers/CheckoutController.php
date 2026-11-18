@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CheckoutRequest;
 use App\Services\CartService;
 use App\Services\OrderService;
-use App\Services\PaymentService;
-use Illuminate\Http\Request;
 use RuntimeException;
 
 class CheckoutController extends Controller
@@ -14,7 +12,6 @@ class CheckoutController extends Controller
     public function __construct(
         private CartService $cart,
         private OrderService $orders,
-        private PaymentService $payment,
     ) {
     }
 
@@ -38,14 +35,6 @@ class CheckoutController extends Controller
             $order = $this->orders->create(auth()->user(), $request->validated());
         } catch (RuntimeException $e) {
             return redirect()->route('cart.index')->with('error', $e->getMessage());
-        }
-
-        if ($order->payment_method === 'midtrans') {
-            $snapToken = $this->payment->createSnapToken($order);
-
-            if ($snapToken) {
-                $order->update(['snap_token' => $snapToken]);
-            }
         }
 
         return redirect()->route('checkout.success', $order)

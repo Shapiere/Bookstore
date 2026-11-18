@@ -28,7 +28,7 @@ Aplikasi memiliki **2 aktor**: **Admin** (mengelola data buku dan pesanan) dan *
 - Halaman **Tentang Kami**
 - **Contact to Admin** (kirim pesan)
 - **Add to Cart** (keranjang belanja)
-- **Checkout** dengan pilihan pembayaran **COD (Bayar di Tempat)** dan **Midtrans**
+- **Checkout** dengan pembayaran **COD (Bayar di Tempat)**
 - Riwayat dan detail pesanan
 
 ---
@@ -42,7 +42,7 @@ Aplikasi memiliki **2 aktor**: **Admin** (mengelola data buku dan pesanan) dan *
 | Database | MySQL / MariaDB 10.4 |
 | CSS | CSS custom (tanpa framework) |
 | Grafik | SVG native (tanpa library) |
-| Payment Gateway | Midtrans Snap (opsional) |
+| Pembayaran | COD (Bayar di Tempat) |
 
 > Seluruh CSS ditulis sendiri di `public/css/` tanpa Bootstrap atau Tailwind. Grafik dashboard
 > memakai SVG native, bukan Chart.js. Font Fraunces, Inter, dan JetBrains Mono disimpan lokal
@@ -124,28 +124,6 @@ Relasi:
 | Admin | admin@booknest.test | password |
 | User | user@booknest.test | password |
 | User | siti@booknest.test | password |
-
----
-
-## Konfigurasi Midtrans (Opsional)
-
-Pembayaran online menggunakan Midtrans Snap. Jika tidak dikonfigurasi, aplikasi tetap berjalan
-normal dengan metode **COD (Bayar di Tempat)**.
-
-Isi kredensial pada file .env:
-
-    MIDTRANS_MERCHANT_ID=your-merchant-id
-    MIDTRANS_CLIENT_KEY=SB-Mid-client-xxxxxxxx
-    MIDTRANS_SERVER_KEY=SB-Mid-server-xxxxxxxx
-    MIDTRANS_IS_PRODUCTION=false
-
-Install library Midtrans:
-
-    composer require midtrans/midtrans-php
-
-Daftarkan URL notifikasi di dashboard Midtrans:
-
-    https://domain-anda.com/payment/callback
 
 ---
 

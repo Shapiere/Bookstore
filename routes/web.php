@@ -13,7 +13,6 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\PaymentCallbackController;
 use Illuminate\Support\Facades\Route;
 
 // Halaman publik
@@ -52,13 +51,7 @@ Route::middleware('auth')->group(function () {
     // Riwayat pesanan
     Route::get('/pesanan', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/pesanan/{order}', [OrderController::class, 'show'])->name('orders.show');
-    Route::post('/pesanan/{order}/simulasi-bayar', [OrderController::class, 'simulatePayment'])->name('orders.simulate');
 });
-
-// Webhook pembayaran, tanpa CSRF, diverifikasi lewat signature
-Route::post('/payment/callback', [PaymentCallbackController::class, 'handle'])
-    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class])
-    ->name('payment.callback');
 
 // Area admin
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

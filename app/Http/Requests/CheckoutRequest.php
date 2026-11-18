@@ -17,7 +17,7 @@ class CheckoutRequest extends FormRequest
             'customer_name' => ['required', 'string', 'max:100'],
             'phone' => ['required', 'string', 'max:20'],
             'shipping_address' => ['required', 'string', 'max:500'],
-            'payment_method' => ['required', 'in:cod,midtrans'],
+            'payment_method' => ['required', 'in:cod'],
             'notes' => ['nullable', 'string', 'max:500'],
         ];
     }
