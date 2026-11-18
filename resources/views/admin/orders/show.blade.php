@@ -4,13 +4,7 @@
 
 @section('content')
 @php
-    // Empat langkah status pesanan berurutan.
-    $flow = [
-        'pending' => 'Menunggu',
-        'processing' => 'Diproses',
-        'shipped' => 'Dikirim',
-        'completed' => 'Selesai',
-    ];
+    $flow = \App\Models\Order::flow();
 
     $sequence = array_keys($flow);
     $position = array_search($order->status, $sequence, true);

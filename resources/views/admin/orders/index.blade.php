@@ -14,7 +14,7 @@
        @class(['is-active' => ! $status])>
         Semua <span>{{ $counts['all'] }}</span>
     </a>
-    @foreach(['pending' => 'Menunggu', 'processing' => 'Diproses', 'shipped' => 'Dikirim', 'completed' => 'Selesai', 'cancelled' => 'Dibatalkan'] as $value => $label)
+    @foreach(\App\Models\Order::statusLabels() as $value => $label)
         <a href="{{ route('admin.orders.index', array_filter(['status' => $value, 'q' => $keyword])) }}"
            @class(['is-active' => $status === $value])>
             {{ $label }} <span>{{ $counts[$value] }}</span>
@@ -67,7 +67,7 @@
                     </td>
                     <td>
                         @php
-                            $flow = ['pending', 'processing', 'shipped', 'completed'];
+                            $flow = array_keys(\App\Models\Order::flow());
                             $posisi = array_search($order->status, $flow);
                         @endphp
                         <div class="db-status">

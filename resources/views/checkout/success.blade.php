@@ -4,12 +4,7 @@
 
 @section('content')
 @php
-    $steps = [
-        'pending' => 'Menunggu',
-        'processing' => 'Diproses',
-        'shipped' => 'Dikirim',
-        'completed' => 'Selesai',
-    ];
+    $steps = \App\Models\Order::flow();
     $position = array_search($order->status, array_keys($steps), true);
     $filled = $position === false ? 0 : $position + 1;
     $note = match ($order->status) {
@@ -102,12 +97,31 @@
 @push('scripts')
 <script>
     function copyCode() {
-        var code = document.getElementById('order-code').textContent.trim();
-        navigator.clipboard.writeText(code).then(function () {
-            var button = document.querySelector('.scc-copy');
-            button.textContent = 'Tersalin';
+        var label = document.getElementById('order-code');
+        var button = document.querySelector('.scc-copy');
+
+        function done(text) {
+            button.textContent = text;
             setTimeout(function () { button.textContent = 'Salin'; }, 2000);
-        });
+        }
+
+        // Cadangan bila API clipboard ditolak browser: pilih teks agar bisa disalin manual.
+        function fallback() {
+            var range = document.createRange();
+            range.selectNodeContents(label);
+            var selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            done('Pilih lalu Ctrl+C');
+        }
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(label.textContent.trim())
+                .then(function () { done('Tersalin'); })
+                .catch(fallback);
+        } else {
+            fallback();
+        }
     }
 </script>
 @endpush

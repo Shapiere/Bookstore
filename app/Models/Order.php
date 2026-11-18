@@ -33,15 +33,25 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function statusLabel(): string
+    // Empat langkah status berurutan. Dibatalkan tidak termasuk karena di luar alur.
+    public static function flow(): array
     {
-        return match ($this->status) {
+        return [
             'pending' => 'Menunggu',
             'processing' => 'Diproses',
             'shipped' => 'Dikirim',
             'completed' => 'Selesai',
-            'cancelled' => 'Dibatalkan',
-            default => $this->status,
-        };
+        ];
+    }
+
+    // Seluruh label status, termasuk yang di luar alur.
+    public static function statusLabels(): array
+    {
+        return self::flow() + ['cancelled' => 'Dibatalkan'];
+    }
+
+    public function statusLabel(): string
+    {
+        return self::statusLabels()[$this->status] ?? $this->status;
     }
 }
