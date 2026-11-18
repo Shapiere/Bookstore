@@ -6,6 +6,8 @@ Uji Kompetensi **Junior Web Developer** (BNSP).
 Aplikasi memiliki **2 aktor**: **Admin** (mengelola data buku dan pesanan) dan **User/Customer**
 (melakukan pembelian buku).
 
+**Repositori:** [github.com/Shapiere/Bookstore](https://github.com/Shapiere/Bookstore)
+
 ---
 
 ## Fitur
