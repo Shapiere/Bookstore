@@ -8,7 +8,7 @@ class OrderController extends Controller
     {
         $user = auth()->user();
 
-        $orders = $user->orders()->with('items.book')->latest()->paginate(10);
+        $orders = $user->orders()->with('items.book')->latest()->orderByDesc('id')->paginate(10);
         $since = $user->orders()->min('created_at');
 
         return view('orders.index', compact('orders', 'since'));

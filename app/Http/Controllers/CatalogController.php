@@ -11,7 +11,7 @@ class CatalogController extends Controller
     public function home(Request $request)
     {
         $categories = Category::withCount('books')->get();
-        $latest = Book::with('category')->active()->latest()->take(8)->get();
+        $latest = Book::with('category')->active()->latest()->orderByDesc('id')->take(8)->get();
 
         // Pilihan editor, bisa difilter tab kategori lewat ?pilih=slug
         $activeSlug = $request->query('pilih');
@@ -23,6 +23,7 @@ class CatalogController extends Controller
                 fn ($c) => $c->where('slug', $activeSlug)
             ))
             ->latest()
+            ->orderByDesc('id')
             ->take(6)
             ->get();
 
@@ -37,7 +38,7 @@ class CatalogController extends Controller
         $latestBooks = Book::with('category')
             ->active()
             ->when($latestCategory, fn ($q) => $q->where('category_id', $latestCategory->id))
-            ->latest()
+            ->latest()->orderByDesc('id')
             ->take(8)
             ->get();
 
@@ -57,7 +58,7 @@ class CatalogController extends Controller
         $latestBooks = Book::with('category')
             ->active()
             ->when($latestCategory, fn ($q) => $q->where('category_id', $latestCategory->id))
-            ->latest()
+            ->latest()->orderByDesc('id')
             ->take(8)
             ->get();
 
@@ -78,6 +79,7 @@ class CatalogController extends Controller
             ->active()
             ->when($activeCategory, fn ($q) => $q->where('category_id', $activeCategory->id))
             ->latest()
+            ->orderByDesc('id')
             ->take(6)
             ->get();
 
@@ -101,9 +103,9 @@ class CatalogController extends Controller
             ->active()
             ->search($keyword)
             ->when($categoryId, fn ($q) => $q->where('category_id', $categoryId))
-            ->when($sort === 'price_asc', fn ($q) => $q->orderBy('price', 'asc'))
-            ->when($sort === 'price_desc', fn ($q) => $q->orderBy('price', 'desc'))
-            ->when($sort === 'latest', fn ($q) => $q->latest())
+            ->when($sort === 'price_asc', fn ($q) => $q->orderBy('price', 'asc')->orderByDesc('id'))
+            ->when($sort === 'price_desc', fn ($q) => $q->orderBy('price', 'desc')->orderByDesc('id'))
+            ->when($sort === 'latest', fn ($q) => $q->latest()->orderByDesc('id'))
             ->paginate(12)
             ->withQueryString();
 

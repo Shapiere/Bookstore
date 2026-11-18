@@ -20,7 +20,7 @@ class CartController extends Controller
 
         // Rekomendasi saat keranjang kosong
         $suggestions = $items->isEmpty()
-            ? Book::with('category')->active()->latest()->take(4)->get()
+            ? Book::with('category')->active()->latest()->orderByDesc('id')->take(4)->get()
             : collect();
 
         return view('cart.index', compact('items', 'total', 'totalQty', 'suggestions'));

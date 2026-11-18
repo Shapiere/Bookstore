@@ -20,7 +20,7 @@ class OrderController extends Controller
                     ->orWhere('customer_name', 'like', "%{$keyword}%");
             }))
             ->when($status, fn ($q) => $q->where('status', $status))
-            ->latest()
+            ->latest()->orderByDesc('id')
             ->paginate(10)
             ->withQueryString();
 

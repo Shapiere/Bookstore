@@ -9,7 +9,7 @@ class MessageController extends Controller
 {
     public function index()
     {
-        $messages = Message::latest()->paginate(10);
+        $messages = Message::latest()->orderByDesc('id')->paginate(10);
         $unread = Message::where('is_read', false)->count();
 
         return view('admin.messages.index', compact('messages', 'unread'));

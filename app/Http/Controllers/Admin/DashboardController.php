@@ -25,7 +25,7 @@ class DashboardController extends Controller
             'revenue' => Order::where('payment_status', 'paid')->sum('total_price'),
         ];
 
-        $recentOrders = Order::with('user')->latest()->take(5)->get();
+        $recentOrders = Order::with('user')->latest()->orderByDesc('id')->take(5)->get();
 
         // Grafik penjualan enam bulan terakhir
         $salesRaw = Order::where('payment_status', 'paid')

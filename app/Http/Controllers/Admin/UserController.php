@@ -29,7 +29,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        $user->load(['orders' => fn ($q) => $q->latest()]);
+        $user->load(['orders' => fn ($q) => $q->latest()->orderByDesc('id')]);
 
         $orderCount = $user->orders->count();
         $paidTotal = (float) $user->orders

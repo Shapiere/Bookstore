@@ -20,7 +20,7 @@ class BookController extends Controller
         $books = Book::with('category')
             ->search($keyword)
             ->when($request->query('category'), fn ($q, $id) => $q->where('category_id', $id))
-            ->latest()
+            ->latest()->orderByDesc('id')
             ->paginate(10)
             ->withQueryString();
 
